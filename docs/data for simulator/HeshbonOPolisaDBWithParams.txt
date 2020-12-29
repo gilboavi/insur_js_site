@@ -1,0 +1,26 @@
+SELECT DISTINCT 
+                      TOP (100) PERCENT dbo.HeshbonOPolisaDB.Serial, dbo.HeshbonOPolisaDB.IdClient, dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON, dbo.ParamCompany.ParamName AS CompanyName, 
+                      dbo.HeshbonOPolisaDB.TypeRec, dbo.HeshbonOPolisaDB.TAARICH_NECHONUT, dbo.HeshbonOPolisaDB.TAARICH_HITZTARFUT_MUTZAR, 
+                      dbo.ParamXml_Polisa_PENSIA_VATIKA_O_HADASHA.ParamName AS PensiaVatikaOHadasha, dbo.ParamXml_Polisa_SUG_KEREN_PENSIA.ParamName AS SugKerenPenNsia, 
+                      dbo.ParamXml_Polisa_SUG_POLISA.ParamName AS SugPolisa, dbo.ParamXml_Polisa_SUG_TOCHNIT_O_CHESHBON.ParamName AS SugTochnit, 
+                      dbo.ParaXml_Polisa_STATUS_POLISA_O_CHESHBON.ParamName AS StatusPolisa, dbo.HeshbonOPolisaDB.MPR_MEFITZ_BE_YATZRAN, dbo.HeshbonOPolisaDB.TAARICH_HITZTARFUT_RISHON, 
+                      dbo.HeshbonOPolisaDB.TAARICH_IDKUN_STATUS, dbo.HeshbonOPolisaDB.SHEM_TOCHNIT, dbo.HeshbonOPolisaDB.MADAD_BASIS, dbo.HeshbonOPolisaDB.KIDOD_ACHID, 
+                      dbo.HeshbonOPolisaDB.AZMADA_LEALVAHA, dbo.HeshbonOPolisaDB.TAARICH_ACHRON_MOTAV_MUVET, dbo.HeshbonOPolisaDB.KOLEL_ZAKAUT_AGACH, 
+                      dbo.HeshbonOPolisaDB.SHIOR_AGACH_MEUADOT, dbo.HeshbonOPolisaDB.AVTACHT_TESOA, dbo.HeshbonOPolisaDB.TAARICH_CIUM_AVTACHT_TESOA, 
+                      dbo.HeshbonOPolisaDB.MISPAR_GIMLAOT, dbo.HeshbonOPolisaDB.KAYAM_KISUY_HIZONI, dbo.HeshbonOPolisaDB.KISUY_ISHY_KVOZATI, 
+                      dbo.HeshbonOPolisaDB.TAARICH_TCHILA_RISK_ZMANI, dbo.HeshbonOPolisaDB.PENSIA_VATIKA_O_HADASHA, dbo.HeshbonOPolisaDB.SUG_KEREN_PENSIA, 
+                      dbo.HeshbonOPolisaDB.ASMACHTA_MEKORIT, dbo.HeshbonOPolisaDB.KOD_MEZAHE_YATZRAN, dbo.HeshbonOPolisaDB.TOM_TOKEF_RISK_ZMANI, dbo.KupaDBWithParams.SugKupa, 
+                      dbo.KupaDBWithParams.SUG_KUPA, dbo.ParamXml_NetuneiMuzar_sug_muzr.ParamName AS SugMuzar, dbo.HeshbonOPolisaDB.SUG_TOCHNIT_O_CHESHBON, 
+                      dbo.HeshbonOPolisaDB.SUG_MUZAR, dbo.PerutPirteiHafkadaAchronaDB_Filter.TAARICH_HAFKADA_ACHARON, dbo.PerutPirteiHafkadaAchronaDB_Filter.TOTAL_HAFKADA, 
+                      CAST(CASE WHEN SUG_MUZAR = 1 THEN 2 WHEN SUG_MUZAR = 2 THEN 1 ELSE SUG_MUZAR END AS int) AS MY_SUG_MUZAR
+FROM         dbo.HeshbonOPolisaDB LEFT OUTER JOIN
+                      dbo.PerutPirteiHafkadaAchronaDB_Filter ON dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON = dbo.PerutPirteiHafkadaAchronaDB_Filter.MyNoPolice LEFT OUTER JOIN
+                      dbo.ParamXml_NetuneiMuzar_sug_muzr ON dbo.HeshbonOPolisaDB.SUG_MUZAR = dbo.ParamXml_NetuneiMuzar_sug_muzr.Serial LEFT OUTER JOIN
+                      dbo.KupaDBWithParams ON dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON = dbo.KupaDBWithParams.MyNoPolice LEFT OUTER JOIN
+                      dbo.ParamCompany ON dbo.HeshbonOPolisaDB.KOD_MEZAHE_YATZRAN = dbo.ParamCompany.KOD_MEZAHE_YATZRAN LEFT OUTER JOIN
+                      dbo.ParamXml_Polisa_SUG_TOCHNIT_O_CHESHBON ON dbo.HeshbonOPolisaDB.SUG_TOCHNIT_O_CHESHBON = dbo.ParamXml_Polisa_SUG_TOCHNIT_O_CHESHBON.Serial LEFT OUTER JOIN
+                      dbo.ParamXml_Polisa_SUG_POLISA ON dbo.HeshbonOPolisaDB.SUG_POLISA = dbo.ParamXml_Polisa_SUG_POLISA.Serial LEFT OUTER JOIN
+                      dbo.ParaXml_Polisa_STATUS_POLISA_O_CHESHBON ON dbo.HeshbonOPolisaDB.STATUS_POLISA_O_CHESHBON = dbo.ParaXml_Polisa_STATUS_POLISA_O_CHESHBON.Serial LEFT OUTER JOIN
+                      dbo.ParamXml_Polisa_PENSIA_VATIKA_O_HADASHA ON dbo.HeshbonOPolisaDB.PENSIA_VATIKA_O_HADASHA = dbo.ParamXml_Polisa_PENSIA_VATIKA_O_HADASHA.Serial LEFT OUTER JOIN
+                      dbo.ParamXml_Polisa_SUG_KEREN_PENSIA ON dbo.HeshbonOPolisaDB.SUG_KEREN_PENSIA = dbo.ParamXml_Polisa_SUG_KEREN_PENSIA.Serial
+ORDER BY MY_SUG_MUZAR, dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON

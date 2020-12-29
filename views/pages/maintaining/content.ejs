@@ -1,0 +1,83 @@
+﻿ <!--  maintaining -->
+ <form id="FormMaintaining" name="FormMaintaining" onsubmit="return false;">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          
+      
+             <li> <input id="typehead" type="hidden" class="select2width" /></li>
+            <li> <a href="/">    ראשי    </a> </li>
+            <li><a href="javscript:void(0)"  maintaining-menu="users">עובדים </a></li>
+          
+            ﻿<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">פרמטרים כללי <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              
+          <li class="dropdown-submenu">
+
+            <a tabindex="-1" href="#">גמל</a>
+            <ul class="dropdown-menu">
+              <li><a href="./../ParamKupaMaslul" maintaining-menu="KupaMaslul">מסלול קופת גמל</a></li>
+              <li><a href="./../ParamKupaName" maintaining-menu="KupaName">שם קופת גמל</a></li>
+              <li><a href="./../ParamKupaSendBy" maintaining-menu="KupaSendBy">שליחת קופת גמל</a></li>
+              <li><a href="./../ParamKupaShlavTipul" maintaining-menu="KupaShlavTipul">שלב הטיפול ק.גמל</a></li>
+              <li><a href="./../ParamKupaType" maintaining-menu="KupaType">סוג ק.גמל</a></li>
+              <li class="dropdown-submenu">
+                <a href="#">More..</a>
+                <ul class="dropdown-menu">
+        	         <li><a href="./../ParamKupaMaslul" maintaining-menu="">מסלול קופת גמל</a></li>
+                    
+                </ul>
+              </li>
+              <li><a href="#">Second level</a></li>
+              <li><a href="#">Second level</a></li>
+            </ul>
+          </li>
+             <li><a href="javscript:void(0)" maintaining-menu="Operation">קבוצת חיתוך</a></li>
+          
+            <li><a href="javscript:void(0)"   maintaining-menu="GoalOfTalk">מטרת השיחה</a></li>
+            <li><a href="javscript:void(0)"  maintaining-menu="DocumentOccupation">תחום המסמך</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="TypeInsurLife":>סוג ביטוח חיים</a></li>
+            
+            <li><a href="javscript:void(0)" maintaining-menu="Company">חב' ביטוח</a></li>
+            
+            <li><a href="javscript:void(0)" maintaining-menu="Employer">מעסיק</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="TypeFollowupConversations">סטטוס שיחה</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="ClientType">סטטוס לקוח</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="WorkStatus">סטטוס תעסוקתי</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="MailAddressBook">ספקים</a></li>
+            <li role="separator" class="divider" maintaining-menu=""></li>
+            <li><a href="javscript:void(0)" maintaining-menu="MeetingStatus">סטטוס פגישה</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="MeetingPreparation">לפני פגישה</a></li>
+            <li role="separator" class="divider" maintaining-menu=""></li>
+            <li><a href="javscript:void(0)" maintaining-menu="ProvisionsLifePolice">הפרשות ע"ח</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="Agent">סוכנים</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="Tevia">תביעה</a></li>
+            <li><a href="javscript:void(0)" maintaining-menu="TeviaStatus">סוג התביעה</a></li>
+            
+          </ul>
+        </li>
+            <li><a href="javscript:void(0)" home-menu="policy">תחזוקה </a></li>
+         
+          
+        </ul>
+
+      </div>
+    </nav>
+     <br />
+     <br />
+     <br />
+     <br />
+     <div id="param_div" ></div>
+       
+</form>
+
+
+<$- include("./params_list") $>
+<$- include("./edit_param") $>
+<$- include("./users_list") $>
+<$- include("./edit_user") $>

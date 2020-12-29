@@ -1,0 +1,34 @@
+USE [InsurDB]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[fnCrosstabPerutYitraLeTkufa_2000]    Script Date: 01/29/2018 13:44:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE FUNCTION [dbo].[fnCrosstabPerutYitraLeTkufa_2000] 
+(	
+	@idClient int
+)
+RETURNS TABLE 
+AS
+RETURN 
+(
+	-- Add the SELECT statement with parameter references here
+	SELECT     [MyNoPolice],TypeRec, idClient, [1] AS [a], [2] AS [d], [4] AS [h], [4] AS [r], [5] AS [re], [6] AS [bb], [7] AS [gh], [8] AS [sr], [9] AS [dd], [10] AS [y]
+    FROM         (SELECT     [MyNoPolice], KOD_TECHULAT_SHICHVA, SACH_ITRA_LESHICHVA_BESHACH, idClient ,TypeRec
+                       FROM          [InsurDB].[dbo].[PerutYitraLeTkufaDBWithParams] ) ps PIVOT (sum([SACH_ITRA_LESHICHVA_BESHACH]) FOR [KOD_TECHULAT_SHICHVA] IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], 
+                      [12])) AS pvt
+    WHERE idClient=@idClient
+)
+
+GO
+
+

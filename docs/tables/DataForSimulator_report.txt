@@ -1,0 +1,5 @@
+SELECT     MISPAR_POLISA_O_HESHBON, SugMuzar, CompanyName, SHEM_TOCHNIT, AVTACHT_TESOA, SugTochnit, StatusPolisa, TAARICH_HITZTARFUT_RISHON, LifeInsur, ISNULL(tg_bos_pidion, 0) 
+                      + ISNULL(tg_worker_pidion, 0) + ISNULL(perat_pidion, 0) + ISNULL(s_47_pidion, 0) AS tgmulim, pizuim_pidion AS pizuim, ISNULL(tg_bos_pidion, 0) + ISNULL(tg_worker_pidion, 0) 
+                      + ISNULL(perat_pidion, 0) + ISNULL(s_47_pidion, 0) + ISNULL(LifeInsur, 0) + ISNULL(pizuim_pidion, 0) AS total_pidion, AccidentInvalid, LooseWork, TOTAL_HAFKADA, IdClient, MY_SUG_MUZAR, 
+                      SUG_MUZAR, ISNULL(histalmut_worker_pidion, 0) + ISNULL(histalmut_bos_pidion, 0) AS histalmut_pidion, TypeRec
+FROM         dbo.DataForSimulator

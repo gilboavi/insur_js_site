@@ -1,0 +1,180 @@
+﻿<!--client -->
+<head>
+    <meta charset="utf-8" />
+    <title>?? ??????</title>
+</head>
+<body>
+    <form id="FormClient22" name="FormClient" onsubmit="return false;">
+       
+     <!--     <nav class="navbar navbar-default navbar-fixed-top  " role="navigation"> !-->
+              <nav class="navbar navbar-light" style="background-color:blue;" role="navigation"> 
+      <!-- Brand and toggle get grouped for better mobile display -->
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav font_white">
+          
+     
+             
+             
+            <li > <a href="/">    ראשי    </a> </li>
+            <li> 
+                <input id="typehead" type="hidden" class="select2width" /> 
+               &nbsp 
+                
+            </li>
+          
+            <li class="nav-item"><a href="javscript:void(0)"  avi-menu="conversation">שיחות </a></li>
+              <li><a href="javscript:void(0)" avi-menu="my_meeting">פגישות</a></li>
+            <li><a href="javscript:void(0)"  avi-menu="policy">פוליסות </a></li>
+            <li><a href="javscript:void(0)" avi-menu="documents">מסמכים</a></li>
+            <li><a href="javscript:void(0)" avi-menu="kupa">גמל</a></li>
+           
+            <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תיק לקוח <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                            <li><a href="javscript:void(0)" avi-menu="police_reort_menu">דוח ביטוחים</a></li>
+                            <li><a href="javscript:void(0)" avi-menu="hishtalmut_menu">דוח קרנות השתלמות</a></li>
+                            <li><a href="javscript:void(0)" avi-menu="kizui_be_mutzar_menu">כיסויים בפוליסה </a></li>
+                            <li><a href="javscript:void(0)" avi-menu="yitrot_le_tkupa_menu">יתרות לפי תקופה</a></li>
+                            <li><a href="javscript:void(0)" avi-menu="kupa_menu">צפי קצבאות</a></li>
+                            
+                    </ul>
+            </li>   
+                
+         <!--   <li><a href="javscript:void(0)" avi-menu="proposal_life">הצעות חיים חדשות</a></li>
+             <li><a href="javscript:void(0)" avi-menu="stam">stam</a></li> !-->
+             <li><a href="javscript:void(0)" avi-menu="search">חיפוש</a></li>
+             <li>  <input type="button" class="menu_bottun" id="hide_show_client_details"  value="פרטי לקוח" /></li>
+           <il>  </il> 
+        </ul>
+      <!--   <h2 id="full_name" ></h2>  -->
+      </div>
+    </nav>
+      
+
+        <div id="hidden_div">
+            <input name="client_serial" id="client_serial" type="hidden" value="" />
+
+            <input  class="flg_div" type="hidden" name="tabs_current_index" id="tabs_current_index" />
+
+             <input  class="flg_div" type="hidden" name="communication_flg" id="communication_flg" />
+            <input class="flg_div" type="hidden" name="conversation_flg" id="conversation_flg" />
+             <input  class="flg_div" type="hidden" name="conversation_follow_flg" id="conversation_follow_flg" />
+            <input  class="flg_div" type="hidden" name="life_police_flg" id="life_police_flg" />
+            <input  class="flg_div" type="hidden" name="documents_flg" id="documents_flg" />
+             <input  class="flg_div" type="hidden" name="kupa_gemel_flg" id="kupa_gemel_flg" />
+            <input  class="flg_div" type="hidden" name="proposal_lifel_flg" id="proposal_lifel_flg" />
+             <input  class="flg_div" type="hidden" name="meeting_flg" id="meeting_flg" />
+             <input  class="flg_div" type="hidden" name="ricuz_police_flg" id="ricuz_police_flg" />
+             
+
+
+        </div>
+        <div id="avis">
+               
+        </div>
+        
+       
+     
+       
+       <br/>
+        <table style="width:100%" id="aaa"  >
+            <tr>
+               
+                <td id="td_client_details" style="width:10%;vertical-align: top;" >
+                 
+                  <!--  <div class="scrollDiv" style="overflow:auto ; width:100%; height:100% ; right:auto" > !-->
+                         <div id="client_details_div"  class="div_top1">  </div>
+                         <div class="toggleExample togglebox">
+                              <div class="toggle_title" data-show="text-02">משפחה <span class="toggle-marker">+</span></div>
+                              <div id="family_members_in_client_details_div" class="text-02 hidden-text"></div>
+                          </div>
+                          <div id="family_members_in_client_details_div2"></div>
+                         <div id="communication_div"></div>
+                    </div>
+                </td>
+                <td style="width:90% ;vertical-align: top;"  id="td_client_details2"  >
+                    
+                    <!--   <div class="scrollDiv" style="overflow:scroll ; width:990px; height:600px ; right:auto" > !-->
+                           
+                           <div class="show_hide_div" name="conversation_div"   id="conversation_div" style="display:none">
+                                  <table id="hierarchical_grid" class="hierarchical_grid" onclick="" ></table>
+                           </div>
+                           <div class="show_hide_div" name="proposal_life_follow_div"   id="proposal_life_follow_div" style="display:none">
+                                  <table id="hierarchical_proposal_life_grid" class="hierarchical_grid" onclick="" ></table>
+                           </div>
+                           
+                            <div class="show_hide_div" name="life_police_div"  id="life_police_div" style="display:none"> </div>
+                            <div class="show_hide_div" name="documents_div" id="documents_div" style="display:none"></div>
+                            <div class="show_hide_div" name="kupa_gemel_div" id="kupa_gemel_div" style="display:none"></div>
+                            <div class="show_hide_div" name="meeting_div" id="meeting_div" style="display:none"></div>
+                            <div class="show_hide_div" name="conversations_filtering_div" id="conversations_filtering_div" style="display:none"></div>
+                            <div class="show_hide_div" name="conversations_from_meeting_div" id="conversations_from_meeting_div" style="display:none"></div>
+                            <div class="show_hide_div" name="searching_div" id="searching_div" style="display:none"></div>
+                            <div class="show_hide_div" name="ricuz_police_div" id="ricuz_police_div" style="display:none"></div>
+                            
+                         </div>       
+                  
+                </td>
+
+            </tr>
+
+        </table>
+
+
+</body>
+</form>
+
+<$- include("./edit_template") $>
+
+<$- include("./edit_client") $>
+
+<$- include("./details_client") $>
+<$- include("./client_list") $>
+
+<$- include("./template_list") $>
+
+<$- include("../conversation/edit_conversation") $>
+<$- include("../conversation/conversation_list") $>
+<$- include("../conversation/conversation_from_meeting_list") $>
+
+<$- include("../conversation/conversations_and_followup") $>
+<$- include("../conversation/conversations_filtering") $>
+<$- include("../conversation/conversation_filtering_list") $>
+
+<$- include("../followup_conversation/edit_followup_conversation") $>
+<$- include("../followup_conversation/followup_conversation_list") $>
+
+<$- include("../life_police/edit_life_police") $>
+<$- include("../life_police/life_police_list") $>
+<$- include("../life_police/police_xml") $>
+<$- include("../life_police/all_police_xml") $>
+<$- include("../life_police/yitrot_le_tekupa_list") $>
+<$- include("../life_police/ricuz_police") $>
+<$- include("../life_police/pirtei_kisui_be_mutzar") $>
+
+                            
+
+<$- include("../documents/edit_documents") $>
+<$- include("../documents/documents_list") $>
+
+<$- include("../communication/edit_communication") $>
+<$- include("../communication/communication_list") $>
+
+<$- include("../kupa_gemel/edit_kupa_gemel") $>
+<$- include("../kupa_gemel/kupa_gemel_list") $>
+
+<$- include("../meeting/edit_meeting") $>
+<$- include("../meeting/meeting_list") $>
+
+<$- include("../searching/searching") $>
+
+<$- include("../families/families_list") $>
+<$- include("../families/edit_families") $>
+
+<$- include("../family_members/family_members_list") $>
+<$- include("../family_members/edit_family_members") $>
+<$- include("../family_members/family_members_for_client_details") $>
+

@@ -1,0 +1,35 @@
+<script id="templat_police_xml" type="text/html">
+ 
+      <%
+      try{
+    var xml_titls= get_xml_titls();
+   var xml_headers=get_xml_headers();
+      }catch{
+
+      }
+    $.each(data, function(rowindex,row) {%>
+      <h1><%= xml_titls[rowindex]%></h1> 
+    <br />
+    <table border="1" id="table_life_police" onclick="getId()">
+        <thead>
+            <tr>
+                  <% $.each(xml_headers[rowindex], function(rowindex1,row1) {%>
+                <% $.each(row1, function(key,val){%>
+                <th><%=val%></th>
+                <% }); });%>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data[rowindex], function(rowindex1,row1) {%>
+                 <tr >
+                       <% $.each(row1, function(key,val){ %> 
+                       
+                           <td><%= val%></td>
+                   
+                       <%})%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+    <%}); %>
+</script>

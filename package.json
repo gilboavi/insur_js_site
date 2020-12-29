@@ -1,0 +1,32 @@
+{
+  "name": "insur_js",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/run.js"
+  },
+  "description": "insur_js",
+  "author": {
+    "name": "Admin"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.0",
+    "debug": "^2.6.8",
+    "ejs": "^2.5.6",
+    "exceljs": "^0.6.2",
+    "express": "^4.15.3",
+    "express-session": "^1.15.6",
+    "form-serialize": "^0.7.2",
+    "formidable": "^1.1.1",
+    "guid": "0.0.12",
+    "mime": "^2.0.3",
+    "morgan": "^1.8.2",
+    "mssql": "^4.0.4",
+    "serve-favicon": "^2.4.3",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.3.4",
+    "xml2js": "^0.4.19",
+    "xmldom": "^0.1.27"
+  }
+}

@@ -1,0 +1,36 @@
+﻿
+
+<script id="templat_conversation_from_meeting_list" type="text/html">
+   <h1>משימות מפגישה</h1>
+    <a href="#" onclick=" new_conversation_from_meeting(<%=data.meeting_serial%>)" >משימה חדשה</a>
+    <table border="1"  id="table_conversation">
+        <thead> 
+            <tr>
+               <th>תאריך</th>
+                <th>תקציר השיחה</th>
+               <th>מטרת השיחה</th>
+                <th>שם מטפל</th>
+                <th>סטוטס</th>
+                <th>מ.פוליסה</th>
+                 <th>בוצע</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.conversation_list, function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td>
+                              <a href="#" onclick=" edit_conversation(<%= val%>)"> עריכה</a> 
+                              &nbsp
+                               <a href="#" onclick=" get_followup_conversations_list_by_clientserial(<%= val%>)"> מעקב</a> 
+                          </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+  
+</script>

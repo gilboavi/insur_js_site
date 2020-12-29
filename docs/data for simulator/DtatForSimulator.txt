@@ -1,0 +1,54 @@
+SELECT     TOP (100) PERCENT dbo.HeshbonOPolisa_Params.IdClient, dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON, dbo.HeshbonOPolisa_Params.CompanyName, 
+                      dbo.HeshbonOPolisa_Params.TypeRec, dbo.HeshbonOPolisa_Params.TAARICH_NECHONUT, dbo.HeshbonOPolisa_Params.TAARICH_HITZTARFUT_MUTZAR, 
+                      dbo.HeshbonOPolisa_Params.PensiaVatikaOHadasha, dbo.HeshbonOPolisa_Params.SugKerenPenNsia, dbo.HeshbonOPolisa_Params.SugPolisa, dbo.HeshbonOPolisa_Params.SugTochnit, 
+                      dbo.HeshbonOPolisa_Params.StatusPolisa, dbo.HeshbonOPolisa_Params.MPR_MEFITZ_BE_YATZRAN, dbo.HeshbonOPolisa_Params.TAARICH_HITZTARFUT_RISHON, 
+                      dbo.HeshbonOPolisa_Params.TAARICH_IDKUN_STATUS, dbo.HeshbonOPolisa_Params.SHEM_TOCHNIT, dbo.HeshbonOPolisa_Params.MADAD_BASIS, 
+                      dbo.HeshbonOPolisa_Params.AZMADA_LEALVAHA, dbo.HeshbonOPolisa_Params.TAARICH_ACHRON_MOTAV_MUVET, dbo.HeshbonOPolisa_Params.KOLEL_ZAKAUT_AGACH, 
+                      dbo.HeshbonOPolisa_Params.SHIOR_AGACH_MEUADOT, dbo.HeshbonOPolisa_Params.AVTACHT_TESOA, dbo.HeshbonOPolisa_Params.TAARICH_CIUM_AVTACHT_TESOA, 
+                      dbo.HeshbonOPolisa_Params.MISPAR_GIMLAOT, dbo.HeshbonOPolisa_Params.KAYAM_KISUY_HIZONI, dbo.HeshbonOPolisa_Params.KISUY_ISHY_KVOZATI, 
+                      dbo.HeshbonOPolisa_Params.TAARICH_TCHILA_RISK_ZMANI, dbo.HeshbonOPolisa_Params.PENSIA_VATIKA_O_HADASHA, dbo.HeshbonOPolisa_Params.SUG_KEREN_PENSIA, 
+                      dbo.HeshbonOPolisa_Params.TOM_TOKEF_RISK_ZMANI, dbo.HeshbonOPolisa_Params.SugMuzar, dbo.HeshbonOPolisa_Params.SUG_TOCHNIT_O_CHESHBON, 
+                      dbo.HeshbonOPolisa_Params.SUG_MUZAR, dbo.HeshbonOPolisa_Params.MY_SUG_MUZAR, dbo.CrossTabPirteiKisuiBeMutzar.LifeInsur, dbo.CrossTabPirteiKisuiBeMutzar.Invalid, 
+                      dbo.CrossTabPirteiKisuiBeMutzar.AccidentDeath, dbo.CrossTabPirteiKisuiBeMutzar.AccidentInvalid, dbo.CrossTabPirteiKisuiBeMutzar.LooseWork, dbo.CrossTabPirteiKisuiBeMutzar.Shichrur, 
+                      dbo.CrossTabPirteiKisuiBeMutzar.illness, dbo.CrossTabPirteiKisuiBeMutzar.Saving, dbo.CrossTabPirteiKisuiBeMutzar.LWandLifeInsur, dbo.CrossTabPirteiKisuiBeMutzar.OtherKusui, 
+                      dbo.CrossTabPirteiKisuiBeMutzar_permia.LifeInsur_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.Invalid_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.AccidentDeath_permia, 
+                      dbo.CrossTabPirteiKisuiBeMutzar_permia.AccidentInvalid_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.LooseWork_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.Shichrur_permia, 
+                      dbo.CrossTabPirteiKisuiBeMutzar_permia.illness_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.Saving_permia, dbo.CrossTabPirteiKisuiBeMutzar_permia.LWandLifeInsur_permia, 
+                      dbo.CrossTabPirteiKisuiBeMutzar_permia.OtherKusui_permia, dbo.CrosstabPerutYitrotDB.pizuim_pidion, dbo.CrosstabPerutYitrotDB.tg_worker_pidion, dbo.CrosstabPerutYitrotDB.tg_bos_pidion, 
+                      dbo.CrosstabPerutYitrotDB.s_47_pidion, dbo.CrosstabPerutYitrotDB.other_worker_pidion, dbo.CrosstabPerutYitrotDB.other_bos_pidion, dbo.CrosstabPerutYitrotDB.histalmut_worker_pidion, 
+                      dbo.CrosstabPerutYitrotDB.histalmut_bos_pidion, dbo.CrosstabPerutYitrotDB.perat_pidion, dbo.CrosstabPerutYitrotDB.other_pidion, dbo.CrossTabPerutYitraLeTkufa.till_2000, 
+                      dbo.CrossTabPerutYitraLeTkufa.after_2000, dbo.CrossTabPerutYitraLeTkufa.till_2004, dbo.CrossTabPerutYitraLeTkufa.till_2005, dbo.CrossTabPerutYitraLeTkufa.a2001_2007, 
+                      dbo.CrossTabPerutYitraLeTkufa.a2006_2007, dbo.CrossTabPerutYitraLeTkufa.after_2008, dbo.CrossTabPerutYitraLeTkufa.till_2002, dbo.CrossTabPerutYitraLeTkufa.pizuim_yitra, 
+                      dbo.CrossTabPerutYitraLeTkufa.must_clalulate_yitra, dbo.CrossTabPerutHafrashotLePolisa.pizuim_herashot, dbo.CrossTabPerutHafrashotLePolisa.tg_worker_herashot, 
+                      dbo.CrossTabPerutHafrashotLePolisa.tg_bos_herashot, dbo.CrossTabPerutHafrashotLePolisa.s47_herashot, dbo.CrossTabPerutHafrashotLePolisa.l_w_herashot, 
+                      dbo.CrossTabPerutHafrashotLePolisa.other_worker_herashot, dbo.CrossTabPerutHafrashotLePolisa.other_bos_herashot, dbo.CrossTabPerutHafrashotLePolisa.hishtalmutr_worker_herashot, 
+                      dbo.CrossTabPerutHafrashotLePolisa.hishtalmutr_bosr_herashot, dbo.CrossTabPerutHafrashotLePolisa.perat_herashot, dbo.CrossTabPerutHafrashotLePolisa.riskr_herashot, 
+                      dbo.PerutHafkadotMetchilatShana_averge.Premia_avg, dbo.KisuiBKerenPensiaDB.ALUT_KISUI_NECHUT, dbo.KisuiBKerenPensiaDB.ALUT_KISUI_PNS_SHRM_NECHE, 
+                      dbo.KisuiBKerenPensiaDB.SHEUR_KISUY_NECHUT, dbo.KisuiBKerenPensiaDB.SACHAR_KOVEA_LE_NECHUT_VE_SHEERIM, 
+                      dbo.KisuiBKerenPensiaDB.TAARICH_MASKORET_NECHUT_VE_SHEERIM, dbo.KisuiBKerenPensiaDB.SUG_VITOR_SHAERIM, dbo.KisuiBKerenPensiaDB.SACH_PENSIAT_NECHUT, 
+                      dbo.KisuiBKerenPensiaDB.ALUT_KISUY_SHEERIM, dbo.KisuiBKerenPensiaDB.SHIUR_KISUY_YATOM, dbo.KisuiBKerenPensiaDB.KITZBAT_SHEERIM_LEALMAN_O_ALMANA, 
+                      dbo.KisuiBKerenPensiaDB.KITZBAT_SHEERIM_LEYATOM, dbo.KisuiBKerenPensiaDB.KITZBAT_SHEERIM_LEHORE_NITMACH, dbo.KisuiBKerenPensiaDB.TAARICH_VITOR_SHEERIM, 
+                      dbo.KisuiBKerenPensiaDB.TAARICH_CIUM_VITOR_SEERIM, dbo.KisuiBKerenPensiaDB.SHIUR_KISUY_ALMAN_O_ALMANA, dbo.KisuiBKerenPensiaDB.SHIUR_KISUY_HORE_NITMACH, 
+                      dbo.KisuiBKerenPensiaDB.GIL_PRISHA_LEPENSIYAT_ZIKNA, dbo.KisuiBKerenPensiaDB.SACH_PENSIYAT_ALMAN_O_ALMANA, 
+                      dbo.KisuiBKerenPensiaDB.MISPAR_HODSHEI_HAVERUT_BEKEREN_HAPENSIYA, dbo.KisuiBKerenPensiaDB.MISPAR_HODSHEI_HAVERUT_MITZ_BEKEREN_HAPENSIYA, 
+                      dbo.KisuiBKerenPensiaDB.MENAT_PENSIA_TZVURA, dbo.KisuiBKerenPensiaDB.AHUZ_PENSIYA_TZVURA, dbo.KisuiBKerenPensiaDB.TAARICH_TCHILAT_HAVERUT, 
+                      dbo.KisuiBKerenPensiaDB.TAARICH_ERECH_LANENTUNIM, dbo.KisuiBKerenPensiaDB.HATAVA_BITUCHIT, dbo.PerutPirteiHafkadaAchronaDB.TOTAL_HAFKADA, dbo.KupaDB.SUG_KUPA
+FROM         dbo.HeshbonOPolisa_Params LEFT OUTER JOIN
+                      dbo.KupaDB ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.KupaDB.TypeRec AND dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.KupaDB.MyNoPolice LEFT OUTER JOIN
+                      dbo.PerutPirteiHafkadaAchronaDB ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.PerutPirteiHafkadaAchronaDB.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.PerutPirteiHafkadaAchronaDB.MyNoPolice LEFT OUTER JOIN
+                      dbo.KisuiBKerenPensiaDB ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.KisuiBKerenPensiaDB.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.KisuiBKerenPensiaDB.MyNoPolice LEFT OUTER JOIN
+                      dbo.PerutHafkadotMetchilatShana_averge ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.PerutHafkadotMetchilatShana_averge.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.PerutHafkadotMetchilatShana_averge.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrossTabPerutHafrashotLePolisa ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.CrossTabPerutHafrashotLePolisa.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPerutHafrashotLePolisa.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrossTabPerutYitraLeTkufa ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.CrossTabPerutYitraLeTkufa.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPerutYitraLeTkufa.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrosstabPerutYitrotDB ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.CrosstabPerutYitrotDB.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.CrosstabPerutYitrotDB.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrossTabPirteiKisuiBeMutzar_permia ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.CrossTabPirteiKisuiBeMutzar_permia.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPirteiKisuiBeMutzar_permia.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrossTabPirteiKisuiBeMutzar ON dbo.HeshbonOPolisa_Params.TypeRec = dbo.CrossTabPirteiKisuiBeMutzar.TypeRec AND 
+                      dbo.HeshbonOPolisa_Params.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPirteiKisuiBeMutzar.MyNoPolice
+ORDER BY dbo.HeshbonOPolisa_Params.MY_SUG_MUZAR

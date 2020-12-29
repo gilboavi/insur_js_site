@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html ; charset=utf-8>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title><$=title$></title>
+     <link rel="stylesheet" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-rtl.min.css">
+   
+   <link rel="stylesheet" href="/css/bootstrap-flipped.min.css">
+     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.css">
+  <!--<link rel="stylesheet" href="./css/bootstrap-responsive.min.css">-->
+  <link rel="stylesheet" href="/css/colorbox.css">
+  <link rel="stylesheet" href="/css/select2.css">
+     <link rel="stylesheet" href="/css/infragistics.css">
+     <link rel="stylesheet" href="/css/infragistics.theme.css">
+     <link rel="stylesheet" href="/css/my_site.css">
+	
+    <$if(typeof(css) != "undefined"){$>
+        <$ css.forEach(function (cssfile) { $>
+            <link href="<$=cssfile$>" type="text/css" rel="stylesheet" />
+        <$})$>
+    <$}$>
+</head>
+<body>
+    <$- include("../pages/" + page + "/content") $>
+    <script type="text/javascript" src="../js/libs/jquery-3.2.1.min.js"></script>
+     <script type="text/javascript" src="../js/libs/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../js/libs/jquery.serialize-object.min.js"></script>
+    <script type="text/javascript" src="../js/libs/underscore-min.js"></script>
+    <script type="text/javascript" src="../js/libs/underscore.string.min.js"></script>
+   
+    
+	<script type="text/javascript" src="../js/select2.js"></script>
+    <script type="text/javascript" src="../js/jquery.colorbox.js"></script>
+     <script type="text/javascript" src="../js/moment.js"></script>
+     <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../js/bootstrap-datetimepicker.js"></script>
+     <script type="text/javascript" src="../js/moment.js"></script>
+    <script type="text/javascript" src="../js/infragistics.core.js"></script>
+    <script type="text/javascript" src="../js/infragistics.lob.js"></script>
+   
+    
+
+    <script type="text/javascript" src="../js/core.js"></script>
+    <script type="text/javascript" src="../js/base_functions.js"></script>
+    <script type="text/javascript" src="../js/my_validation.js"></script>
+    
+     <script type="text/javascript" src="../js/table2CSV.js"></script>
+    
+
+    <$if(typeof(js) != "undefined"){$>
+        <$ js.forEach(function (jsfile) { $>
+            <script type="text/javascript" src="<$=jsfile$>"></script>
+        <$})$>
+    <$}$>
+</body>
+</html>

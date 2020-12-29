@@ -1,0 +1,130 @@
+﻿<script id="templat_edit_follow_checks" type="text/html">
+    <form id="editFollowChecks" name="editFollowChecks">
+
+
+
+
+
+        <table>
+            <tr>
+                <td>
+
+                    <div>
+                        <input type="checkbox" name="checkbox_employer_name" />
+                        &nbsp
+                           שם מעסיק
+
+                       </div>
+                    <div>
+                        <select name="employer">
+                           
+                            <%    $.each(data.employer_list, function(key,val){
+                                             if(val.Serial !=data.main[0].Employer){ %>
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%}
+                                              else{ %>
+                                                      <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                           <%  }
+                                     });%>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div>  <input type="checkbox" name="checkbox_company" />
+                     
+                        &nbsp שם חברה</div>
+                    <div>
+                        <select name="company" >
+                            <option value="0" > </option>
+                               <%    $.each(data.company_list, function(key,val){
+                                             if(val.Serial !=data.main[0].Company){ %>
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%}
+                                              else{ %>
+                                                      <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                           <%  }
+                                     });%>
+                              </select>
+                    </div>
+                </td>
+
+
+
+                <td>
+                    <div><input type="checkbox" name="checkbox_type_insur_life" />
+                        &nbsp יעוד השק </div>
+                    <div>
+                        <select name="purpose_check">
+                            <option value="0" > </option>
+                               <%    $.each(data.purpose_check_list, function(key,val){
+                                             if(val.Serial !=data.main[0].PurposeCheck){ %>
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%}
+                                              else{ %>
+                                                      <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                           <%  }
+                                     });%>
+                      </select>
+                    </div>
+                </td>
+               
+             
+                
+                
+               
+                <td>
+                    <div>     תאריך השק</div>
+                    <div>
+                          <input  name="check_date" id="check_date" value="<%=data.main[0].CheckDate%>" />
+                    </div>
+                </td>
+                
+               
+
+            </tr>
+
+        </table >
+        <br />
+        <table>
+            
+            <tr>
+                <td>
+                    <div>      מספר שק</div>
+                    <div>
+                         <input type="text" name="check_number" value="<%=data.main[0].CheckNumber%>" />
+                    </div>
+                </td>
+                 <td>
+                    <div>    סכום השק   </div>
+                    <div>
+                         <input type="text" name="check_sum" value="<%=data.main[0].CheckSum%>" />
+                    </div>
+                </td>
+                <td>
+                    <div>    חודש שכר  </div>
+                    <div>
+                           <input type="text" name="month_sallary_date" id="month_sallary_date" value="<%=data.main[0].MonthSallaryDate%>" />
+                    </div>
+                </td>
+                <td>
+                    <div>     הערות</div>
+                    <div>
+                         <input type="text" name="comment" value="<%=data.main[0].comment%>" />
+                    </div>
+                </td>
+                <td>
+                    <input type="button" onclick="save_follow_checks('<%=data.main[0].Serial%>')" value="שמור" />
+                </td>
+
+            </tr>
+
+        </table>
+        <div id="kupa_gemel_result"></div>
+
+
+       
+   </form>  
+</script>

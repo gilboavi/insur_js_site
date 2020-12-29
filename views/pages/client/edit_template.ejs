@@ -1,0 +1,28 @@
+
+
+<script id="table_template1" type="text/html">
+    <table border="1">
+        <thead>
+            <tr>
+                <% $.each(data[0], function(key,val){%>
+                <th><%=key%></th>
+                <% });%>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data, function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick="get_conversation_by_serial(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+    <script type="text/javascript" >
+       
+  </script>
+</script>

@@ -1,0 +1,26 @@
+﻿<script id="templat_cuts_result_list" type="text/html">
+  
+    <a href="#" onclick=" new_kupa_gemel()"> חדש</a> 
+    <table border="1"  id="communication_table">
+        <thead> 
+            <tr>
+                <% $.each(data.main[0], function(key,val){%>
+                <th><%=key%></th>
+                <% });%>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.main, function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick=" edit_kupa_gemel(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+  
+</script>

@@ -1,0 +1,34 @@
+﻿<script id="template_users_list" type="text/html">
+      <a href="#" onclick=" new_user()">חדש</a>
+    <input type="hidden" id="my_serial" name="my_serial" value="<%=data.my_serial%>"
+    <br />
+    <table border="1" id="table_param" >
+        <thead>
+            <tr>
+               
+                <th>שם עובד</th>
+               <th>סיסמה</th>
+                <th>תפקיד</th>
+                <th>כתובת דוא"ל</th>
+                <th>שם משתמש</th>
+                <th>סיסמה דוא"ל</th>
+                <th>פעיל</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.main, function(rowindex,row) {%>
+                 <tr onclick="getId(this)">
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick="edit_user(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+    <script type="text/javascript" >
+      
+  </script>
+</script>

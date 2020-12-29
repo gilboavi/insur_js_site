@@ -1,0 +1,5 @@
+SELECT     MyNoPolice, TypeRec, SUM(TOTAL_CHISACHON_MTZBR) AS saving_hishtalmut
+FROM         dbo.PerutYitrotDB
+WHERE     (KOD_SUG_HAFRASHA = 7) OR
+                      (KOD_SUG_HAFRASHA = 8)
+GROUP BY MyNoPolice, TypeRec

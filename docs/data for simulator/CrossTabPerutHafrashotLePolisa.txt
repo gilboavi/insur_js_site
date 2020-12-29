@@ -1,0 +1,6 @@
+SELECT     MyNoPolice,TypeRec, [1]  AS pizuim_herashot  , [2] As tg_worker_herashot   , [3] As tg_bos_herashot   , [4] As s47_herashot   , [5] As l_w_herashot   ,
+                                                    [6] As other_worker_herashot  , [7]  As other_bos_herashot  , [8]  As hishtalmutr_worker_herashot   , 
+			    [9] As hishtalmutr_bosr_herashot  , [10] AS perat_herashot , [11] As riskr_herashot
+                            FROM          (SELECT     MyNoPolice,TypeRec, ACHUZ_HAFRASHA, SCHUM_HAFRASHA, SUG_HAFRASHA
+                                                    FROM          dbo.PerutHafrashotLePolisaDB) ps 
+                          PIVOT ( SUM(ACHUZ_HAFRASHA) FOR SUG_HAFRASHA IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10] ,[11] )   ) AS pvt  

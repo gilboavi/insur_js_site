@@ -1,0 +1,47 @@
+﻿<script id="templat_meeting_list" type="text/html">
+      <a href="#" onclick=" edit_meeting(0)">פגישה חדשה</a>
+    <br />
+    <table border="1">
+        <thead>
+            <tr>
+              
+                <th>תאריך פגישה</th>
+                <th>תקציר פגישה</th>
+                <th>שם סוכן</th>
+                <th>מכין תיק</th>
+                <th>סטטוס פגישה</th>
+               
+               
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data[0], function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td>
+                                <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        בחר  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li> <a href="#" onclick=" edit_meeting(<%= val%>)"> עריכה</a> </li>
+                              
+                                        <li> <a href="#" onclick="conversations_list_from_meeting(<%= val%>)"> מעקב</a> </li>
+                                    </ul>
+                                </div>
+                          </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+ 
+    
+    <script type="text/javascript" >
+       
+  </script>
+</script>

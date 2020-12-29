@@ -1,0 +1,65 @@
+﻿<script id="templat_conversations_filtering" type="text/html">
+     <form id="ConversationFiltering" name="ConversationFiltering">
+<br />
+         avi
+<table>
+    <tr>
+        <td>
+                <div>  <input type="checkbox" name="check_done"  id="check_done" /> &nbsp   בוצע </div>
+        </td>
+      
+        <td>
+              
+                <div>  <input type="checkbox" name="check_get_call_name"  id="check_get_call_name"  /> &nbsp   שם מטפל </div>
+                     <div>
+                             <select name="get_call_name" id="get_call_name1">
+                                        <option value="0" > </option>
+                                       <%    $.each(data.get_call_name_list, function(key,val) { %>
+                                           
+                                                   <option value="<%=val.Serial%>" ><%=val.UserName%></option>
+                     
+                                           <%  });%>
+                                        
+                                  
+                            </select>
+                     </div>
+        </td>
+        <td>
+               <div> <input type="checkbox" name="check_goal_of_talk"  id="check_goal_of_talk"  /> &nbsp מטרת השיחה </div>
+                     <div>
+                             <select name="goal_of_talk" id="goal_of_talk1">
+                                        <option value="0" > </option>
+                                       <%    $.each(data.goal_of_talk_list, function(key,val){ %>
+                                           
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%  });%>
+                                          
+                            </select>
+                  </div>
+
+        </td>
+         <td>
+               <div> <input type="checkbox" name="check_type_followup_conversation"  id="check_type_followup_conversation"  /> &nbsp סטטוס הטיפול </div>
+                     <div>
+                             <select name="type_followup_conversation" id="type_followup_conversation1">
+                                        <option value="0" > </option>
+                                       <%    $.each(data.type_followup_conversation_list, function(key,val){ %>
+                                           
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%  });%>
+                                          
+                            </select>
+                  </div>
+
+        </td>
+        <td> <input type="button"  onclick="set_conversation_filter()" value="בצע" /> </td>
+       
+    </tr>
+
+</table>
+         <div id="conversations_filtering_result_div"  ></div>
+         </form>
+
+</script>

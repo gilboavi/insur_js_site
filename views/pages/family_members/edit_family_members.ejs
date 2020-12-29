@@ -1,0 +1,59 @@
+<script id="templat_edit_family_members" type="text/html">
+    
+        <form id="editFamilyMembers" name="editFamilyMembers">
+                <input type="hidden" name="serial" id="serial" value="<%= data.Serial  %> "  />
+                <input type="hidden" name="families_serial" id="families_serial" value="<%= data.FamiliesSerial  %> "  />
+                <input type="button"  onclick="save_family_members()"  value="שמור" />
+                <input type="button"  onclick= "hide_show_div( 'SubDiv' ,  'MainDiv' )" value="בטל" />
+                <table> 
+                <tr>
+                    <td>
+                            <div>שם משפחה</div>
+                            <div>
+                                <input name="last_name" id="last_name" value="<%= data.LastName  %> "  disabled/>
+                           </div>
+                    </td>
+                    <td>
+                        <div>שם פרטי</div>
+                        <div>
+                            <input name="last_name" id="last_name" value="<%= data.firstName  %> " disabled />
+                       </div>
+                </td>
+                    <td>
+                            <div>כתובת</div>
+                            <div>
+                            
+                                <input name="street" id="street" value=" <%= data.Street %>" disabled/>
+                               
+                            </div>
+                       </td>
+                       <td>
+                            <div>עיר</div>
+                            <div>
+                           
+                                <input name="city" id="city" value=" <%= data.City %>" disabled/>
+                               
+                            </div>
+                       </td>
+                       <td>
+                            <div>סוג מבוטח</div>
+                            <div>
+                             <input name="member_type" id="member_type" value=" <%= data.Member_type %>"  />
+                             </div>
+                       </td>
+       
+                  
+                </tr>
+                
+            </table>
+            
+            <div>הערה</div>
+            <div>
+           
+                <input name="comment" id="comment" value=" <%= data.Comment %>" size="45" />
+               
+            </div>
+        </form>
+         
+      
+      </script>

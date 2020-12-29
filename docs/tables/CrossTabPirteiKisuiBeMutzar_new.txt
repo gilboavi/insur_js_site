@@ -1,0 +1,7 @@
+SELECT     MyNoPolice, TypeRec, IdClient, [1] AS LifeInsur, [2] AS Invalid, [3] AS AccidentDeath, [4] AS AccidentInvalid, [5] AS LooseWork, [6] AS Shichrur, [7] AS illness, [8] AS Saving, [9] AS LWandLifeInsur, 
+                      [10] AS OtherKusui
+FROM         (SELECT     dbo.HeshbonOPolisaDBWithParams.IdClient, dbo.PirteiKisuiBeMutzarDB.MyNoPolice, dbo.PirteiKisuiBeMutzarDB.TypeRec, dbo.PirteiKisuiBeMutzarDB.SCHUM_BITUACH, 
+                                              dbo.PirteiKisuiBeMutzarDB.SUG_KISUY_BITOCHI
+                       FROM          dbo.PirteiKisuiBeMutzarDB LEFT OUTER JOIN
+                                              dbo.HeshbonOPolisaDBWithParams ON dbo.PirteiKisuiBeMutzarDB.MyNoPolice = dbo.HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON) 
+                      ps PIVOT (SUM(SCHUM_BITUACH) FOR SUG_KISUY_BITOCHI IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10])) AS pvt

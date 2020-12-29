@@ -1,0 +1,74 @@
+﻿
+<script id="details_client" type="text/html">
+  
+  <input type="hidden" name="serial" id="serial" value="<%= data[0].Serial %>" />
+  <input type="hidden" name="client_id" id="client_id" value="<%= data[0].id %>" />
+  <input type="hidden"  id="last_name1" value="<%= data[0].LastName %>" />
+  <input type="hidden"  id="first_name1" value="<%= data[0].FirstName %>" />
+  <input type="hidden"  id="street1" value=" <%= data[0].Street %>" />
+  <input type="hidden"  id="city1" value=" <%= data[0].City %>" />
+  <input type="hidden"  id="client_id" value=" <%= data[0].id %>" />
+    
+       <a id="btn_save" onclick="edit_client('<%= data[0].Serial %>' )" >עריכה</a> 
+      &nbsp
+        <a onclick="edit_client(0)" >לקוח חדש</a> 
+        &nbsp
+        <a onclick="get_families_by_client_serial()" > משפחה </a>  
+        &nbsp
+      <!--  <a onclick="get_si()"  > stam</a> !--> 
+            <h1 class="font_client_details">
+              <%= data[0].LastName  %>
+                &nbsp
+                <%= data[0].FirstName %>
+                
+
+              
+            </h1>
+                
+          <div class="font_client_details">        
+              <div>
+                מספר זהות - 
+                  &nbsp
+                  <%= data[0].id %>
+                
+              </div>
+              <div>
+                כתובת -
+                  &nbsp
+                  <%= data[0].Street %>
+                  &nbsp
+                  <%= data[0].City %>
+              </div>
+              <div>
+                עישון -
+                
+                
+                  <% if(data[0].smok==1) {%>
+                  מעשן/ת
+              <%} else if(data[0].smok==0){%>
+                    לא  מעשן/ת
+                <%} else{%> 
+                  לא ידוע 
+              <%}%>
+                  
+              </div>
+              <div>
+                תאריך לידה -
+                  &nbsp
+                 
+                  &nbsp
+                  <%=moment(data[0].Birthday).format("DD/MM/YYYY") %>
+                  
+              </div>
+              <div>
+                סטטוס -
+                  &nbsp
+                  <%= data[0].StatusName %>
+                
+              </div>
+          </div>
+                     <br/>
+                     <br/>
+   
+    
+</script>

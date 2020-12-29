@@ -1,0 +1,81 @@
+﻿<script id="template_cuts" type="text/html">
+   <form id="cuts" name="cuts">
+      <input type="button" onclick="hide_element_by_class_name('show_hide_td')" value="on" />
+        <input type="button" onclick="$('#date_filter_td').show()" value="on2" />
+            <table>
+                <tr>
+                     <td>
+                        <div>סוג החיתוך</div>
+                         <div>
+                                <select name="type_filter" id="type_filter" onchange="type_filter_change(this.value)">
+                                           <option value="0" > </option>
+                                           <%    $.each(data.type_filter_list, function(key,val){
+                                               %>
+                                                       <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                              
+                                       <%   });%>
+                              </select>
+                         </div>
+                     </td>
+                    <td class="show_hide_td" id="type_equal_td" >
+                        <div>תנאי החיתוך</div>
+                         <div>
+                                <select name="type_equal" id="type_equal">
+                                        <option value="1" >שווה ל </option>
+                                        <option value="2" >גדול מ </option>
+                                        <option value="3" >קטן מ </option>
+                                           
+                              </select>
+                         </div>
+                    </td>
+                    <td class="show_hide_td" id="date_filter_td">
+                        <div>תאריך החיתוך</div>
+                        <div> 
+                            <input  id="date_filter" name="date_filter"  size="10" />
+                        </div>
+                    </td>
+                    <td class="show_hide_td" id="agent_name_td">
+                        <div >לפי סוכן</div>
+                         <div>
+                                <select name="agent_name" id="agent_name">
+                                           <option value="0" > </option>
+                                           <%    $.each(data.agents_list, function(key,val){
+                                               %>
+                                                       <option value="<%=val.Serial%>" ><%=val.AgentName%></option>
+                                              
+                                       <%   });%>
+                              </select>
+                         </div>
+                     </td>
+                     <td class="show_hide_td" id="operation_td">
+                        <div>לפי קבוצה</div>
+                         <div>
+                                <select name="operation" id="operation">
+                                           <option value="0" > </option>
+                                           <%    $.each(data.operation_list, function(key,val){
+                                               %>
+                                                       <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                              
+                                       <%   });%>
+                              </select>
+                         </div>
+                     </td>
+                    <td>
+                        <input type="button" onclick="get_cuts_after_filtering()" value="בצע" />
+                    </td>
+                </tr>
+            </table>
+       <div id="cuts_result_div"></div>
+       <script>
+           $(document).ready(function () {
+             //  hide_element_by_class_name('show_hide_td');
+               //$("#date_filter").datepicker();
+               //$("#date_filter").datepicker("option", "dateFormat", "dd/mm/yy");
+               //$('#type_filter').change(function () {
+               //    alert($("#type_filter").val());
+               //});
+              
+           });
+      </script>
+    </form>
+</script>

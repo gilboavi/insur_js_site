@@ -1,0 +1,13 @@
+.login_layout{
+    background-color: white;
+    width: 15%;
+    position: absolute;
+    right: 42.5%;
+    top: 25%;
+    border-radius: 10px;
+}
+
+.login_container{
+    background-color: blue;
+    height: 100%;
+}

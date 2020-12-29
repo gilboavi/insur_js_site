@@ -1,0 +1,61 @@
+<script id="templat_family_members_for_client_details" type="text/html">
+        <input type="hidden" id="families_serial" value="<%=data.families_serial%>" />
+        <div>  
+                <% if(data.families_serial ==null)  {%> 
+                     <a href="#" onclick="  insert_new_family();">  משפחה חדשה </a> 
+                <% } else { %>
+                     <a href="#" onclick="  set_autocomplite( 'members','find_members');">  הוסף למשפחה</a> 
+                <% }  %>  
+        </div>
+        <br>
+        <div id="find_members" style="display:none">
+                <input id="chose_client_to_add_to_members" type="hidden" class="select2width"  style="width:250px"/> 
+                 <br>
+                 <br>
+                 קרבה  
+                 &nbsp  
+                 <input type="text" id="member_type" style="width:150px"/>
+                &nbsp  
+
+                <input type="button" onclick="add_familiesMembers(<%=data.families_serial%>)" value="הוסף" />
+        </div>
+        <div id="members" >
+            <table border="0"  id="family_members_for_client_details_table" >
+                <thead > 
+                    
+                </thead>
+                <tbody>
+                    <% if(data.family_members.length >0) {
+                        $.each(data.family_members[0], function(rowindex,row) {%>
+                            <tr>
+                                
+                                
+                                    <%   $.each(row, function(key,val){  
+                                        if(key!="ClientSerial" )  {%>
+                                            <td><%= val%></td>
+                                        <% } else { %>
+                                            <td>
+                                                    <div class="btn-group">
+                                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                                                aria-expanded="false">
+                                                                בחר  <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                    <li><a href="#" onclick="move_to_client(<%=val %>)"s>  עבור אל   </a></li>
+                                                                    <li> <a href="#" onclick=" delete_from_familiesMembers_new(<%=data.families_serial%>,<%=val %>)">  מחק</a> </li>
+                                                            </ul>
+                                                         </div>
+                                            </td>
+                                           
+
+                                            
+                                        <% }    
+                                    }); %>
+                                
+                            </tr>
+                        <%})
+                    }; %>
+                </tbody>
+            </table>
+        </div>    
+    </script>

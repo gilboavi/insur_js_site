@@ -1,0 +1,38 @@
+﻿<script id="templat_kupa_gemel_list" type="text/html">
+  
+    <a href="#" onclick=" edit_kupa_gemel(0)"> חדש</a> 
+    <table border="1"  id="kupa_gemel_table">
+        <thead> 
+            <tr>
+                <th>שם החברה</th>
+                <th>שם הקופה
+                       <br/>
+                        <input type="text" class="black_text" id="kupa_gemel_table_comment" size="10" onkeyup="filter_my_table('kupa_gemel_table')" /> 
+                </th>
+                <th>מסלול קופה</th>
+                <th>סוג קופה</th>
+                <th>מספר עמית</th>
+                <th>תאריך</th>
+                <th>שלב הטיפול</th>
+                <th>סכום הצבירה</th>
+                <th>שם מטפל</th>
+                <th>שם סוכן</th>
+                <th>הערה</th>
+                <th>בחר</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data[0], function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick=" edit_kupa_gemel(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+  
+</script>

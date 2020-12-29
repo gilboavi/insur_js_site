@@ -1,0 +1,66 @@
+﻿<script id="edit_communicationt" type="text/html">
+    <%
+ 
+        var communication_type_array=[
+          { Serial :"דוא''ל" , ParamName :"דוא''ל" },
+          { Serial : "טלפון בית" ,  ParamName :"טלפון בית" },
+          { Serial : "טלפון עבודה" , ParamName :   "טלפון עבודה" },
+          { Serial : "סלולרי" , ParamName : "סלולרי"},
+          {  Serial : "אחר" ,  ParamName :" אחר"}
+          ];
+    
+     $.each(communication_type_array, function(key,val){
+                                             if(val.Serial ==data[0][0].CommunicationType){ 
+ 
+    }
+    })
+      
+    %>
+
+
+   <form id="editCommunication" name="editCommunication">
+      <input type="hidden" name="serial"             value="<%= data[0][0].Serial %>" />
+      <input type="hidden" name="client_serial"   value="<%= data[0][0].ClientSerial %>" />
+      <input type="text" name="row_index"  id="row_index"  value="" />
+      
+       <input type="button" id="btn_save_communication"  name="btn_save_communication"  onclick  ="save_communication()" value="save" />
+      
+
+        <table  id="communication_table">
+                <tr>
+                        <td >
+                            <div>סוג התקשורת</div>
+                             <div >
+                                   <select name="communication_type" id="communication_type">
+                                          <option value="0" > </option>
+                                       <%    $.each(communication_type_array, function(key,val){
+                                             if(val.Serial !=data[0][0].CommunicationType){ 
+                                        
+                                              %>
+                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                     
+                                           <%}
+                                              else{   %>
+
+                                                      <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                           <%  }
+                                     });%>
+                                       
+                                  </select>
+                             </div>
+                        </td>
+                
+                        <td>
+                            <div>פרטים</div>
+                                 <div >
+                                  <input name="communication_value" id="communication_value" value=" <%= data[0][0].CommunicationValue %>" size="25"  />
+                             </div>
+                        </td>
+                </tr>
+         </table >  
+        <div>הערה</div>   
+         <input name="comment" id="comment"  value=" <%= data[0][0].Comment %>" style="width:100% " />
+
+    
+   </form>  
+</script>

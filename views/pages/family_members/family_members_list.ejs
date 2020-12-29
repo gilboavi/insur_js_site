@@ -1,0 +1,61 @@
+<script id="templat_family_members_list" type="text/html">
+   
+    <input type="hidden" name="client_serial" id="client_serial" value="<%= data.client_serial  %> "  />
+    <br/>
+
+   
+
+    <div id="SubDiv"  style="display:none" ></div>
+
+    <div id="MainDiv" style="display:block" > 
+        <table border="1"  id="family_members_table" >
+            <thead > 
+                <tr style="vertical-align: top;">
+                    
+                    <th class="family_members_table">שם משפחה</th>
+                    <th class="family_members_table">שם פרטי</th>
+                    
+                    <th class="family_members_table">קרבה</th>
+                   
+                    <th class="family_members_table" ></th>
+                
+                </tr>
+            </thead>
+            <tbody>
+                <% if(data.length >0) {
+                    $.each(data, function(rowindex,row) {%>
+                    <tr>
+                        <% var families_serial;
+                            var client_serial;
+                            var my_serial;
+                            $.each(row, function(key,val){  
+                            if(key!="Serial" && key!="FamiliesSerial" && key!="ClientSerial") {%>
+                            <td><%= val%></td>
+                        <% } else {  
+                            if(key=="FamiliesSerial"){
+                                families_serial=val;
+                            } else if(key=="ClientSerial"){
+                                client_serial=val;
+                            } else if(key=="Serial"){
+                                my_serial=val;
+                            }
+                        } });%>
+                        <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        בחר  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                            <li> <a href="#" onclick=" edit_family_members(<%=my_serial %>)"> עריכה</a> </li>
+                                           
+                                            <li> <a href="#" onclick=" delete_from_familiesMembers(<%=my_serial%>)">  מחיקה</a> </li>
+                                    </ul>
+                                </div>
+                            </td>
+                    </tr>
+                <%}) }; %>
+            </tbody>
+        </table>
+    </div>
+</script>

@@ -1,0 +1,206 @@
+﻿<script id="templat_conversations_and_followup" type="text/html">
+   
+   
+   <br />
+   
+     <br />
+  <table id="hierarchical_grid" class="hierarchical_grid" onclick="myFunction(this)" ></table>
+    <%  doit24(data.father, data.son) %>
+   
+   
+<script  type="text/javascript" language="javascript">
+
+    $(function () {
+      //  alert(data.father);
+    //      alert(data.son) %>
+ //   alert(data.father) %>
+       //    doit2(data.father, data.son) %>
+        //$.each(data.son, function (rowindex, row) {
+
+        //         $.each(row, function(key,val){  
+        //                  if(key=="Serial") {
+        //                      alert(val);
+        //                } });
+        //});
+        //
+    }
+    );
+    
+       
+
+
+        function doit22(father, son) {
+
+
+            //   alert(a);
+          
+            var product_map = {};
+            var c = [];
+
+           // mapping key of master table
+            $.each(father, function () {
+                this.c = [];
+
+                product_map[this.Serial] = this;
+            });
+
+            // mapping key of master table to  detail table
+            $.each(son, function () {
+                product_map[this.FollowupProposalLifeSerial].c.push(this);
+            });
+
+
+
+
+            // html table name
+            $("#hierarchical_grid").igHierarchicalGrid({
+                initialDataBindDepth: 1,
+                dataSource: data.father, // master table
+                dataSourceType: "json",
+                responseDataKey: "d",
+
+                autoGenerateColumns: false,
+                primaryKey: "Serial",   // master table Key
+                features: [
+//                                {
+//                                    name: 'RowSelectors',
+//                                    //  enableCheckBoxes: true,
+//                                   
+//                                    rowSelectorClicked: function (evt, ui) {
+//                                        alert(ui.rowIndex);
+//                                    }
+//                                    
+//                                },
+//                                {
+//                                    name: 'Selection'
+//                                }, 
+                                {
+                                    name: "Updating",
+                                    enableAddRow: false,
+                                    enableDeleteRow: false,
+                                    editMode: "none"
+                                },
+                            ],
+                columns: [
+
+                    { key: "Datee", headerText: "תאריך", dataType: "date", format: "dd-MM-yyyy", width: "100px" },
+
+                    { key: "SummaryOfConversation", headerText: "תקציר השיחה", dataType: "string", width: "80px" },
+
+                { key: "GoalOfTalkName", headerText: "מטרת השיחה", dataType: "string", width: "100px" },
+                { key: "UserName", headerText: "מטפל השיחה", dataType: "string", width: "80px" },
+                { key: "TypeFollowupConversationName", headerText: "סטטוס השיחה", dataType: "string", width: "100px"},
+
+                
+
+                { headerText: "?????", key: "Serial", width: "50px", formatter: function (val, record) {
+
+                    return "<a href='javascript: ;' onclick='edit(" + val + ", this);' >" + "עריכה" + "</a>";
+                }
+                },
+                { headerText: "???", key: "Serial", width: "50px", formatter: function (val, record) {
+
+                  
+                    return "<a href='javascript: ;' onclick='newFollowup(" + val + ", this);' >" + "מעקב חדש" + "</a>";
+                }
+                }
+
+
+
+            ],
+                autoGenerateLayouts: false,
+                defaultChildrenDataProperty: "c",  // detail table
+                columnLayouts: [
+            {
+                name: "c",  // detail table
+                responseDataKey: "",
+                childrenDataProperty: "c", // detail table
+                autoGenerateColumns: false,
+                primaryKey: "Serial", // detail table Key
+                features: [
+                               
+                                {
+                                    name: "Updating",
+                                    enableAddRow: false,
+                                    enableDeleteRow: false,
+                                    editMode: "none"
+                                },
+                            ], 
+                columns: [
+                    { key: "DateFollowUp", headerText: "תאריך הפניה", dataType: "date", format: "dd-MM-yyyy", width: "100px" },
+                    { key: "Summary", headerText: "תקציר הפניה", dataType: "string", width: "100px" },
+                    { key: "UserName", headerText: "מטפל בפניה", width: "750px", dataType: "string" },
+
+
+                    { key: "StatusFollowUp", headerText: "סטטוס הפניה", dataType: "string", width: "80px" },
+                { headerText: "", key: "Serial", width: "50px", formatter: function (val, record) {
+
+                    return "<a href='javascript: ;' onclick='edit_followup_conversation(" + val + ", this);' >" + "עריכה" + "</a>";
+                }
+                }
+                ]
+            }
+        ]
+
+
+
+            });
+
+
+    }
+
+
+        //function editFollowup(myId, element) {
+        //    var row = $(element).closest('tr');
+           
+        //    window.currentRow = row;
+
+        //    GetDataToColorbobByParams({ id: Number(myId) }, '/FollowupProposalLife/Edit/', function () {
+        //        setDatePicker();
+        //       // $("#autoComplete").style.display = "none";
+        //    });
+
+        //}
+
+        //function newFollowup(myId, element) {
+          
+        //   var row = $(element).closest('tr');
+
+        //   window.currentRow = row;
+        //   window.currentSerial = myId;
+
+        //   GetDataToColorbobByParams({ id: Number(myId) }, '/FollowupProposalLife/Create/', setDatePicker);
+        //}
+
+        //function edit(myId, element) {
+
+
+        //    var row = $(element).closest('tr');
+        
+        //    window.currentRow = row;
+         
+        //    var tableRef = document.getElementById('grdProposals');
+
+        //    GetDataToColorbobByParams({ id: myId }, '/../ProposalLife/Edit', function () { setDatePicker(); hideDiv('ProposalDateDiv') });
+        //  //  GetDataToColorbobByParams({ id: myId }, '/../ProposalLife/EditRicuz', function () { setDatePicker(); SetAutoComplete('CurrentProposalLife_ClientSerial') });
+           
+        //}
+
+
+        $(document).ready(function () {
+            //
+          
+         
+       //    alert(data.father) %>
+        //    alert(data.father);
+           // debugger;
+         //  alert(decodeJson("@b"));
+         //   doit24(data.father, data.son);
+
+            alert("dddd2");
+
+        });
+  
+    </script>
+
+    </script>

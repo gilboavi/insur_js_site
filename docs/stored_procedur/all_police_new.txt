@@ -1,0 +1,42 @@
+USE [InsurDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[all_police_new]    Script Date: 01/29/2018 13:15:05 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[all_police_new] 
+	-- Add the parameters for the stored procedure here
+	@idClient int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+ 
+    -- Insert statements for procedure here
+    -- MISPAR_POLISA_O_HESHBON
+    -- TypeRec
+    --  MyNoPolice
+    
+	 SELECT * 
+	 FROM  HeshbonOPolisaDBWithParams 
+	 LEFT JOIN [dbo].[fnCrosstabPerutYitraLeTkufa_2000](@idClient) as tbCrosstabPerutYitraLeTkufa_2000
+		on HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON=tbCrosstabPerutYitraLeTkufa_2000.MyNoPolice
+		and HeshbonOPolisaDBWithParams.TypeRec=  tbCrosstabPerutYitraLeTkufa_2000.TypeRec
+	 WHERE HeshbonOPolisaDBWithParams.IdClient=@idClient 
+	 
+	  
+END
+
+GO
+
+

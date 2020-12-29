@@ -1,0 +1,74 @@
+<a href="./test/">Test3</a>
+<$title=title+"s"$>
+
+    <$=title$>
+		
+		<div>
+		<input id="typehead" type="hidden" class="select2width" />
+	</div>
+
+		<div class="select2-search">
+			<input type="text" autocomplete="off" class="select2-input" />
+			
+		</div>
+
+
+		<script type="text/javascript">
+
+
+
+
+			$(document).ready(function() {
+
+			//  setDatePicker("#datee");
+			var s_options = {
+			minimumInputLength: 3,
+			allowClear: false,
+			formatSelection: function(item) {
+			return '<div class="select2-tag-cust" title="' + item.text + '">' + item.text + '</div>';
+			},
+			query: function(query) {
+			//query.term
+
+			get_client_by_term(query.term, function(dataObj) {
+			query.callback({
+			results: dataObj[0]
+			});
+
+			});
+
+
+			}
+			};
+
+			$("#typehead").select2(s_options).on('change', function(e) {
+			//  document.AviAPI.GetClientBySerialToInput(e.val);
+
+			$("#clientSerialMain").val(e.val);
+
+			get_tableList_by_params(e.val, 'phone', 'table_phone', 'phone_div');
+
+			//  get_tableList_by_params($('#clientSerialMain').val(), 'conver', 'table_conversation', 'conversation_div');
+			get_tableList_by_params_new({
+			id: $('#clientSerialMain').val(),
+			paramType: 'conver',
+			table_template: 'table_conversation',
+			div_name: 'conversation_div',
+			fields: ''
+			})
+			// alert(e.val);
+			// alert(this.value);
+			});
+
+
+
+			// $('#datetimepicker1').datetimepicker({
+			//     format: 'DD/MM/YYYY HH:mm'
+
+			// });
+
+
+			});
+		</script>
+
+	

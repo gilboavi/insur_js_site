@@ -1,0 +1,53 @@
+<script id="templat_edit_families" type="text/html">
+
+    <form id="editFamilies" name="editFamilies">
+            <input type="hidden" name="serial" id="serial" value="<%= data.Serial  %> "  />
+            <input type="button"  onclick="save_families()"  value="שמור" />
+            <input type="button"  onclick= "hide_show_div( 'SubDiv' ,  'MainDiv' )" value="בטל" />
+            <table> 
+            <tr>
+                <td>
+                        <div>שם משפחה</div>
+                        <div>
+                            <input name="last_name" id="last_name" value="<%= data.LastName  %> "  />
+                       </div>
+                </td>
+                <td>
+                        <div>שם פרטי</div>
+                        <div>
+                            <input name="first_name" id="first_name" value="<%= data.FirstName  %> "  />
+                    </div>
+                </td>
+                <td>
+                        <div>כתובת</div>
+                        <div>
+                        
+                            <input name="street" id="street" value=" <%= data.Street %>" />
+                           
+                        </div>
+                   </td>
+                   <td>
+                        <div>עיר</div>
+                        <div>
+                       
+                            <input name="city" id="city" value=" <%= data.City %>" />
+                           
+                        </div>
+                   </td>
+                   
+   
+              
+            </tr>
+            
+        </table>
+
+        <div>הערה</div>
+        <div>
+       
+            <input name="comment" id="comment" value=" <%= data.Comment %>" size="45" />
+           
+        </div>
+    </form>
+     
+  
+  </script>

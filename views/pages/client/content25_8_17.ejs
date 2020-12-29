@@ -1,0 +1,95 @@
+<!--client -->
+<head>
+    <meta charset="utf-8" />
+    <title>?? ??????</title>
+</head>
+<body>
+    <form id="FormClient22" name="FormClient" onsubmit="return false;">
+        <br />
+        <div>
+            <li>
+                <input id="typehead" type="hidden" class="select2width" /></li>
+        </div>
+        <br />
+
+
+        <div id="hidden_div">
+            <input name="client_serial" id="client_serial" type="hidden" value="" />
+            <input type="hidden" name="tabs_current_index" id="tabs_current_index" />
+            <input type="hidden" name="conversation_flg" id="conversation_flg" />
+            <input type="hidden" name="life_police_flg" id="life_police_flg" />
+            <input type="hidden" name="documents_flg" id="documents_flg" />
+             <input type="hidden" name="communication_flg" id="communication_flg" />
+             <input type="hidden" name="conversation_follow_flg" id="conversation_follow_flg" />
+             <input type="hidden" name="kupa_gemel_flg" id="kupa_gemel_flg" />
+            <input type="hidden" name="proposal_lifel_flg" id="proposal_lifel_flg" />
+            
+        </div>
+        <table style="width:100%">
+            <tr>
+                <td style="width:10%" >
+                    <div class="scrollDiv" style="overflow:auto ; width:100%; height:100% ; right:auto" >
+                         <div id="client_details_div"  class="div_top">  </div>
+                         <div id="communication_div"></div>
+                    </div>
+                </td>
+                <td style="width:90%" >
+                       <div class="scrollDiv" style="overflow:auto ; width:100%; height:100% ; right:auto" >
+                            <div id="tabs" name="tabs" dir="rtl" class="tabs">
+                                    <ul dir="rtl">
+                                        <li><a href="#tabs-1" avi-menu="conversation">????? </a></li>
+                                        <li><a href="#tabs-2" avi-menu="policy">??????? </a></li>
+                                        <li><a href="#tabs-3" avi-menu="documents">??????</a></li>
+                                        <li><a href="#tabs-4" avi-menu="kupa">???</a></li>
+                                        <li><a href="#tabs-5" avi-menu="proposal_life">????? ???? ?????</a></li>
+                                    </ul>
+
+                                    <div id="tabs-1">
+                                         <table id="hierarchical_grid" class="hierarchical_grid" onclick="" ></table>
+                                    </div>
+                                    <div id="tabs-2">
+                                    </div>
+                                    <div id="tabs-3">
+                                    </div>
+                                    <div id="tabs-4">
+                                    </div>
+                                 <div id="tabs-5">
+                                     <table id="proposal_life_hierarchical_grid" class="proposal_life_hierarchical_grid" onclick="" ></table>
+                                    </div>
+
+                            </div>
+                    </div>
+                </td>
+
+            </tr>
+
+        </table>
+
+
+</body>
+</form>
+
+<$- include("./edit_template") $>
+
+<$- include("./edit_client") $>
+
+<$- include("./details_client") $>
+<$- include("./template_list") $>
+
+<$- include("../conversation/edit_conversation") $>
+<$- include("../conversation/conversation_list") $>
+<$- include("../conversation/conversations_and_followup") $>
+
+<$- include("../life_police/edit_life_police") $>
+<$- include("../life_police/life_police_list") $>
+
+<$- include("../documents/edit_documents") $>
+<$- include("../documents/documents_list") $>
+
+<$- include("../communication/edit_communication") $>
+<$- include("../communication/communication_list") $>
+
+<$- include("../kupa_gemel/edit_kupa_gemel") $>
+<$- include("../kupa_gemel/kupa_gemel_list") $>
+
+

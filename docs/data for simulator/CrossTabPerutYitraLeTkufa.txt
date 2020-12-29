@@ -1,0 +1,4 @@
+SELECT     [MyNoPolice], TypeRec, [1] AS till_2000, [2] AS after_2000, [3] AS till_2004, [4] AS till_2005, [5] AS a2001_2007, [6] AS a2006_2007, [7] AS after_2008, [8] AS till_2002, [9] AS pizuim_yitra, 
+                      [10] AS must_clalulate_yitra
+FROM         (SELECT     [MyNoPolice], KOD_TECHULAT_SHICHVA, SACH_ITRA_LESHICHVA_BESHACH, idClient, TypeRec
+                       FROM          [InsurDB].[dbo].[PerutYitraLeTkufaDBWithParams]) ps PIVOT (sum([SACH_ITRA_LESHICHVA_BESHACH]) FOR [KOD_TECHULAT_SHICHVA] IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10])) AS pvt

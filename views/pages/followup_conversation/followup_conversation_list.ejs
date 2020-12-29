@@ -1,0 +1,38 @@
+﻿<script id="templat_followup_conversation_list" type="text/html">
+
+    <div id="SubDiv"  style="display:none" ></div>
+
+    <div id="MainDiv" style="display:block" >  
+            <a href="#" onclick=" edit_followup_conversation(0, <%=data.conversation[0].Serial%>)"> פניה חדשה</a>
+           <div>
+             <p> תקציר השיחה</p>  
+      
+            <%=data.conversation[0].SummaryOfConversation%>
+           </div>
+    
+            <table border="1"  id="followup_conversation_table">
+        <thead> 
+            <tr>
+               <th>תאריך</th>
+                <th>תקציר הפניה</th>
+                <th>שם מטפל</th>
+                 <th>סטוטס</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.type_followup_conversation_list, function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick=" edit_followup_conversation(<%= val%>) "> עריכה</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+
+   </div>
+</script>

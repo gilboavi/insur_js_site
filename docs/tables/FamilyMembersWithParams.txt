@@ -1,0 +1,4 @@
+SELECT     dbo.FamilyMembers.Member_type, dbo.Clients.id, dbo.Clients.LastName, dbo.Clients.FirstName, dbo.Clients.Street, dbo.Clients.City, dbo.FamilyMembers.Comment, 
+                      dbo.FamilyMembers.ClientSerial, dbo.FamilyMembers.Serial, dbo.FamilyMembers.FamiliesSerial
+FROM         dbo.FamilyMembers LEFT OUTER JOIN
+                      dbo.Clients ON dbo.FamilyMembers.ClientSerial = dbo.Clients.Serial

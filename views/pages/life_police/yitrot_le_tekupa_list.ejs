@@ -1,0 +1,126 @@
+<script id="templat_yitrot_le_tekupa_list" type="text/html">
+    <a href="#" onclick=" $('#yitrot_le_tekupa_table').table2CSV()">שלח לאקסל</a>
+ <br/>
+
+  <table border="1" id="yitrot_le_tekupa_table"  onclick="getId()">
+      <thead>
+          <tr>
+             <th>מספר התכנית </th>
+             <th> עד 2000  </th>
+             <th> אחרי 2000     </th>
+             <th> עד 31.12.04 </th>
+             <th>   עד 31.12.05 </th>
+             <th>   01.05-12.07 </th>
+             <th> 10.06-12.07  </th>
+             <th>  מ 10.08</th>
+             <th>  עד 31.12.02</th>
+             <th>  פיצויים</th>
+             <th>  חישוב ידני</th>
+            
+
+            
+            
+          </tr>
+      </thead>
+      <tbody>
+          <% $.each(data, function(rowindex,row)         {%>
+               <tr >
+                  
+                         <td><%= data[rowindex].MyNoPolice %></td>
+
+                         <%  if(_.isNull( data[rowindex].before_2000)==false){ %>
+                            <td><%=  ( data[rowindex].before_2000).toFixed() %>  </td>
+                        <% } else{ %>
+                          <td> </td>
+                        <% }  %> 
+
+                        <%  if(_.isNull( data[rowindex].after_2000)==false){ %>
+                          <td><%=  ( data[rowindex].after_2000).toFixed() %>  </td>
+                        <% } else{ %>
+                        <td> </td>
+                        <% }  %> 
+                        
+                        
+                        <%  if(_.isNull( data[rowindex].till_12_04)==false){ %>
+                            <td><%=  ( data[rowindex].till_12_04).toFixed() %>  </td>
+                       <% } else{ %>
+                          <td> </td>
+                       <% }  %> 
+
+                       <%  if(_.isNull( data[rowindex].till_12_05)==false){ %>
+                          <td><%=  ( data[rowindex].till_12_05).toFixed() %>  </td>
+                       <% } else{ %>
+                        <td> </td>
+                      <% }  %>   
+
+                      <%  if(_.isNull( data[rowindex].b_01_05_12_07)==false){ %>
+                        <td><%=  ( data[rowindex].b_01_05_12_07).toFixed() %>  </td>
+                    <% } else{ %>
+                        <td> </td>
+                    <% }  %> 
+
+                    <%  if(_.isNull( data[rowindex].b_01_06_12_07)==false){ %>
+                        <td><%=  ( data[rowindex].b_01_06_12_07).toFixed() %>  </td>
+                    <% } else{ %>
+                        <td> </td>
+                    <% }  %>   
+
+                         
+                    <%  if(_.isNull( data[rowindex].from_08)==false){ %>
+                        <td><%=  ( data[rowindex].from_08).toFixed() %>  </td>
+                    <% } else{ %>
+                      <td> </td>
+                    <% }  %> 
+
+                    <%  if(_.isNull( data[rowindex].till_12_02)==false){ %>
+                      <td><%=  ( data[rowindex].till_12_02).toFixed() %>  </td>
+                    <% } else{ %>
+                    <td> </td>
+                    <% }  %>   
+                    
+                    <%  if(_.isNull( data[rowindex].pizuim)==false){ %>
+                        <td><%=  ( data[rowindex].pizuim).toFixed() %>  </td>
+                    <% } else{ %>
+                      <td> </td>
+                    <% }  %> 
+
+                    <%  if(_.isNull( data[rowindex].by_hand)==false){ %>
+                      <td><%=  ( data[rowindex].by_hand).toFixed() %>  </td>
+                    <% } else{ %>
+                    <td> </td>
+                    <% }  %>   
+
+                         
+                         
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+               </tr>
+          <%}); %>
+      </tbody>
+  </table>
+  <script type="text/javascript" >
+     function getId(element) {
+         alert("row" + element.cells[1].textContent +
+             " - column" + element.firstChild.value);
+         //alert($(this).find('td[name="Serial"]').html());
+         alert(element.rowIndex);
+         element.cells[1].textContent="not ok";
+       //  alert(element.find('td[name="Serial"]').html()   );
+      //   alert(element.find('.Serial').html());
+     }
+
+     function get_name1(a) {
+         a.cells[1].textContent="not ok";
+     }
+     //function get_name(){
+     //     $('tr').live('click', function () {
+     //         alert($(this).find('td[name="Serial"]').html());
+     //     });
+     // }
+</script>
+</script>

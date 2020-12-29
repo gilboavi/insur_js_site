@@ -1,0 +1,32 @@
+﻿<script id="templat_follow_checks_list" type="text/html">
+  
+    <a href="#" onclick="  edit_follow_checks(0)"> חדש</a> 
+    <table border="1"  id="follow_checks_table">
+        <thead> 
+            <tr>
+                 <th>שם מעביד</th>
+                <th>שם חברה</th>
+               <th>יעוד השק</th>
+                 <th>תאריך</th>
+                 <th>מסםר שק</th>
+                 <th>סכום</th>
+                 <th>חודש שכר</th>
+                 <th>הערה</th>
+                 <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data[0], function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick=" edit_follow_checks(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+  
+</script>

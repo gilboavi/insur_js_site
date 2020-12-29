@@ -1,0 +1,89 @@
+
+
+
+th {
+    padding: 10px;
+    text-align: right;
+    color: rgb(1, 1, 14);
+    background:rgb(206, 223, 193)
+  
+}
+
+td {
+    padding: 10px;
+    text-align: right;
+  
+}
+
+
+.red_text{
+  font-size: 16 !important;
+ 
+  color:red;
+  font-family: Arial, Helvetica, sans-serif  ;
+  font-weight: bold;
+} 
+.black_text{
+ 
+ 
+  color:black !important;
+  font-family: Arial, Helvetica, sans-serif  ;
+  font-weight: bold;
+} 
+
+
+.green_text{
+  font-size: 16;
+ 
+  color:green;
+  font-family: david  ;
+  font-weight: bold;
+}
+
+
+
+.nav{
+ 
+
+   color:         rgb(172, 74, 44) ;   
+   font: bold  ;                   
+    font-family:    Garamond;
+    font-size:      1.5em;
+    padding:        5px 20px;
+     
+  
+    
+}
+
+.navbar-avi {
+  color:         white ;                        
+  font-family:    Garamond;
+  font-size:      1.15em;
+  padding:        5px 20px;
+ 
+  background-color:rgb(233, 17, 17)
+ 
+  
+}
+
+html, body{
+  margin:0px;
+  padding:0px;
+}
+
+.font_white{
+  coler:white;
+}
+
+.navbar a {
+  color: white;
+}
+
+a:hover{
+ color: black;
+}
+
+.menu_bottun{
+  color:white;
+  background-color: blue;
+}

@@ -1,0 +1,5 @@
+
+SELECT     TOP (100) PERCENT MyNoPolice, TypeRec, AVG(SCHUM_HAFKADA_SHESHULAM) AS Premia_avg
+FROM         dbo.PerutHafkadotMetchilatShanaDB
+GROUP BY MyNoPolice, TypeRec
+ORDER BY MyNoPolice

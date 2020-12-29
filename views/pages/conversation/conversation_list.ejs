@@ -1,0 +1,83 @@
+﻿<script id="templat_conversation_list" type="text/html">
+ <!--    <a href="#" onclick=" edit_conversation(0 , -1)"> שיחה חדשה</a> 
+    <br />
+    <br /> !-->
+    <table border="1"  id="table_conversation" >
+        <thead > 
+            <tr style="color: blue;">
+               <th>תאריך</th>
+                <th>תקציר השיחה &nbsp <input type="text" class="black_text" id="table_conversation_comment" size="10" onkeyup="filter_my_table('table_conversation')" /></th>
+               <th>מטרת השיחה</th>
+                <th>שם מטפל</th>
+                <th>סטוטס</th>
+                <th>מ.פוליסה</th>
+                 <th><input type="button" onclick=" edit_conversation(0)" value="חדש"  class="font_color_purpl"/></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.conversation_list, function(rowindex,row) {
+            
+                if(row.Done==true){ %> 
+                    <tr >
+                <%  } else  if(row.Immediately==true) {%> 
+                
+                 <tr class="red_text">
+              <%  } else if(row.Done==false){ %>
+                    <tr class="green_text">
+                       
+                <%}%>        
+
+                     <% $.each(row, function(key,val){  
+                         if(key=="Serial") {%>
+                            <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            בחר  <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#" onclick="edit_conversation(<%= val%>,<%=(rowindex+1)%>)"s>  עריכה   </a></li>
+                                                <li><a href="#" onclick="get_followup_conversations_list_by_clientserial(<%= val%>)">  מעקב   </a></li>
+                                                
+                                        </ul>
+                                     </div>
+                            <!--    <a href="#" onclick=" edit_conversation(<%= val%>,this.parentNode.parentNode)"> עריכה</a> 
+                                &nbsp
+                                <a href="#" onclick=" get_followup_conversations_list_by_clientserial(<%= val%>)"> מעקב</a> !-->
+                            </td>
+                        <% } else if(key=="Immediately") { 
+                           // alert(this);
+                          //  this.parent().css( "background-color", "red" );
+                         } else if(key!="Done") { %>
+                                <td><%= val%></td>
+                    <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+     <script type="text/javascript" >
+
+         $(document).ready(function () {
+          
+             $('#datee').datepicker({
+                 dateFdateeormat: "dd/mm/yy"
+             });
+             var table = document.getElementById("tableID");
+             if (table != null) {
+                 for (var i = 0; i < table.rows.length; i++) {
+                     for (var j = 0; j < table.rows[i].cells.length; j++)
+                         table.rows[i].cells[j].onclick = function () {
+                             tableText(this);
+                         };
+                 }
+             }
+
+             function tableText(tableCell) {
+                 alert(tableCell.innerHTML);
+             }
+
+            
+            
+         })
+  </script>
+</script>

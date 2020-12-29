@@ -1,0 +1,48 @@
+﻿<script id="template_searching" type="text/html">
+   <form id="Searching" name="Searching">
+      
+      
+      
+
+    <table >
+            <tr>
+                 <td>
+                    <div>תנאי החיתוך</div>
+                     <div>
+                             <select id="search_condition">
+                                   <option value="1" > שם משפחה</option>
+                                   <option value="2" > שם פרטי</option>
+                                   <option value="3" >מספר פוליסה </option>
+                                   <option value="4" > </option>
+                                   <option value="5" > </option>
+                                    
+                            </select>
+                     </div>
+                </td>
+                <td>
+                    <div>תנאי החיפוש</div>
+                     <div> <input type="text" id="string_condition" /></div>
+                </td>
+                <td>
+                     <input type="button" id="btn_find_client" name="btn_find_client" onclick="searching()" value="חפש" />
+
+                </td>
+
+               
+               
+                 
+                  
+               
+               
+              
+               
+               
+            </tr>
+       
+           
+     </table >  
+         
+        <div id="result_searching_div"></div>
+    
+   </form>  
+</script>

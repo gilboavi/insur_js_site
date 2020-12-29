@@ -1,0 +1,5 @@
+SELECT     [MyNoPolice], IdClient, [1] AS [before_2000], [2] AS [after_2000], [3] AS [till_12_04], [4] AS [till_12_05], [5] AS [b_01_05_12_07], [6] AS [b_01_06_12_07], [7] AS [from_08], [8] AS [till_12_02], 
+                      [9] AS [pizuim], [10] AS [by_hand], [11] AS [11], [12] AS [12]
+FROM         (SELECT     [MyNoPolice], KOD_TECHULAT_SHICHVA, SACH_ITRA_LESHICHVA_BESHACH, IdClient
+                       FROM          [InsurDB].[dbo].[PerutYitraLeTkufaDBWithParams]) ps PIVOT (sum([SACH_ITRA_LESHICHVA_BESHACH]) FOR [KOD_TECHULAT_SHICHVA] IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], 
+                      [12])) AS pvt

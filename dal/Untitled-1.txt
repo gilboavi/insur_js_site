@@ -1,0 +1,3 @@
+"select * from table users where id =" + ? + ";";
+
+? => "5; drop table users" 

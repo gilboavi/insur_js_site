@@ -1,0 +1,45 @@
+  dataForSimulator = dal.GetDataForSimulator(clientSerial);
+            
+            getSheet(templateWorkbook, "RicusPolice", dataForSimulator.HeshbonOPolisaDBWithParam);
+            getSheet(templateWorkbook, "RicusKrenHishtalmut", dataForSimulator.HeshbonOPolisaDBWithParam_histalmut);
+            getSheet(templateWorkbook, "PerutHafrashotLePolisa", dataForSimulator.PerutHafrashotLePolisa);
+            getSheet(templateWorkbook, "PerutMasluleiHashkaa", dataForSimulator.PerutMasluleiHashkaa);
+            getSheet(templateWorkbook, "PerutHafkadotMetchilatShana", dataForSimulator.PerutHafkadotMetchilatShana);
+			getSheet(templateWorkbook, "PerutHafkadotMetchilatShanaAvgM", dataForSimulator.PerutHafkadotMetchilatShanaDBWithAverage);
+
+            getSheet(templateWorkbook, "PirteiKisuiBeMutzar", dataForSimulator.PirteiKisuiBeMutzar);
+			getSheet(templateWorkbook, "PirteiKisuiBeMutzar_procerur", dataForSimulator.PirteiKisuiBeMutzar_procerur);
+			 
+            getSheet(templateWorkbook, "PerutMivneDmeiNihul", dataForSimulator.PerutMivneDmeiNihul);
+         
+            getSheet(templateWorkbook, "PirteiOved", dataForSimulator.PirteiOved);
+            getSheet(templateWorkbook, "ClientList", dataForSimulator.ClientList);
+            getSheet(templateWorkbook, "PerutYitrot", dataForSimulator.PerutYitrot);
+            getSheet(templateWorkbook, "PerutYitrot_group_by", dataForSimulator.PerutYitrot_group_by);
+            
+
+            getSheet(templateWorkbook, "PerutPirteiHafkadaAchrona", dataForSimulator.PerutPirteiHafkadaAchrona);
+            getSheet(templateWorkbook, "PerutHafkadaAchrona", dataForSimulator.PerutHafkadaAchrona);
+            getSheet(templateWorkbook, "YitraLefiGilPrisha", dataForSimulator.YitraLefiGilPrisha);
+            getSheet(templateWorkbook, "Kupa", dataForSimulator.Kupa);
+            
+            getSheet(templateWorkbook, "PerutHafkadotMetchilatShanaAvgM", dataForSimulator.PerutHafkadotMetchilatShana_avg_max);
+
+            //PerutYitraLeTkufa_crosTabtill2000   CrossTab_From_PerutYitraLeTkufaDBWithParam_till_2000
+            getSheet(templateWorkbook, "CrossTabYitraLeTkufa_till_2000", dataForSimulator.PerutYitraLeTkufa_crosTabtill2000);
+            // PerutYitraLeTkufa_crosTabafter2000   CrossTab_From_PerutYitraLeTkufaDBWithParam_after_2000
+            getSheet(templateWorkbook, "CrossTabYitraLeTkufa_after_2000", dataForSimulator.PerutYitraLeTkufa_crosTabafter2000);
+            getSheet(templateWorkbook, "PerutYitraLeTkufa", dataForSimulator.PerutYitraLeTkufa);
+            getSheet(templateWorkbook, "PerutYitraLeTkufa_crosTab", dataForSimulator.PerutYitraLeTkufa_crosTab);
+            getSheet(templateWorkbook, "PerutYitraLeTkufa_till2000", dataForSimulator.PerutYitraLeTkufa_crosTabtill2000);
+
+            getSheet(templateWorkbook, "PerutYitraLeTkufa_after2000", dataForSimulator.PerutYitraLeTkufa_crosTabafter2000);
+            getSheet(templateWorkbook, "PirteiHaasaka", dataForSimulator.PirteiHaasakaDBWithParam);
+           
+            getSheet(templateWorkbook, "SchumeiBituahYesodi", dataForSimulator.SchumeiBituahYesodi);
+            getSheet(templateWorkbook, "PirteiKisuiBeMutzarPrmia", dataForSimulator.PirteiKisuiBeMutzarPrmia_procerur);
+
+            getSheet(templateWorkbook, "KisuiBKerenPensiaDBWithParams", dataForSimulator.KisuiBKerenPensiaDBWithParams);
+            getSheet(templateWorkbook, "HotzaotBafoalLehodeshDivoach", dataForSimulator.HotzaotBafoalLehodeshDivoachDBWithParam);
+            
+         

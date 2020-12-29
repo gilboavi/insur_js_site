@@ -1,0 +1,7 @@
+SELECT     MyNoPolice, TypeRec, [1] AS LifeInsur_permia, [2] AS Invalid_permia, [3] AS AccidentDeath_permia, [4] AS AccidentInvalid_permia, [5] AS LooseWork_permia, 
+[6] AS Shichrur_permia, [7] AS illness_permia, [8] AS Saving_permia, [9] AS LWandLifeInsur_permia, 
+                      [10] AS OtherKusui_permia
+FROM         (SELECT     dbo.PirteiKisuiBeMutzarDB.MyNoPolice, dbo.PirteiKisuiBeMutzarDB.TypeRec, dbo.PirteiKisuiBeMutzarDB.DMEI_BITUAH_LETASHLUM_BAPOAL, dbo.PirteiKisuiBeMutzarDB.SUG_KISUY_BITOCHI
+                       FROM          dbo.PirteiKisuiBeMutzarDB LEFT OUTER JOIN
+                                              dbo.HeshbonOPolisaDB ON dbo.PirteiKisuiBeMutzarDB.MyNoPolice = dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON) ps PIVOT (SUM(DMEI_BITUAH_LETASHLUM_BAPOAL) FOR 
+                      SUG_KISUY_BITOCHI IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10])) AS pvt

@@ -1,0 +1,44 @@
+SSELECT     dbo.HeshbonOPolisaDB.IdClient, w.MyNoPolice, w.CompanyName, w.KodTechulatShichva, SugItraLtkufa, dbo.HeshbonOPolisaDB.TAARICH_NECHONUT, [1] AS pizuim, [2] AS tg_worker, 
+                      [3] AS tg_bos, [4] AS tg_47, [5] AS shonot_worker, [6] AS shonot_bos, [7] AS hishtalmut_bos, [8] AS hishtalmut_worker, [9] AS perat, [10]
+FROM         dbo.HeshbonOPolisaDB INNER JOIN
+                          (SELECT     MyNoPolice, CompanyName, KodTechulatShichva,RekivItraLetkupa, SugItraLtkufa, [1] AS [1], [2] AS [2], [3] AS [3], [4] AS [4], [5] AS [5], [6] AS [6], [7] AS [7], [8] AS [8], [9] AS [9], [10] AS [10]
+                            FROM          (SELECT     dbo.PerutYitraLeTkufaDB.Serial, dbo.PerutYitraLeTkufaDB.MyNoPolice, dbo.ParamCompany.ParamName AS CompanyName, 
+                                                                           dbo.PerutYitraLeTkufaDB.KOD_MEZAHE_YATZRAN, dbo.PerutYitraLeTkufaDB.TypeRec, 
+                                                                           dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.ParamName AS KodTechulatShichva,
+                                                                         dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.Serial AS RekivItraLetkupa,
+                                                                           REKIV_ITRA_LETKUFA, 
+
+                                                                           dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA.ParamName AS RekivItraLetkufa, dbo.PerutYitraLeTkufaDB.SACH_ITRA_LESHICHVA_BESHACH, 
+                                                                           dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA.ParamName AS SugItraLtkufa
+                                                    FROM          dbo.PerutYitraLeTkufaDB LEFT OUTER JOIN
+                                                                           dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA ON 
+                                                                           dbo.PerutYitraLeTkufaDB.SUG_ITRA_LETKUFA = dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA ON dbo.PerutYitraLeTkufaDB.REKIV_ITRA_LETKUFA = dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA ON 
+                                                                           dbo.PerutYitraLeTkufaDB.KOD_TECHULAT_SHICHVA = dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamCompany ON dbo.PerutYitraLeTkufaDB.KOD_MEZAHE_YATZRAN = dbo.ParamCompany.KOD_MEZAHE_YATZRAN) 
+                                                   ps PIVOT (SUM(SACH_ITRA_LESHICHVA_BESHACH) FOR REKIV_ITRA_LETKUFA IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12])) AS pvt) w ON 
+                      dbo.HeshbonOPolisaDB.MISPAR_POLISA_O_HESHBON = w.MyNoPolice
+where RekivItraLetkupa>1
+
+
+ (SELECT     MyNoPolice, CompanyName, KodTechulatShichva, RekivItraLetkupa, SugItraLtkufa, [1] AS [1], [2] AS [2], [3] AS [3], [4] AS [4], [5] AS [5], [6] AS [6], [7] AS [7], [8] AS [8], [9] AS [9], 
+                                                   [10] AS [10]
+                            FROM          (SELECT     dbo.PerutYitraLeTkufaDB.Serial, dbo.PerutYitraLeTkufaDB.MyNoPolice, dbo.ParamCompany.ParamName AS CompanyName, 
+                                                                           dbo.PerutYitraLeTkufaDB.KOD_MEZAHE_YATZRAN, dbo.PerutYitraLeTkufaDB.TypeRec, 
+                                                                           dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.ParamName AS KodTechulatShichva, 
+                                                                           dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.Serial AS RekivItraLetkupa, REKIV_ITRA_LETKUFA, 
+                                                                           dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA.ParamName AS RekivItraLetkufa, dbo.PerutYitraLeTkufaDB.SACH_ITRA_LESHICHVA_BESHACH, 
+                                                                           dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA.ParamName AS SugItraLtkufa
+                                                    FROM          dbo.PerutYitraLeTkufaDB LEFT OUTER JOIN
+                                                                           dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA ON 
+                                                                           dbo.PerutYitraLeTkufaDB.SUG_ITRA_LETKUFA = dbo.ParamXml_HafkadaAchrona_KOD_SUG_HAFKADA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA ON dbo.PerutYitraLeTkufaDB.REKIV_ITRA_LETKUFA = dbo.ParamXml_Yitrot_KOD_SUG_HAFRASHA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA ON 
+                                                                           dbo.PerutYitraLeTkufaDB.KOD_TECHULAT_SHICHVA = dbo.ParamXml_PerutYitraLeTkufa_KOD_TECHULAT_SHICHVA.Serial LEFT OUTER JOIN
+                                                                           dbo.ParamCompany ON dbo.PerutYitraLeTkufaDB.KOD_MEZAHE_YATZRAN = dbo.ParamCompany.KOD_MEZAHE_YATZRAN) 
+                                                   ps PIVOT (SUM(SACH_ITRA_LESHICHVA_BESHACH) FOR REKIV_ITRA_LETKUFA IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12])) AS pvt) 
+         
+SELECT    [MyNoPolice],idClient, [1] AS [1], [2] AS [2], [3] AS [3], [4] AS [4], [5] AS [5], [6] AS [6], [7] AS [7], [8] AS [8], [9] AS [9], [10] AS [10], [11] AS [11], [12] AS [12]
+FROM         (SELECT     [MyNoPolice],    KOD_TECHULAT_SHICHVA,  SACH_ITRA_LESHICHVA_BESHACH,idClient
+                       FROM          [InsurDB].[dbo].[PerutYitraLeTkufaDBWithParams]) ps PIVOT (sum([SACH_ITRA_LESHICHVA_BESHACH]) FOR [KOD_TECHULAT_SHICHVA] IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12])) AS pvt   

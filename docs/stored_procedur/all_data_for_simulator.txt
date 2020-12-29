@@ -1,0 +1,51 @@
+USE [InsurDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[all_data_for_simulator]    Script Date: 01/29/2018 13:12:48 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+-- exec all_police_new @idClient=56078603
+-- exec all_data_for_simulator @idClient=12146734
+CREATE PROCEDURE [dbo].[all_data_for_simulator] 
+	-- Add the parameters for the stored procedure here
+	@idClient int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+ 
+    -- Insert statements for procedure here
+    -- MISPAR_POLISA_O_HESHBON
+    -- TypeRec
+    --  MyNoPolice
+    
+	SELECT     dbo.HeshbonOPolisaDBWithParams.*, dbo.CrossTabPerutYitraLeTkufa.till_2000, dbo.CrossTabPerutYitraLeTkufa.after_2000, dbo.CrossTabPerutYitraLeTkufa.till_2004, 
+                      dbo.CrossTabPerutYitraLeTkufa.till_2005, dbo.CrossTabPerutYitraLeTkufa.a2001_2007, dbo.CrossTabPerutYitraLeTkufa.a2006_2007, dbo.CrossTabPerutYitraLeTkufa.after_2008, 
+                      dbo.CrossTabPerutYitraLeTkufa.till_2002, dbo.CrossTabPerutYitraLeTkufa.pizuim, dbo.CrossTabPerutYitraLeTkufa.must_clalulate, dbo.CrossTabPirteiKisuiBeMutzar.LifeInsur, 
+                      dbo.CrossTabPirteiKisuiBeMutzar.Invalid, dbo.CrossTabPirteiKisuiBeMutzar.AccidentDeath, dbo.CrossTabPirteiKisuiBeMutzar.AccidentInvalid, dbo.CrossTabPirteiKisuiBeMutzar.LooseWork, 
+                      dbo.CrossTabPirteiKisuiBeMutzar.Shichrur, dbo.CrossTabPirteiKisuiBeMutzar.illness, dbo.CrossTabPirteiKisuiBeMutzar.Saving, dbo.CrossTabPirteiKisuiBeMutzar.LWandLifeInsur, 
+                      dbo.CrossTabPirteiKisuiBeMutzar.OtherKusui
+FROM         dbo.HeshbonOPolisaDBWithParams LEFT OUTER JOIN
+                      dbo.CrossTabPirteiKisuiBeMutzar ON dbo.HeshbonOPolisaDBWithParams.TypeRec = dbo.CrossTabPirteiKisuiBeMutzar.TypeRec AND 
+                      dbo.HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPirteiKisuiBeMutzar.MyNoPolice LEFT OUTER JOIN
+                      dbo.CrossTabPerutYitraLeTkufa ON dbo.HeshbonOPolisaDBWithParams.TypeRec = dbo.CrossTabPerutYitraLeTkufa.TypeRec AND 
+                      dbo.HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON = dbo.CrossTabPerutYitraLeTkufa.MyNoPolice
+	 
+	 WHERE HeshbonOPolisaDBWithParams.IdClient=@idClient 
+	 
+	  
+END
+
+GO
+
+

@@ -1,0 +1,517 @@
+<script id="templat_kisuim" type="text/html">
+    <!--  <input type="button" onclick="all_police_report('police_report')" value="דוח ביטוחים" />
+      &nbsp  
+      <input type="button" onclick="all_police_report('yitrot_le_tekupa_list')" value="דוח יתרות" />
+      <br/> !-->
+    <% debugger;  var index=Object.keys(data).length;
+       
+    for (var i=0; index>i; i++){ %>                
+            <% var heshbonot_o_polisot_obj=data[i].heshbon_o_polisa%>
+           <% var sug_mutzar=heshbonot_o_polisot_obj.SUG_MUTZAR%>
+            <div id="hashbon_o_polisa" class="show_hide_div2" >
+                    <h1>  פרטי הפוליסה </h1>
+                    <table border="1" id="heshbonot_o_polisot_table">
+                        <thead>
+                            <tr>
+                                <th> מספר פוליסה </th>
+                                <th>תאריך תחילה </th>
+                                <th> סוג המוצר   </th>
+                                <th> שם חברה  </th>
+                                <th> שם תוכנית  </th>
+                                <th>סוג התוכנית </th>
+                                <th> סוג פוליסה</th>
+                                <th>סטטוס </th>
+                                <th>  תאריך עדכון סטטוס  </th>
+                                <th>   תאריך קביעת מוטבים   </th>
+                                <th> תאריך נכונות</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <%=heshbonot_o_polisot_obj.MISPAR_POLISA_O_HESHBON %></td>
+                                <td> <%=heshbonot_o_polisot_obj.TAARICH_HITZTARFUT_RISHON %>  </td>
+                                <td> <%=heshbonot_o_polisot_obj.sug_mutzar%></td>
+                                              
+                                <td> <%=data[i].yeshut_yatzran.SHEM_YATZRAN %></td>
+                                <td> <%=heshbonot_o_polisot_obj.SHEM_TOCHNIT %>  </td>
+                                <td><%= heshbonot_o_polisot_obj.sug_tochnit%></td>
+                                <td><%= heshbonot_o_polisot_obj.sug_polisa%></td>
+                                <td>  <%=heshbonot_o_polisot_obj.status %> </td>
+                                <td> <%=heshbonot_o_polisot_obj.TAARICH_IDKUN_STATUS %></td>
+                                <td><%= heshbonot_o_polisot_obj.TAARICH_ACHRON_MOTAV_MUVET%></td>
+                             
+                                <td> <%=heshbonot_o_polisot_obj.TAARICH_NECHONUT %>  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            </br>  
+            <div id="hashbon_o_polisa_2" class="show_hide_div2" >
+                
+                    <table border="1" id="heshbonot_o_polisot_table">
+                        <thead>
+                            <tr>
+                                <th>  מסלול ק.פנסיה </th>
+                                <th>   סוג ק. פנסיה   </th>
+                                
+                                <th> תאריך תחילת ריסק זמני   </th>
+                                <th>  תאריך סיום ריסק זמני </th>
+                            
+                                <th> מדד בסיס</th>
+                                <th> הצמדה לתנאי ההלוואה </th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <%=heshbonot_o_polisot_obj.sug_keren_pensia %></td>
+                                <td> <%=heshbonot_o_polisot_obj.pensia_vatika_o_hadasha%></td>
+                                            
+                            
+                                <td> <%=heshbonot_o_polisot_obj.TAARICH_TCHILA_RISK_ZMANI %>  </td>
+                                <td><%= heshbonot_o_polisot_obj.TOM_TOKEF_RISK_ZMANI%></td>
+                                
+                                <td>  <%=heshbonot_o_polisot_obj.MADAD_BASIS %> </td>
+                                <td> <%=heshbonot_o_polisot_obj.azmada_lealvaha %>  </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+                </br>  
+            <div id="hashbon_o_polisa_3" class="show_hide_div2" >
+                    
+                    <table border="1" id="heshbonot_o_polisot_table">
+                        <thead>
+                            <tr>
+                                <th>  זכאות לאג"ח </th>
+                                <th>  שיעור האג"ח   </th>
+                                <th> הבטחת תשואה  </th>
+                                <th> תאריך סיום ההבטחה   </th>
+                                <th> מספר גמלאות </th>
+                                <th>  יש כספי תיקון 190</th>
+                                <th>קיים מבטח חיצוני </th>
+                                <th>כיסוי אישי קבוצתי  </th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <%=heshbonot_o_polisot_obj.kolel_zakaut_agach %></td>
+                                <td> <%=heshbonot_o_polisot_obj.SHIOR_AGACH_MEUADOT%></td>
+                                                
+                                <td> <%=heshbonot_o_polisot_obj.avtacht_tesoa %></td>
+                                <td> <%=heshbonot_o_polisot_obj.TAARICH_CIUM_AVTACHT_TESOA %>  </td>
+                                <td><%= heshbonot_o_polisot_obj.MISPAR_GIMLAOT%></td>
+                                <td><%= heshbonot_o_polisot_obj.TIKUN_190%></td>
+                                <td>  <%=heshbonot_o_polisot_obj.kayam_kisuy_hizoni %> </td>
+                                <td> <%=heshbonot_o_polisot_obj.kisuy_ishy_kvozati %>  </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            </br>
+            <%  var peruy_yitrot=data[i].yitrot.perut_yitrot_cross_tab%>
+            <%if(typeof(peruy_yitrot) !="undefined") {%>
+            <div id="perut_yitrot_kitzva">
+                                                   
+               
+                <%if(peruy_yitrot.kitzva.full==1){%>
+                    <h1>  יתרות לקצבה </h1>
+                 
+                    <table border="1" id="perut_yitra_table">
+                        <thead>
+                            <tr>
+                                <th> פיצויים   </th>
+                                <th>תגמולי עובד </th>
+                                <th>תגמולי מעביד </th>
+                                <th>תגמולי 47 </th>
+                                <th> אובדן כושר עבודה</th>
+                                <th>שונות עובד </th>
+                                <th>שונות מעביד </th>
+                                <th> קה"ש עובד</th>
+                                <th> קה"ש מעביד</th>
+                                <th>תגמולים פרט </th>
+                                
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <%=peruy_yitrot.kitzva[1] %></td>
+                                <td> <%=peruy_yitrot.kitzva[2] %>  </td>
+                                <td> <%=peruy_yitrot.kitzva[3] %></td>
+                                <td> <%=peruy_yitrot.kitzva[4] %>  </td>
+                                <td> <%=peruy_yitrot.kitzva[5] %></td>
+                                <td> <%=peruy_yitrot.kitzva[6] %>  </td>
+                                <td> <%=peruy_yitrot.kitzva[7] %></td>
+                                <td> <%=peruy_yitrot.kitzva[8] %>  </td>
+                                <td> <%=peruy_yitrot.kitzva[9] %></td>
+                                <td> <%=peruy_yitrot.kitzva[10] %>  </td>
+                                
+                             
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                <%} %>
+            </div>
+            <div id="perut_yitrot_hon">
+                    <%if(peruy_yitrot.hon.full==1){%>
+                        <h1>  יתרות להון </h1>
+                        <%=peruy_yitrot.kitzva.full%>
+                        <table border="1" id="perut_yitra_hon_table">
+                            <thead>
+                                <tr>
+                                    <th> פיצויים   </th>
+                                    <th>תגמולי עובד </th>
+                                    <th>תגמולי מעביד </th>
+                                    <th>תגמולי 47 </th>
+                                    <th> אובדן כושר עבודה</th>
+                                    <th>שונות עובד </th>
+                                    <th>שונות מעביד </th>
+                                    <th> קה"ש עובד</th>
+                                    <th> קה"ש מעביד</th>
+                                    <th>תגמולים פרט </th>
+                                    
+                                    
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> <%=peruy_yitrot.hon[1] %></td>
+                                    <td> <%=peruy_yitrot.hon[2] %>  </td>
+                                    <td> <%=peruy_yitrot.hon[3] %></td>
+                                    <td> <%=peruy_yitrot.hon[4] %>  </td>
+                                    <td> <%=peruy_yitrot.hon[5] %></td>
+                                    <td> <%=peruy_yitrot.hon[6] %>  </td>
+                                    <td> <%=peruy_yitrot.hon[7] %></td>
+                                    <td> <%=peruy_yitrot.hon[8] %>  </td>
+                                    <td> <%=peruy_yitrot.hon[9] %></td>
+                                    <td> <%=peruy_yitrot.hon[10] %>  </td>
+                                    
+                                 
+                                   
+                                </tr>
+                            </tbody>
+                        </table>
+                    <%}%>
+            </div>
+            <%}%>
+            <% debugger; var gil_prisha_with_kupa=data[i].yitra_lefi_gil_prisha_with_kupa%>
+            <div id="yitra_lefi_gil_prisha_with_kupa" class="show_hide_div2" >
+                    <h1> תחזית לגיל פרישה </h1>
+                    <table border="1" id="yitra_lefi_gil_prisha_with_kupa_table">
+                        <thead>
+                            <tr>
+                                <th>גיל פרישה </th>
+                                <th> אחוז התשואה בתחזית </th>
+                                <th>  חיסכון ג.פרישה כולל פרמיות </th>
+                                <th>  חיסכון ג.פרישה ללא פרמיות </th>
+                                <th> קצבה חודשית כולל פרמיות </th>
+                                <th>קצבה חודשית ללא פרמיות   </th>
+                               
+                                <th> מקדם מובטח   </th>
+                                <th> מקדם מובטח הכולל הבטחת תוחלת </th>
+                                <th> תוחלת החיים תלוי מסלול פרישה </th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td> <%=gil_prisha_with_kupa.GIL_PRISHA %></td>
+                                <td> <%=gil_prisha_with_kupa.ACHUZ_TSUA_BATACHAZIT %>  </td>
+                                <td><%= gil_prisha_with_kupa.TOTAL_CHISACHON_MITZTABER_TZAFUY%></td>
+                                <td><%= gil_prisha_with_kupa.TZVIRAT_CHISACHON_CHAZUYA_LELO_PREMIYOT%></td>
+                                              
+                                <td> <%=gil_prisha_with_kupa.SCHUM_KITZVAT_ZIKNA %></td>
+                                <td> <%=gil_prisha_with_kupa.KITZVAT_HODSHIT_TZFUYA %>  </td>
+                               
+                                
+                                <td>  <%=gil_prisha_with_kupa.MEKADEM_MOVTACH_LEPRISHA %> </td>
+                                <td> <%=gil_prisha_with_kupa.mekadem_havtachat_tochelet %></td>
+                                <td><%= gil_prisha_with_kupa.mekadem_havtachst_tocheletprisha%></td>
+                             
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <br/>
+            <div id="yitra_lefi_gil_prisha_with_kupa2" class="show_hide_div2" >
+                   
+                    <table border="1" id="yitra_lefi_gil_prisha_with_kupa2_table">
+                        <thead>
+                            <tr>
+                                
+                                <th> שם מסלול </th>
+                                <th>מקדם המגלם הבטחת תשואה </th>
+                                <th>מקדם הבטחת תשואה מוגבל בתקופה </th>
+                                <th> תקופת הגבלה בשנים</th>
+                                <th>שינויים בתוחלת משפיעים על קצבה </th>
+                                <th>  שינויים בתשואה משפיעים על קצבה </th>
+                                <th>  שיעור פנסיית זיקנה צפויה  </th>
+                               
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                
+                                
+                                <td> <%=gil_prisha_with_kupa.SHEM_MASLOL %>  </td>
+                                <td> <%=gil_prisha_with_kupa.mekadem_havtachat_tsua %>  </td>
+                                <td> <%=gil_prisha_with_kupa.mekadem_havtachat_tsuatkufa %>  </td>
+                                <td> <%=gil_prisha_with_kupa.TKUFAT_HAGBALA_BESHANIM %>  </td>
+                                <td> <%=gil_prisha_with_kupa.tochelet_mashpia_kitzva %>  </td>
+                                <td> <%=gil_prisha_with_kupa.tsua_mashpia_kitzva %>  </td>
+                                <td> <%=gil_prisha_with_kupa.SHEUR_PNS_ZIKNA_TZFUYA %>  </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <% var schumei_bituah_sesodi= data[i].kisuim[0].schumei_bituah_sesodi;   
+            var shem_kisui=data[i].kisuim[0].zihui_kisui.SHEM_KISUI_YATZRAN ;       
+            if( Object.keys(schumei_bituah_sesodi).length != 0 && schumei_bituah_sesodi.constructor === Object)  { %>
+            <div id="schumei_bituah_yesodi_div" class="show_hide_div2" >
+                    <h1>סכום ביטוח יסודי </h1>
+                    <br/>
+                    <table border="1" id="schumei_bituah_yesodi_table"  onclick="getId()">
+                        <thead>
+                            <tr>
+                            <th>מספר פוליסה</th>
+                            <th> שם כיסוי </th>
+                            <th>סוג הצמדה </th>
+                            <th> ס.הצמדת ד.ביטוח</th>
+                            <th>סוג מסלול</th>
+                            <th>סכום הביטוח כולל את החיסכון</th>
+                            <th> ס.ביטוח מבוקש </th>
+                            <th>  כפולות שכר </th>
+                            <th>אחוז ההקצאה לחיסכון</th>
+                            <th>תקרת גג חתם למקרה מוות</th>
+                            <th>תקרת גג חתם לאכע</th>
+                            <th> סכום הביטוח  </th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <tr >
+                                <td><%= schumei_bituah_sesodi.MyNoPolice %></td>
+                                <td><%=shem_kisui %></td>
+                                <td><%= schumei_bituah_sesodi.SugHatzmadaSchumBituah %></td>
+                                <td><%= schumei_bituah_sesodi.SugHatzmadaDmeiBituah %></td>
+                                <td><%= schumei_bituah_sesodi.SugMaslulLeBituah %></td>
+                                <td><%= schumei_bituah_sesodi.SchumBituahKolelChisachon %></td>
+                                <td><%= schumei_bituah_sesodi.SCHUM_BITUACH_LEMASLUL %></td>
+                                <td><%=schumei_bituah_sesodi.MISPAR_MASKOROT %></td>
+                                <td><%= schumei_bituah_sesodi.ACHUZ_HAKTZAA_LE_CHISACHON %></td>
+                                <td><%= schumei_bituah_sesodi.TIKRAT_GAG_HATAM_LEMIKRE_MAVET %></td>
+                                <td><%= schumei_bituah_sesodi.TIKRAT_GAG_HATAM_LE_O_K_A %></td>
+                                <td><%= schumei_bituah_sesodi.SCHUM_BITUAH_LEMAVET %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            <% } %>    
+            <br/>
+            <h1> פירטי כיסוי במוצר</h1>
+            
+            <div>
+                    <table border="1" id="pirtei_kisui_be_mutzar_table"  onclick="getId()">
+                        <thead>
+                            <tr>
+                            
+                            <th>תאריך תחילה </th>
+                            <th> סוג מבוטח  </th>
+                            <th> סוג הכיסוי </th>
+                            <th> שם הכיסוי </th>
+                            <th>  סוג עיסוק </th>
+                            <th>סכום ביטוח    </th>
+                            <th> פרמיה  </th>
+
+                            
+                            </tr>
+                        </thead>
+                        <% var kisuim_count=Object.keys(data[i].kisuim).length;
+                        for (var index_kisuim=0; kisuim_count>index_kisuim; index_kisuim++){ %>
+                        <% shem_kisui =data[i].kisuim[index_kisuim].zihui_kisui.SHEM_KISUI_YATZRAN ;
+                            var my_pirtei_kisui=data[i].kisuim[index_kisuim].pirtei_kisui_be_mutzar;%>
+                            <tbody>
+                                        <tr >
+                                                
+                                                
+                                                <td><%= my_pirtei_kisui.TAARICH_TCHILAT_KISUY %></td>
+                                                <td><%= my_pirtei_kisui.SugMevutach %></td>
+                                                <td><%= my_pirtei_kisui.SUG_KISUY_BITOCHI %></td>
+                                                <td><%= shem_kisui %></td>
+                                                <td><%=my_pirtei_kisui.SUG_ISUK %></td>
+
+                                                <%  if(_.isNull( my_pirtei_kisui.SCHUM_BITUACH)==false){
+                                                    var schum_bituach=Number( my_pirtei_kisui.SCHUM_BITUACH);
+                                                    schum_bituach=schum_bituach.toFixed();
+                                                    %>
+                                                    <td><%= schum_bituach %>  </td>
+                                                <% } else{ %>
+                                                    <td> </td>
+                                                <% }  %> 
+                        
+                                                <%  if(_.isNull( my_pirtei_kisui.DMEI_BITUAH_LETASHLUM_BAPOAL)==false){ 
+                                                    var my_dmei_bituach=Number(my_pirtei_kisui.DMEI_BITUAH_LETASHLUM_BAPOAL);
+                                                    my_dmei_bituach=my_dmei_bituach.toFixed(); %>
+                                                    <td><%=  my_dmei_bituach %>  </td>
+                                                <% } else{ %>
+                                                <td> </td>
+                                                <% }  %> 
+                                                
+
+                                            
+                                                
+                                                
+                                        </tr>
+                                
+                            </tbody>
+                        <% } %>
+                        </table>
+                    
+                
+            </div>
+             <%  var kisui_b_keren_pensia=data[i].kisuim[0].kisui_b_keren_pensia%>
+            <%if(sug_mutzar=="2") {%>
+            <div>
+               <h1>   קרן פנסיה</h1>
+                <table border="1" id="kisui_b_keren_pensia_table"  >
+                    <thead>
+                        <tr>
+                        
+                                <th> עלות כיסוי נכות  </th> 
+                                <th> עלות כיסוי פ.שארים של נכה  </th> 
+                                <th> שיעור כיסוי נכות   </th> 
+                                <th> שכר קובע לנכות ושאירים </th> 
+                                <th> תאריך  שכר קובע    </th> 
+                                <th> סוג ויתור שארים </th> 
+                                <th> סך פנסיית נכות  </th> 
+                                <th> נכות מתפתחת </th> 
+                                <th> ויתור על כיסוי  לנכות (מעל גיל 60) </th> 
+
+                        
+                        </tr>
+                    </thead>
+                   
+                    <tbody>
+                                <tr >
+                                        <td><%= kisui_b_keren_pensia.ALUT_KISUI_NECHUT %></td>    
+                                        <td><%= kisui_b_keren_pensia.ALUT_KISUI_PNS_SHRM_NECHE %></td>  
+                                        <td><%= kisui_b_keren_pensia.SHEUR_KISUY_NECHUT %></td>  
+                                        <td><%= kisui_b_keren_pensia.SACHAR_KOVEA_LE_NECHUT_VE_SHEERIM %></td>  
+                                        <td><%= kisui_b_keren_pensia.TAARICH_MASKORET_NECHUT_VE_SHEERIM %></td>  
+                                        <td> <%= kisui_b_keren_pensia.SUG_VITOR_SHAERIM %></td>
+                                        <td><%= kisui_b_keren_pensia.SACH_PENSIAT_NECHUT %></td>  
+                                        <td><%= kisui_b_keren_pensia.NECHUT_MITPATAHAT %></td>  
+                                        <td><%= kisui_b_keren_pensia.VITUR_KISUY_BITUCHI %></td>  
+                                      
+                                       
+
+                                    
+                                        
+                                        
+                                </tr>
+                        
+                    </tbody>
+                
+                </table>
+                </br>
+                <table border="1" id="kisui_b_keren_pensia2_table"  >
+
+                        <thead>
+                            <tr>
+                            
+                                    <th> עלות כיסוי שארים  </th> 
+                                    <th> שיעור כיסוי ליתום של עמית פעיל   </th> 
+                                    <th> ק.שארים לאלמן/ת עמית פעיל    </th> 
+                                    <th>  ק.שארים ליתום של עמית פעיל    </th> 
+                                    <th> ק.שארים להורה נתמך של עמית פעיל    </th> 
+                                    <th> תאריך חתימה על ויתור שארים </th> 
+                                    <th> תאריך סיום ויתור שארים </th> 
+                                    <th> שיעור כיסוי לאלמן/ת עמית פעיל   </th> 
+                            
+                            </tr>
+                        </thead>
+                       
+                        <tbody>
+                                    <tr >
+                                            <td><%= kisui_b_keren_pensia.ALUT_KISUY_SHEERIM %></td>      
+                                            <td><%= kisui_b_keren_pensia.SHIUR_KISUY_YATOM %></td>  
+                                            <td><%= kisui_b_keren_pensia.KITZBAT_SHEERIM_LEALMAN_O_ALMANA %></td>  
+                                            <td><%= kisui_b_keren_pensia.KITZBAT_SHEERIM_LEYATOM %></td>  
+                                            <td><%= kisui_b_keren_pensia.KITZBAT_SHEERIM_LEHORE_NITMACH %></td>  
+                                            <td><%= kisui_b_keren_pensia.TAARICH_VITOR_SHEERIM %></td>  
+                                            <td><%= kisui_b_keren_pensia.TAARICH_CIUM_VITOR_SEERIM %></td>  
+                                            <td><%= kisui_b_keren_pensia.SHIUR_KISUY_ALMAN_O_ALMANA %></td>  
+    
+                                        
+                                            
+                                            
+                                    </tr>
+                            
+                        </tbody>
+                    
+                </table>
+                </br>
+                <table border="1" id="kisui_b_keren_pensia3_table"  >
+                        
+                        <thead>
+                            <tr>
+                                    <th> שיעור כיסוי  להורה נתמך של עמית פעיל </th> 
+                                    <th> גיל פרישה לפנסיית זקנה    </th>
+                                    <th> סך פנסיית אלמן/ת עמית לא פעיל  </th> 
+                                    <th>  חודשי חברות רצופים בקרן הפנסיה </th> 
+                                    <th>  חודשי חברות מצטבר בקרן פנסיה ותיקה </th> 
+                                    <th> מנת פנסיה צבורה </th> 
+                                    <th> אחוז פנסיה צבורה  </th> 
+                                    <th> תאריך תחילת חברות </th> 
+                                    <th> תאריך ערך לנתונים </th> 
+                                    <th> האם קיימת הטבה ביטוחית </th> 
+                            
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                                    <tr >
+                                            <td><%= kisui_b_keren_pensia.SHIUR_KISUY_HORE_NITMACH %></td>    
+                                            <td><%= kisui_b_keren_pensia.GIL_PRISHA_LEPENSIYAT_ZIKNA %></td>    
+                                            <td><%= kisui_b_keren_pensia.SACH_PENSIYAT_ALMAN_O_ALMANA %></td>    
+                                            <td><%= kisui_b_keren_pensia.MISPAR_HODSHEI_HAVERUT_BEKEREN_HAPENSIYA %></td>    
+                                          
+                                            <td><%= kisui_b_keren_pensia.MISPAR_HODSHEI_HAVERUT_MITZ_BEKEREN_HAPENSIYA %></td>
+
+                                            <td><%= kisui_b_keren_pensia.MENAT_PENSIA_TZVURA %></td>    
+                                            <td><%= kisui_b_keren_pensia.AHUZ_PENSIYA_TZVURA %></td>    
+                                            <td><%= kisui_b_keren_pensia.TAARICH_TCHILAT_HAVERUT %></td>    
+                                            <td><%= kisui_b_keren_pensia.TAARICH_ERECH_LANENTUNIM %></td>  
+                                            
+                                            <td><%= kisui_b_keren_pensia.HATAVA_BITUCHIT %></td>    
+                                               
+                                             
+                                            
+    
+                                        
+                                            
+                                            
+                                    </tr>
+                            
+                        </tbody>
+                    
+                </table>
+                                        
+            </div>
+            <%}%>
+            <br/>
+        
+    <% } %>
+  </script>

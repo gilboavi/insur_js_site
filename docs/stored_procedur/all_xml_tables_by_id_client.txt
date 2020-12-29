@@ -1,0 +1,95 @@
+USE [InsurDB]
+GO
+
+/****** Object:  StoredProcedure [dbo].[all_xml_tables_by_id_client]    Script Date: 01/29/2018 13:15:58 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[all_xml_tables_by_id_client] 
+	-- Add the parameters for the stored procedure here
+	@id_client int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+   
+    
+   
+    
+    -- 0  clientList  
+       SELECT * FROM  Clients WHERE (id=@id_client)
+    -- 1 HotzaotBafoalLehodeshDivoachDBWithParams
+	   SELECT * FROM  HotzaotBafoalLehodeshDivoachDBWithParams WHERE (IdClient=@id_client)
+	-- 2 KisuiBKerenPensiaDBWithParams
+	  SELECT * FROM  KisuiBKerenPensiaDBWithParams WHERE (IdClient=@id_client)
+	-- 3 KupaDBWithParams
+	  SELECT * FROM  KupaDBWithParams WHERE (IdClient=@id_client)
+    -- 4 PerutHafkadotMetchilatShana_procedur --
+      exec PerutHafkadotMetchilatShana_procedur @id_client  
+    -- 5 PerutHafkadotMetchilatShanaDB_avg_pro --
+      exec PerutHafkadotMetchilatShanaDB_avg_pro @id_client
+    -- 6 PerutHafrashotLePolisa_procedure --
+	  exec PerutHafrashotLePolisa_procedure @id_client 
+    -- 7 PerutMasluleiHashkaa_procedure --  
+      exec PerutMasluleiHashkaa_procedure @id_client
+    -- 8 PerutMivneDmeiNihul_procedure
+      exec PerutMivneDmeiNihul_procedure @id_client
+    -- 9 PerutHafkadaAchronaDBWithParams
+      Select * from PerutHafkadaAchronaDBWithParams where (IdClient=@id_client) 
+    -- 10 PerutPirteiHafkadaAchronaDBWithParams
+      Select * from PerutPirteiHafkadaAchronaDBWithParams where (IdClient=@id_client)
+    -- 11 PerutYitrotLesofShanaKodemeDBWithParams
+      Select * from PerutYitrotLesofShanaKodemeDBWithParams where (IdClient=@id_client)
+    
+    -- 12 PerutYitraLeTkufaDBWithParams
+     Select * from PerutYitraLeTkufaDBWithParams where (IdClient=@id_client)
+    -- 13 PerutYitraLeTkufaDBWithParams after 2000
+      Select * from PerutYitraLeTkufaDBWithParams where (IdClient=@id_client) and (KOD_TECHULAT_SHICHVA!=1)
+    -- 14 PerutYitraLeTkufaDBWithParams till 2000
+      Select * from PerutYitraLeTkufaDBWithParams where (IdClient=@id_client) and (KOD_TECHULAT_SHICHVA=1)
+    -- 15 PerutYitraLeTkufaById_Procedure
+      exec PerutYitraLeTkufaById_Procedure @id_client
+    -- 16 CrosstabPerutYitrotDB
+      Select * from CrosstabPerutYitrotDB where (IdClient=@id_client)
+    -- 17 PerutYitrotDBWithParams
+      Select * from PerutYitrotDBWithParams where (IdClient=@id_client)
+    -- 18 PirteiHaasakaDBWithParams
+        Select * from PirteiHaasakaDBWithParams where (IdClient=@id_client)
+    --  19 PirteiKisuiBeMutzarDBWithParam --
+       SELECT * FROM  PirteiKisuiBeMutzarDBWithParam WHERE IdClient=@id_client
+    --20 CrossTabPirteiKisuiBeMutzarSP --
+      exec CrossTabPirteiKisuiBeMutzarSP @id_client
+    -- 21 CrossTabPirteiKisuiBeMutzarPrmiaSP --
+      exec CrossTabPirteiKisuiBeMutzarPrmiaSP @id_client
+    -- 22 PirteiOvedById_procedure
+	  exec PirteiOvedById_procedure @id_client	
+    -- 23 HeshbonOPolisaDBWithParams oplice
+	   SELECT * FROM  HeshbonOPolisaDBWithParams WHERE (IdClient=@id_client) And (SUG_MUZAR !=4)
+	  ORDER BY MY_SUG_MUZAR
+    -- 24 HeshbonOPolisaDBWithParams kern hishtalmut
+	   SELECT * FROM  HeshbonOPolisaDBWithParams WHERE (IdClient=@id_client) And (SUG_MUZAR =4)
+    -- 25 SchumeiBituahYesodiDBWithParam
+       SELECT * FROM  SchumeiBituahYesodiDBWithParam WHERE (IdClient=@id_client)
+    
+    -- 26 YitraLefiGilPrishaWithParams
+      Select * from YitraLefiGilPrishaWithParams where (IdClient=@id_client) 
+    -- 27 CrosstabPerutYitraLeTkufa_2000
+       exec CrosstabPerutYitraLeTkufa_2000 @id_client
+    -- 28 PerutMivneDmeiNihul_crosstab
+       Select * from PerutMivneDmeiNihul_crosstab where (IdClient=@id_client) 
+ END
+
+
+GO
+
+

@@ -1,0 +1,69 @@
+<script id="templat_families_list" type="text/html">
+    
+        <!-- <a href="#" onclick=" new_communication()"> הוספת תקשורת</a> !-->
+       
+    <input type="hidden" name="client_serial" id="client_serial" value="<%= data.client_serial  %> "  />
+    <br/>
+
+   
+    <div id="SubDiv"  style="display:none" ></div>
+
+    <div id="MainDiv" style="display:block" > 
+           
+        <table>
+            <tr >
+                <td style="vertical-align: top;"> 
+                    <div id="families_div" >  
+                        <table border="1"  id="families_table" >
+                            <thead > 
+                                <tr >
+                                
+                                    <th class="comuniction_table">שם משפחה</th>
+                                    <th class="comuniction_table">שם פרטי</th>
+                                    <th class="comuniction_table">כתובת</th>
+                                    <th class="comuniction_table">עיר</th>
+                                    <th class="comuniction_table"> הערה</th>
+                                    <th class="comuniction_table"><input type="button" onclick="edit_families(0)" value="חדש"  class="font_color_purpl"/> </th> 
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if(data.Femilies_list.length >0) {
+                                    $.each(data.Femilies_list, function(rowindex,row) {%>
+                                    <tr>
+                                        <% var my_serial=0;
+                                            $.each(row, function(key,val){  
+                                            if(key!="Serial" && key!="Mone" && key!="FamilySerial") {%>
+                                            <td><%= val%></td>
+                                        <% } else { 
+                                            if(key=="Serial"){
+                                                my_serial=val;
+                                            }
+                                        } });%>
+                                        <td>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                                        aria-expanded="false">
+                                                        בחר  <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu" role="menu">
+                                                            <li> <a href="#" onclick=" edit_families(<%=my_serial %>)"> עריכה</a> </li>
+                                                            <li> <a href="#" onclick=" get_familiesMembers_by_familiesSerial(<%=my_serial %>)"> בני משפחה</a> </li>
+                                                            <li> <a href="#" onclick=" add_familiesMembers(<%=my_serial %>)"> הוסף בני משפחה</a> </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                    </tr>
+                                <%}) }; %>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+                <td style="vertical-align: top;" >
+                    <div id="family_members_div"> </div>
+                    <div id="families_members_div"> </div>
+                </td>
+            </tr> 
+        </table>
+    </div>
+    </script>

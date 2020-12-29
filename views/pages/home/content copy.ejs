@@ -1,0 +1,126 @@
+﻿ <form id="form_home" name="form_home" onsubmit="return false;">
+ <!--  home -->
+ 
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+     
+              <li> <input id="typehead" type="hidden" class="select2width" /></li>
+              <li> <a href="/">    ראשי    </a> </li>
+              <li><a href="./client/"  >לקוח </a></li>
+          
+            ﻿<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">מעקבים <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                      <li><a href="javscript:void(0)" home-menu="conversation_filtering">משימות</a></li>
+                    <li><a href="javscript:void(0)" home-menu="gemel_filtering">מעקב גמל</a></li>
+                    <li><a href="javscript:void(0)" home-menu="follow_checks_filter">מעקב שקים</a></li>
+                    <li><a href="javscript:void(0)" home-menu="proposal_life_filter">מעקב הצעות חיים</a></li>
+                    <li><a href="javscript:void(0)" home-menu="meeting_filter">מעקב פגישות</a></li>
+                  
+                </ul>
+            </li>
+          ﻿<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">חתוכים <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                        <li><a href="javscript:void(0)" home-menu="cuts">לקוחות</a></li>
+                  
+                </ul>
+            </li>   
+            
+            
+            
+            <li><a href="./maintaining/" home-menu="">תחזוקה </a></li>
+             
+          ﻿<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">חתוכים <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                        <li><a href="javscript:void(0)" home-menu="cuts">לקוחות</a></li>
+                  
+                </ul>
+            </li> 
+            
+         
+          ﻿<li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">קבצים <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="javscript:void(0)" home-menu="read_xml2">xml</a></li>
+                  
+                </ul>
+            </li> 
+            
+            
+        </ul>
+
+      </div>
+    </nav>
+       <br />
+      <br />
+      <br />
+     <div id="flg_div">
+          <input  class="flg_div" type="hidden" name="conversations_filtering_flg" id="conversations_filtering_flg" />
+           <input class="flg_div" type="hidden" name="client_filtering_flg" id="client_filtering_flg" />
+           <input  class="flg_div" type="hidden" name="cuts_filtering_flg" id="cuts_filtering_flg" />
+           <input  class="flg_div" type="hidden" name="cuts_result_flg" id="cuts_result_flg" />
+           <input  class="flg_div" type="hidden" name="kupa_gemel_filter_flg" id="kupa_gemel_filter_flg" />
+          <input  class="flg_div" type="hidden" name="follow_checks_filter_flg" id="follow_checks_filter_flg" />
+           <input  class="flg_div" type="hidden" name="meeting_filter_flg" id="meeting_filter_flg" />
+           <input  class="flg_div" type="hidden" name="proposal_life_filtering_flg" id="proposal_life_filtering_flg" />
+           <input  class="flg_div" type="hidden" name="read_xml_flg" id="read_xml_flg" />
+         
+     </div>
+      <div id="hidden_div">
+            <div class="show_hide_div" id="conversations_filtering_div"></div>
+            <div class="show_hide_div" id="client_filtering_div"></div>
+            <div class="show_hide_div" id="cuts_filtering_div"> </div>
+            <div  class="show_hide_div"  id="cuts_result_div"></div>
+            <div class="show_hide_div" id="kupa_gemel_filter_div"> </div>
+           <div class="show_hide_div" id="follow_checks_filter_div"> </div>
+          <div class="show_hide_div" id="meeting_filter_div"> </div>
+            <div class="show_hide_div" id="proposal_life_filtering_div">
+
+                  <table id="hierarchical_proposal_life_grid" class="hierarchical_grid" onclick="" ></table>
+            </div>        
+             <div class="show_hide_div"    id="read_xml_div">   </div>         
+    </div>
+
+      
+
+
+
+
+</form>
+
+
+
+<$- include("../client/client_filtering") $>
+<$- include("../conversation/edit_conversation") $>
+<$- include("../conversation/conversations_filtering") $>
+<$- include("../conversation/conversation_filtering_list") $>
+
+<$- include("../followup_conversation/followup_conversation_list") $>
+<$- include("../followup_conversation/edit_followup_conversation") $>
+<$- include("../cuts/cuts") $>
+<$- include("../cuts/cuts_resul") $>
+<$- include("../kupa_gemel/kupa_gemel_filter") $>
+<$- include("../kupa_gemel/kupa_gemel_list") $>
+<$- include("../follow_checks/follow_checks_list") $>
+<$- include("../follow_checks/follow_checks_for_filter") $>
+<$- include("../follow_checks/edit_follow_checks") $>
+<$- include("../meeting/meeting_list") $>
+
+<$- include("../mimshak/upload_xml") $>
+<$- include("../life_police/police_xml") $>
+<$- include("../life_police/ricuz_police_mimshk") $>
+
+
+<$- include("../client/client_filtering") $>
+
+<$- include("../life_police/police_xml_object") $>
+<$- include("../life_police_mimshk/kisuim") $>
+
+	

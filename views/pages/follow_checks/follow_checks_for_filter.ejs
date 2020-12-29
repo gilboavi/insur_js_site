@@ -1,0 +1,79 @@
+﻿<script id="templat_follow_checks_for_filter" type="text/html">
+     <form id="followChecksForFilter" name="followChecksForFilter">
+    
+
+        <table>
+            <tr>
+                <td>
+                    
+                    <div>
+                        <input type="checkbox" name="checkbox_employer" />
+                        &nbsp
+                           שם מעסיק
+
+                       </div>
+                </td>
+                <td>
+                    <div>
+                        <select name="employer">
+                            <option value="0" > </option>
+                            <%   
+                            $.each(data.employer_list, function(key,val){
+                                            
+                                                  %>
+                                <option value="<%=val.Serial%>" ><%=val.ParamName %></option>
+
+
+                                <% });%>
+                        </select>
+                    </div>
+                </td>
+
+                <td>
+                    <div>  <input type="checkbox" name="checkbox_company" />
+                     
+                        &nbsp שם חברה</div>
+                    <div>
+                        <select name="company" >
+                            <option value="0" > </option>
+                            <%    $.each(data.company_list, function(key,val){
+                                                     %>
+                                <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+
+                                <%  });%>
+                              </select>
+                    </div>
+                </td>
+
+
+
+                <td>
+                    <div><input type="checkbox" name="checkbox_purpose_check" />
+                        &nbsp יעוד השק </div>
+                    <div>
+                        <select name="purpose_check">
+                            <option value="0" > </option>
+                            <%    $.each(data.purpose_check_list, function(key,val){
+                                            %>
+                                <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+
+                                <% });%>
+                      </select>
+                    </div>
+                </td>
+               
+               <td>
+                  <input type="button" onclick="get_follow_checks_after_filtering()" value="בצע" />
+               </td>
+                
+              
+            </tr>
+
+
+        </table >
+        <div id="follow_checks_result"></div>
+
+
+       
+   </form>  
+</script>

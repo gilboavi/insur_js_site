@@ -1,0 +1,7 @@
+SELECT     dbo.HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON, dbo.HeshbonOPolisaDBWithParams.IdClient, dbo.HeshbonOPolisaDBWithParams.CompanyName, 
+                      dbo.HeshbonOPolisaDBWithParams.SHEM_TOCHNIT, dbo.HeshbonOPolisaDBWithParams.SugTochnit, dbo.HeshbonOPolisaDBWithParams.StatusPolisa, 
+                      dbo.HeshbonOPolisaDBWithParams.TAARICH_HITZTARFUT_RISHON, dbo.HeshbonOPolisaDBWithParams.TOTAL_HAFKADA, dbo.PerutYitrot_hishtalmut.premia_hishtalmut
+FROM         dbo.HeshbonOPolisaDBWithParams LEFT OUTER JOIN
+                      dbo.PerutYitrot_hishtalmut ON dbo.HeshbonOPolisaDBWithParams.TypeRec = dbo.PerutYitrot_hishtalmut.TypeRec AND 
+                      dbo.HeshbonOPolisaDBWithParams.MISPAR_POLISA_O_HESHBON = dbo.PerutYitrot_hishtalmut.MyNoPolice
+WHERE     (dbo.HeshbonOPolisaDBWithParams.SUG_MUZAR = 4)

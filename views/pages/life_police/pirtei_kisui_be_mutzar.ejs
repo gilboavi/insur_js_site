@@ -1,0 +1,102 @@
+
+<script id="templat_pirtei_kisui_be_mutzar" type="text/html">
+        <h1>סכום ביטוח יסודי </h1>
+        <br/>
+        <table border="1" id="schumei_bituah_yesodi_table"  onclick="getId()">
+            <thead>
+                <tr>
+                <th>מספר פוליסה </th>
+                <th> שם המסלול </th>
+                <th> סוג מסלול </th>
+                <th>  ? סוכם הביטוח כולל חיסכון    </th>
+                <th>  ס.ביטוח למסלול  ס.ביטוח מבוקש </th>
+                <th>  מ.משכורות  למסלול כפולות שכר </th>
+                <th> סכום הביטוח  </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(data.schumei_bituah_yesodi.length>0)  { %> 
+                <tr >
+              
+                    <td><%= data.schumei_bituah_yesodi[0].MyNoPolice %></td>
+                    <td><%= data.schumei_bituah_yesodi[0].SHEM_KISUI_YATZRAN %></td>
+                    <td><%= data.schumei_bituah_yesodi[0].SugMaslulLebituah %></td>
+                    <td><%= data.schumei_bituah_yesodi[0].SchumBituahKolel %></td>
+
+                
+                    <%  if(_.isNull( data.schumei_bituah_yesodi[0].SCHUM_BITUACH_LEMASLUL)==false){ %>
+                        <td><%=  ( data.schumei_bituah_yesodi[0].SCHUM_BITUACH_LEMASLUL).toFixed() %>  </td>
+                    <% } else{ %>
+                    <td> </td>
+                    <% }  %> 
+                    
+                    <td><%= data.schumei_bituah_yesodi[0].MISPAR_MASKOROT %></td>
+                
+
+                    
+                    <%  if(_.isNull( data.schumei_bituah_yesodi[0].SCHUM_BITUAH_LEMAVET)==false){ %>
+                        <td><%=  ( data.schumei_bituah_yesodi[0].SCHUM_BITUAH_LEMAVET).toFixed() %>  </td>
+                    <% } else{ %>
+                    <td> </td>
+                    <% }  %> 
+                </tr>
+                <%}%>
+            </tbody>
+        </table>
+        <br/>
+        <h1> פירטי כיסוי במוצר</h1>
+        <br/>
+
+        <a href="#" onclick=" $('#pirtei_kisui_be_mutzar_table').table2CSV()">שלח לאקסל</a>
+        <br/>
+       
+         <table border="1" id="pirtei_kisui_be_mutzar_table"  onclick="getId()">
+             <thead>
+                 <tr>
+                    <th>מספר פוליסה </th>
+                    <th>תאריך תחילה </th>
+                    <th> סוג מבוטח  </th>
+                    <th> סוג הכיסוי </th>
+                    <th> שם הכיסוי </th>
+                    <th>  סוג עיסוק </th>
+                    <th>סכום ביטוח    </th>
+                    <th> פרמיה  </th>
+                
+                    
+                   
+       
+                   
+                   
+                 </tr>
+             </thead>
+             <tbody>
+                    <% $.each(data.pirtei_kisui_be_mutzar_list, function(rowindex,row)         {%>
+                         <tr >
+                            
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].MyNoPolice %></td>
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].TAARICH_TCHILAT_KISUY %></td>
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].SugMevutach %></td>
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].SUG_KISUY_BITOCHI_str %></td>
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].SHEM_KISUI_YATZRAN %></td>
+                                   <td><%= data.pirtei_kisui_be_mutzar_list[rowindex].SUG_ISUK_str %></td>
+
+                                   <%  if(_.isNull( data.pirtei_kisui_be_mutzar_list[rowindex].SCHUM_BITUACH)==false){ %>
+                                    <td><%=  ( data.pirtei_kisui_be_mutzar_list[rowindex].SCHUM_BITUACH).toFixed() %>  </td>
+                                <% } else{ %>
+                                  <td> </td>
+                                <% }  %> 
+        
+                                <%  if(_.isNull( data.pirtei_kisui_be_mutzar_list[rowindex].DMEI_BITUAH_LETASHLUM_BAPOAL)==false){ %>
+                                  <td><%=  ( data.pirtei_kisui_be_mutzar_list[rowindex].DMEI_BITUAH_LETASHLUM_BAPOAL).toFixed() %>  </td>
+                                <% } else{ %>
+                                <td> </td>
+                                <% }  %> 
+                                  
+                                 
+                         </tr>
+                    <%}); %>
+                </tbody>
+         </table>
+
+
+</script>

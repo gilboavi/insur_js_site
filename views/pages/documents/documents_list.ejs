@@ -1,0 +1,47 @@
+﻿<script id="templat_documents_list" type="text/html">
+      <a href="#" onclick=" edit_document(0)">מסמך חדש</a>
+    <br/> <br/>
+    <table id="documents_table" >
+        <thead>
+            <tr>
+               
+                <th>תאריך המסמך</th>
+                <th>תקציר המסמך &nbsp &nbsp
+                     <input type="text" class="black_text" id="documents_table_comment" size="10" onkeyup="filter_my_table('documents_table')" /> 
+                    </th>
+                <th>סוג המסמך</th>
+                <th>מספר פוליסה </th>
+                <th>שם קובץ </th>
+                <th>בחר</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data, function(rowindex,row) {%>
+                 <tr>
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                        <td>
+                                <div class="btn-group">
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        בחר  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                            <li> <a href="#" onclick=" edit_document(<%= val%>)"> עריכה</a> </li>
+                                            <li> <a href="#" onclick=" file_by_serial(<%= val%>)"> צפה</a> </li>
+                                    </ul>
+                                </div>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+ 
+    
+    <script type="text/javascript" >
+       
+  </script>
+</script>

@@ -1,0 +1,39 @@
+
+
+chov_pigur_array:Array[1] [Object]
+halvaa_array:Array[1] [Object]
+heshbon_o_polisa:Object {KOD_MEZAHE_YATZRAN: "512065202", IdClient: "0000000051032357", SUG_MUTZAR: "4" …}
+kisuim:Array[1] [Object]
+ktovet_lemishloach:Object {KOD_MEZAHE_YATZRAN: "512065202", MyNoPolice: "033-245-472185-000", TypeRec: 299.7017156370798 …}
+maslul_bituach_array:Array[1] [Object]
+netunei_amit_o_mevutach:Object {KOD_MEZAHE_YATZRAN: "512065202", MyNoPolice: "033-245-472185-000", TypeRec: 299.7017156370798 …}
+perut_hafkadot_metchilat_shana_array:Array[12] [Object, Object, Object …]
+perut_hafrashot_le_polisa_arry:Array[2] [Object, Object]
+perut_hotzaot:Object {hotzaot_bafoal_lehodesh_divoach: Object, mivne_dmei_nihul_array: Array[0]}
+perut_maslulei_hashkaa_array:Array[2] [Object, Object]
+perut_meyupe_koach:Object {KOD_MEZAHE_YATZRAN: "512065202", MyNoPolice: "033-245-472185-000", TypeRec: 299.7017156370798 …}
+perut_mitryot_array:Array[1] [Object]
+perut_shiabud_ikul:Object {KOD_MEZAHE_YATZRAN: "512065202", MyNoPolice: "033-245-472185-000", TypeRec: 299.7017156370798 …}
+perut_yitrot_sesof_shana_kodemet:Object
+pirtei_hafkada_achrona_array:Array[0]
+
+
+
+
+pirtei_oved:Object {KOD_MEZAHE_YATZRAN: "512065202", MyNoPolice: "033-245-472185-000", TypeRec: 299.7017156370798 …}
+pirtey_tvia_array:Array[1] [Object]
+sheer_array:Array[1] [Object]
+taktziv_netunei_gvia:Object
+taktziv_pirtei_haasaka:undefined
+tsua:Object
+
+
+yeshut_lakoach:Object {SUG_MEZAHE_LAKOACH: "1", MISPAR_ZIHUY_LAKOACH: "0000000051032357", SHEM_PRATI: "וילף רבקה" …}
+yeshut_yatzran:Object {KOD_MEZAHE_YATZRAN: "512065202", SHEM_YATZRAN: "מיטב דש גמל ופנסיה בע"מ", ParamName: "מיטב דש גמל ופנסיה בע"מ"}
+yitra_lefi_gil_prisha_array:Array[1] [Object]
+yitra_lefi_gil_prisha_with_kupa:Object {KOD_MEZAHE_YATZRAN: "512065202", Mone: 69, MyNoPolice: "033-245-472185-000" …}
+yitrot:Object {yitrot: Object, perut_yitrot_array: Array[2], perut_yitra_le_tkufa_array: Array[2] …}
+
+
+
+ 

@@ -1,0 +1,29 @@
+﻿<script id="template_list" type="text/html">
+      <a href="#" onclick=" new_param()">חדש</a>
+    <input type="hidden" id="my_serial" name="my_serial" value="<%=data.my_serial%>"
+    <br />
+    <table border="1" id="table_param" >
+        <thead>
+            <tr>
+               
+                <th>פרוט</th>
+               <th>עריכה</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% $.each(data.main, function(rowindex,row) {%>
+                 <tr onclick="getId(this)">
+                       <% $.each(row, function(key,val){  
+                          if(key!="Serial") {%>
+                           <td><%= val%></td>
+                     <% } else { %>
+                          <td> <a href="#" onclick="edit_param(<%= val%>)"> edit</a> </td>
+                       <%} });%>
+                 </tr>
+            <%}); %>
+        </tbody>
+    </table>
+    <script type="text/javascript" >
+      
+  </script>
+</script>

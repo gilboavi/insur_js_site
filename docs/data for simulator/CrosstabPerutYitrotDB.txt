@@ -1,0 +1,5 @@
+SELECT     TOP (100) PERCENT [MyNoPolice], TypeRec, idClient, [1] AS pizuim_pidion, [2] AS tg_worker_pidion, [3] AS tg_bos_pidion, [4] AS s_47_pidion, [5] AS other_worker_pidion, [6] AS other_bos_pidion, 
+                      [7] AS histalmut_worker_pidion, [8] AS histalmut_bos_pidion, [9] AS perat_pidion, [10] AS other_pidion
+FROM         (SELECT     [MyNoPolice], TypeRec, TOTAL_CHISACHON_MTZBR, KOD_SUG_HAFRASHA, idClient
+                       FROM          [InsurDB].[PerutYitrotDBWithParams]) ps PIVOT (sum([TOTAL_CHISACHON_MTZBR]) FOR [KOD_SUG_HAFRASHA] IN ([1], [2], [3], [4], [5], [6], [7], [8], [9], [10])) AS pvt
+ORDER BY MyNoPolice

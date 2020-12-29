@@ -1,0 +1,32 @@
+<script id="templat_families_list" type="text/html">
+    
+        <!-- <a href="#" onclick=" new_communication()"> הוספת תקשורת</a> !-->
+         <br/>
+         <br/>
+        <table border="1"  id="families_table" >
+            <thead > 
+                <tr >
+                   
+                    <th class="comuniction_table">שם משפחה</th>
+                    <th class="comuniction_table">כתובת</th>
+                    <th class="comuniction_table">עיר</th>
+                    <th class="comuniction_table"> הערה</th>
+                    <th class="comuniction_table" ><input type="button" onclick="edit_families(0)" value="חדש"  class="font_color_purpl"/></th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <% $.each(data, function(rowindex,row) {%>
+                     <tr>
+                           <% $.each(row, function(key,val){  
+                              if(key!="Serial") {%>
+                               <td><%= val%></td>
+                         <% } else { %>
+                              <td> <a href="#" onclick=" edit_families(<%= val%>)"> עריכה</a> </td>
+                           <%} });%>
+                     </tr>
+                <%}); %>
+            </tbody>
+        </table>
+      
+    </script>
