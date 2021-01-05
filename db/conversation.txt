@@ -1,0 +1,55 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[conversation]    Script Date: 12/31/2020 07:16:42 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[conversation](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NOT NULL,
+	`meeting_serial` int NULL,
+	`datee` datetime NOT NULL,
+	`get_call_name` int NOT NULL,
+	`send_to_user_by` int NULL,
+	`delivered_to` int NULL,
+	`summary_of_conversation` Longtext NULL,
+	`day_to_call` datetime NULL,
+	`goal_of_talk` int NOT NULL,
+	`priority` int NULL,
+	`immediately` Tinyint NOT NULL,
+	`to_execution` Tinyint NOT NULL,
+	`sum_sale` int NULL,
+	`meeting` Tinyint NOT NULL,
+	`sale` Tinyint NOT NULL,
+	`yozma` Tinyint NOT NULL,
+	`done` Tinyint NOT NULL,
+	`suspend` Tinyint NOT NULL,
+	`hour_to_call` datetime NULL,
+	`form_is_openn` Tinyint NOT NULL,
+	`type_of_call` int NULL,
+	`status_get_call_name` Tinyint NOT NULL,
+	`type_followup_conversation` int NULL,
+	`no_police` nvarchar(20) NULL,
+	`data_of_sending` datetime NULL,
+	`type_tevia` int NULL,
+	`hour_of_datee` nvarchar(10) NULL,
+ CONSTRAINT `PK_talks` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY] TEXTIMAGE_ON `PRIMARY`
+
+GO
+
+ALTER TABLE `dbo`.`conversation`  WITH CHECK ADD  CONSTRAINT `FK_conversation_clients` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`conversation` CHECK CONSTRAINT `FK_conversation_clients`
+GO
+
+

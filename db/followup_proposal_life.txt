@@ -1,0 +1,33 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[followup_proposal_life]    Script Date: 12/31/2020 09:20:18 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[followup_proposal_life](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`followup_proposal_life_serial` int NULL,
+	`status_followup_proposal_lLife` int NULL,
+	`datee` datetime NULL,
+	`get_call_name` int NULL,
+	`comment` nvarchar(250) NULL,
+ CONSTRAINT `PK_followup_proposal_life` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`followup_proposal_life`  WITH CHECK ADD  CONSTRAINT `FK_followup_proposal_life` FOREIGN KEY(`followup_proposal_life_serial`)
+REFERENCES [dbo].[ProposalLife] (`Serial`)
+GO
+
+ALTER TABLE `dbo`.`followup_proposal_life` CHECK CONSTRAINT `FK_followup_proposal_life_proposallife`
+GO
+
+

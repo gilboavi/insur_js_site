@@ -1,0 +1,38 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[mail_tracking]    Script Date: 12/31/2020 11:18:46 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[mail_tracking](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`to_address` Longtext NOT NULL,
+	`to_address_cc` Longtext NULL,
+	`from_address` nvarchar(50) NOT NULL,
+	`mail_replay_to` nvarchar(150) NULL,
+	`mail_body` Longtext NOT NULL,
+	`attachmemts_from__documents` Longtext NULL,
+	`date_send` datetime NULL,
+	`mail_status` tinyint NULL,
+	`user_serial` int NULL,
+ CONSTRAINT `PK_mail_tracking` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY] TEXTIMAGE_ON `PRIMARY`
+
+GO
+
+ALTER TABLE `dbo`.`mail_tracking`  WITH CHECK ADD  CONSTRAINT `FK_mail_tracking_clients` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`MailTracking` CHECK CONSTRAINT `FK_MailTracking_Clients`
+GO
+
+

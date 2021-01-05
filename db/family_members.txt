@@ -1,0 +1,25 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[family_members]    Script Date: 12/31/2020 09:02:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[family_members](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`families_serial` int NULL,
+	`clien_serial` int NULL,
+	`member_type` nvarchar(50) NULL,
+	`comment` nvarchar(150) NULL,
+ CONSTRAINT `PK_family_members` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+

@@ -1,0 +1,61 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[kupa_gemel]    Script Date: 12/31/2020 10:36:14 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[Kupakupa_gemelGemel](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`serialClaint` int NULL,
+	`id` int NULL,
+	`type_k_kKupa` int NULL,
+	`shlav_tipul` int NULL,
+	`no_amit` int NULL,
+	`date_open` datetime NULL,
+	`date_sign` datetime NULL,
+	`dmay_nihul` Double NULL,
+	`NameKupa` int NULL,
+	`summ` Double NULL,
+	`premia` Double NULL,
+	`agent` int NULL,
+	`comment` nvarchar(250) NULL,
+	`zvira` Tinyint NULL,
+	`premia_stop` Tinyint NULL,
+	`tipul` Tinyint NULL,
+	`kupa_old` nvarchar(35) NULL,
+	`no_amit_old` nvarchar(50) NULL,
+	`no_kupa` int NULL,
+	`date_vetek` datetime NULL,
+	`ytra_open` Double NULL,
+	`profit` Double NULL,
+	`tagbulim` Double NULL,
+	`date_update` nvarchar(12) NULL,
+	`send_to__old_kupa` datetime NULL,
+	`date_tTransfer` Double NULL,
+	`take_care_name` int NULL,
+	`send_by` int NULL,
+	`shlav_tipul_date` datetime NULL,
+	`company` int NULL,
+	`no_agent_in_company` int NULL,
+	`employer` int NULL,
+ CONSTRAINT `PK_kupa_gemel` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`kupa_gemel`  WITH CHECK ADD  CONSTRAINT `FK_kupa_gemel_clients` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`kupa_gemel` CHECK CONSTRAINT `FK_kupa_gemel_clients`
+GO
+
+

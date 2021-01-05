@@ -1,0 +1,54 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[proposal]    Script Date: 12/31/2020 09:43:20 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[proposal](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`counter_proposal` int NULL,
+	`id` int NULL,
+	`begin_insur` datetime NULL,
+	`no_type` int NULL,
+	`rnew_insur` datetime NULL,
+	`no_company` int NULL,
+	`datee` datetime NULL,
+	`done` nvarchar(2) NULL,
+	`no_police` nvarchar(15) NULL,
+	`comment` nvarchar(240) NULL,
+	`pay_lase` int NULL,
+	`premia` Double NULL,
+	`premia_neto` Double NULL,
+	`discount` Double NULL,
+	`pay_way1` int NULL,
+	`no_pay` int NULL,
+	`retroactive` datetime NULL,
+	`datee_sand` datetime NULL,
+	`paied` Double NULL,
+	`status_police1` int NULL,
+	`edit_date` datetime NULL,
+	`edit_datee` datetime NULL,
+	`name_edit_datee` int NULL,
+	`name_create_datee` int NULL,
+	`create_datee` datetime NULL,
+ CONSTRAINT `PK_proposal` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`proposal`  WITH CHECK ADD  CONSTRAINT `FK_proposal_clients` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`proposal` CHECK CONSTRAINT `FK_proposal_Clients`
+GO
+
+

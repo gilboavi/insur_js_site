@@ -1,0 +1,37 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[proposal_life]    Script Date: 12/31/2020 10:27:40 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[proposal_life](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`proposal_date` datetime NULL,
+	`no_police` int NULL,
+	`employer` int NULL,
+	`status` int NULL,
+	`type_insur_life` int NULL,
+	`company` int NULL,
+	`send_to_company_date` datetime NULL,
+	`production_date` datetime NULL,
+	`begin_insur` datetime NULL,
+	`premia`_pPremia` Double NULL,
+	`agent` int NULL,
+	`comment` nvarchar(250) NULL,
+	`immediately` Tinyint NULL,
+	`no_proposal` nvarchar(50) NULL,
+	`status_date` datetime NULL,
+ CONSTRAINT `PK_proposal_life` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+

@@ -1,0 +1,78 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[life_policies]    Script Date: 12/31/2020 10:45:06 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[life_policies](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`no_agint` int NULL,
+	`no_police` nvarchar(50) NULL,
+	`company` int NULL,
+	`employer` int NULL,
+	`no_fac_iInsur` datetime NULL,
+	`TypeInsur` int NULL,
+	`kizva_old` int NULL,
+	`kizva_invalid` Double NULL,
+	`kizva_sharim` Double NULL,
+	`kizva_sharim_child` int NULL,
+	`sum_insur` int NULL,
+	`savig_prisha` Double NULL,
+	`premia` int NULL,
+	`invalid_ex` Double NULL,
+	`deth_ex` Double NULL,
+	`illness` int NULL,
+	`pidion` int NULL,
+	`mesulak` int NULL,
+	`datee` datetime NULL,
+	`siudy` int NULL,
+	`status` int NULL,
+	`ashtalot` Tinyint NULL,
+	`medicine` Tinyint NULL,
+	`operation` Tinyint NULL,
+	`kisui_rashy` nvarchar(60) NULL,
+	`siudy_p` int NULL,
+	`sum_insur_p` int NULL,
+	`illness_p` int NULL,
+	`invalid_exp` int NULL,
+	`Deth_exp` int NULL,
+	`comment` nvarchar(300) NULL,
+	`tg_worker` Double NULL,
+	`invalid_worker` Double NULL,
+	`shonot_worker` Double NULL,
+	`tg_bos` Double NULL,
+	`invalid_bos` Double NULL,
+	`pizuim` Double NULL,
+	`shonot_bos` Double NULL,
+	`type_salary` int NULL,
+	`rate_salary` Double NULL,
+	`invalid_professional` Double NULL,
+	`invalid_professionalp` Double NULL,
+	`no_branch` int NULL,
+	`duplication` Tinyint NULL,
+	`date_update` date NULL,
+	`age_end_insur` int NULL,
+	`provisions` int NULL,
+	`kod_mezahe_yatzran` nvarchar(50) NULL,
+	
+ CONSTRAINT `PK_life_policies` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`life_policies`  WITH CHECK ADD  CONSTRAINT `FK_life_policies_client` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`life_policies` CHECK CONSTRAINT `FK_life_policies_client`
+GO
+
+

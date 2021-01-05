@@ -1,0 +1,38 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[elmenter]    Script Date: 12/31/2020 09:37:22 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[elmenter](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`proposal_serial` int NULL,
+	`id` int NULL,
+	`coverage_num` int NULL,
+	`sum_insur` int NULL,
+	`status` smallint NULL,
+	`edit_date` datetime NULL,
+	`name_create_datee` int NULL,
+	`create_datee` datetime NULL,
+	`name_edit_datee` int NULL,
+	`edit_datee` datetime NULL,
+ CONSTRAINT `PK_elmenter` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`elmenter`  WITH CHECK ADD  CONSTRAINT `FK_elmenter_proposal` FOREIGN KEY(`proposal_serial`)
+REFERENCES [dbo].[proposal] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`elmenter` CHECK CONSTRAINT `FK_elmenter_proposal`
+GO
+
+

@@ -1,0 +1,42 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[followup_conversation]    Script Date: 12/31/2020 09:11:09 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[followup_conversation](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`conversations_serial` int NOT NULL,
+	`date_followup` datetime NULL,
+	`summary` Longtext NULL,
+	`user_serial` int NULL,
+	`done` Tinyint NOT NULL,
+	`aate_to_call` datetime NULL,
+	`delivered_to` int NULL,
+	`type_followup_conversation` int NULL,
+	`stop_reminder` Tinyint NOT NULL,
+	`felg_reminder` Tinyint NULL,
+	`my_minute` int NULL,
+	`my_hour` int NULL,
+	`send_to_user_by` int NULL,
+	`mark_as_important` Tinyint NOT NULL,
+ CONSTRAINT `PK_followup_conversation` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY] TEXTIMAGE_ON `PRIMARY`
+
+GO
+
+ALTER TABLE `dbo`.`followup_conversation`  WITH CHECK ADD  CONSTRAINT `FK_followup_conversation` FOREIGN KEY(`conversations_serial`)
+REFERENCES [dbo].[conversation] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`followup_conversation` CHECK CONSTRAINT `FK_followup_conversation_conversation`
+GO
+
+

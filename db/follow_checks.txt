@@ -1,0 +1,39 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[follow_checks]    Script Date: 12/31/2020 09:05:08 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE `dbo`.[follow_checks](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`check_date` datetime NULL,
+	`check_arreved_date` datetime NULL,
+	`month_sallary_date` datetime NULL,
+	`purpose_check` int NULL,
+	`compan_number` varchar(15) NULL,
+	`check_sum` Double NULL,
+	`received_date_in_company` datetime NULL,
+	`no_police` int NULL,
+	`end_process` Tinyint NULL,
+	`employer` int NULL,
+	`comment` nvarchar(50) NULL,
+ CONSTRAINT `PK_follow_checks` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+

@@ -1,0 +1,24 @@
+USE `aluma`
+GO
+
+/* SQLINES DEMO *** le [dbo].[mail_address_book]    Script Date: 12/31/2020 11:00:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[mail_address_book](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`full_name` nvarchar(50) NULL,
+	`email_address` nvarchar(50) NULL,
+	`comment` nvarchar(50) NULL,
+ CONSTRAINT `PK_email_address` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+

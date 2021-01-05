@@ -1,0 +1,33 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[Communication]    Script Date: 12/31/2020 07:28:12 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[communication](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`client_serial` int NULL,
+	`communication_type` nvarchar(50) NULL,
+	`communication_value` nvarchar(50) NULL,
+	`comment` nvarchar(150) NULL,
+	`priority` int NULL,
+ CONSTRAINT `PK_communication` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE `dbo`.`communication`  WITH CHECK ADD  CONSTRAINT `FK_communication_client` FOREIGN KEY(`client_serial`)
+REFERENCES [dbo].[clients] (`serial`)
+GO
+
+ALTER TABLE `dbo`.`communication` CHECK CONSTRAINT `FK_communication_client`
+GO
+
+

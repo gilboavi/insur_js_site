@@ -1,0 +1,18 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[param_kupa_maslul]    Script Date: 01/04/2021 14:55:42 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[param_kupa_maslul](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`param_name` nvarchar(50) NULL
+) ON [PRIMARY]
+
+GO
+
+

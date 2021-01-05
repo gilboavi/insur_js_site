@@ -1,0 +1,55 @@
+-- SQLINES DEMO *** sktop version to convert large SQL scripts,
+-- SQLINES DEMO *** ny issues with Online conversion.
+
+-- SQLINES DEMO *** act us at support@sqlines.com
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[clients]    Script Date: 12/30/2020 07:06:40 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[clients](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`id` int NOT NULL,
+	`last_name` nvarchar(25) NULL,
+	`first_name` nvarchar(20) NULL,
+	`agent` int NULL,
+	`birthday` datetime NULL,
+	`sex` nvarchar(2) NULL,
+	`smok` Tinyint NULL,
+	`operation` int NULL,
+	`street` nvarchar(30) NULL,
+	`city` nvarchar(20) NULL,
+	`micud` nvarchar(10) NULL,
+	`post_box` nvarchar(10) NULL,
+	`email` nvarchar(50) NULL,
+	`main_phone` nvarchar(15) NULL,
+	`main_selolry` nvarchar(15) NULL,
+	`potenion` Tinyint NULL,
+	`family_status` int NULL,
+	`work_status` int NULL,
+	`place_work` int NULL,
+	`falg` Tinyint NULL,
+	`comment` nvarchar(255) NULL,
+	`status` int NOT NULL,
+	`create_date` datetime NULL,
+	`client_picture` nvarchar(50) NULL,
+	`exsist_id` Tinyint NULL,
+	`exsist_minu` Tinyint NULL,
+	`meeting_place` nvarchar(100) NULL,
+	`stop_smok` datetime NULL,
+	`client_rating` int NULL,
+	`no_health_fund` int NULL,
+ CONSTRAINT `PK_client` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+

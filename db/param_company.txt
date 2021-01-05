@@ -1,0 +1,24 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[param_company]    Script Date: 01/05/2021 07:21:19 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[param_company](
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`param_name` nvarchar(50) NULL,
+	`kod_mezahe_yatzran` nvarchar(50) NULL,
+	
+ CONSTRAINT `PK_param_company` PRIMARY KEY 
+(
+	`serial` ASC
+) 
+) ON [PRIMARY]
+
+GO
+
+

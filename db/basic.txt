@@ -1,0 +1,48 @@
+USE `aluma_db`
+GO
+
+/* SQLINES DEMO *** le [dbo].[basic]    Script Date: 12/31/2020 09:30:12 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE `dbo`.[basic](
+	`madd_now` Double NULL,
+	`dail_earia` nvarchar(4) NULL,
+	`agency1` smallint NULL,
+	`dollar` Double NULL,
+	`company1` int NULL,
+	`radio` smallint NULL,
+	`type_insur1` int NULL,
+	`address` nvarchar(30) NULL,
+	`name` nvarchar(35) NULL,
+	`staition` int NULL,
+	`datee` datetime NULL,
+	`datee2` datetime NULL,
+	`firma_name` nvarchar(50) NULL,
+	`firma_occupation` nvarchar(50) NULL,
+	`firma_adress` nvarchar(50) NULL,
+	`firma_phone` nvarchar(30) NULL,
+	`firma_fax` nvarchar(20) NULL,
+	`firma_icon` nvarchar(50) NULL,
+	`id` int NULL,
+	`topp` Double NULL,
+	`heightt` Double NULL,
+	`widthh` Double NULL,
+	`true_false` Tinyint NOT NULL,
+	`agent` int NULL,
+	`counter` int NULL,
+	`type_insur` int NULL,
+	`type_salary` int NULL,
+	`str_pas` nvarchar(50) NULL,
+	`doc_in` nvarchar(50) NULL,
+	`doc_save` nvarchar(50) NULL,
+	`doc_bak` nvarchar(50) NULL,
+	`str_pas_new` nvarchar(100) NULL
+) ON [PRIMARY]
+
+GO
+
+
