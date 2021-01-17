@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[proposal]    Script Date: 12/31/2020 09:43:20 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[proposal](
+CREATE TABLE  IF NOT EXISTS proposal(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`client_serial` int NULL,
 	`counter_proposal` int NULL,
@@ -36,19 +29,12 @@ CREATE TABLE `dbo`.[proposal](
 	`name_edit_datee` int NULL,
 	`name_create_datee` int NULL,
 	`create_datee` datetime NULL,
- CONSTRAINT `PK_proposal` PRIMARY KEY 
-(
-	`serial` ASC
-) 
-) ON [PRIMARY]
+      PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`client_serial`)
+      REFERENCES clients (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 
-GO
-
-ALTER TABLE `dbo`.`proposal`  WITH CHECK ADD  CONSTRAINT `FK_proposal_clients` FOREIGN KEY(`client_serial`)
-REFERENCES [dbo].[clients] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`proposal` CHECK CONSTRAINT `FK_proposal_Clients`
-GO
+)
+ 
 
 

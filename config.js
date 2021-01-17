@@ -19,6 +19,18 @@ exports.config = {
             }
         }
     },
+    mysql:{
+        my_sql_detailes: {
+            "connectionLimit" : 10,
+            "host"     : 'localhost',
+            "user"     : 'avi_g',
+            "password" : 'Aa123456!',
+           
+          
+            "database": 'aluma_db',
+            "port": '3306'
+        }
+    },
     xml: {
         parseXmlInChildProc: false
     },

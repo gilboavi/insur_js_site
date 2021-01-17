@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[life_policies]    Script Date: 12/31/2020 10:45:06 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[life_policies](
+CREATE TABLE IF NOT EXISTS life_policies(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`client_serial` int NULL,
 	`no_agint` int NULL,
@@ -59,20 +52,8 @@ CREATE TABLE `dbo`.[life_policies](
 	`age_end_insur` int NULL,
 	`provisions` int NULL,
 	`kod_mezahe_yatzran` nvarchar(50) NULL,
-	
- CONSTRAINT `PK_life_policies` PRIMARY KEY 
-(
-	`serial` ASC
+	 PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`client_serial`)
+      REFERENCES clients (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 ) 
-) ON [PRIMARY]
-
-GO
-
-ALTER TABLE `dbo`.`life_policies`  WITH CHECK ADD  CONSTRAINT `FK_life_policies_client` FOREIGN KEY(`client_serial`)
-REFERENCES [dbo].[clients] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`life_policies` CHECK CONSTRAINT `FK_life_policies_client`
-GO
-
-

@@ -1,27 +1,14 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[mail_address_data]    Script Date: 12/31/2020 11:05:54 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[mail_address_data](
+CREATE  TABLE IF NOT EXISTS mail_address_data(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`mail_address` nvarchar(100) NOT NULL,
 	`user_name` nvarchar(50) NOT NULL,
 	`pass_word` nvarchar(50) NOT NULL,
 	`smtp_server` nvarchar(100) NULL,
 	`comment` nvarchar(100) NULL,
- CONSTRAINT `PK_main_mail_address` PRIMARY KEY 
-(
-	`serial` ASC
+	PRIMARY KEY(`serial` ASC) 
 ) 
-) ON [PRIMARY]
-
-GO
-
 
 

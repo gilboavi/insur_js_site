@@ -1,23 +1,12 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[param_status_proposal_life]    Script Date: 01/05/2021 07:21:19 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[param_status_proposal_life](
+CREATE TABLE IF NOT EXISTS param_status_proposal_life(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`param_name` nvarchar(50) NULL,
 	`ranks` int NULL,
-	
- CONSTRAINT `PK_param_company` PRIMARY KEY 
-(
-	`serial` ASC
+	PRIMARY KEY (`serial` ASC) 
 ) 
-) ON [PRIMARY]
 
 GO
 

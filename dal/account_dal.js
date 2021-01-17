@@ -3,6 +3,7 @@ var config = require("../config").config;
 var conversation = require("../dal/conversation_dal");
 const sql = require('mssql');
 const dbConn = require("./dbConn");
+const db_conn_mysql = require("./db_con_mysql");
 
 const  sql_client_helper_tables = " SELECT[Serial], [ParamName] FROM [ParamClientType] ORDER BY ParamName " + ";" +
     " SELECT[Serial], [AgentName] FROM [Agents]  ORDER BY AgentName " + ";" +
@@ -151,6 +152,30 @@ module.exports = {
                 .query(sql_for_auto_complete);
 
             return result.recordsets;
+
+        } catch (err) {
+            // ... error checks 
+            throw { errmsg: err };
+        }
+        // finally {
+        //     sql.close();
+        // }
+    },
+
+    async get_client_by_term2(params) {
+       
+        try {
+            // let pool = await sql.connect(config.mssql.test_db)
+            // let result = await pool.request()
+            let name_to_find= typeof params.term === 'string'? params.term :'';
+            let result = await db_conn_mysql.getPool()               
+                .query('select * from clients', function (err, result, fields) {
+                    if (err) throw new Error(err)
+                    // Do something with result.
+                    return result;
+                })
+
+         //   return result.recordsets;
 
         } catch (err) {
             // ... error checks 

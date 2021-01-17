@@ -1,9 +1,22 @@
 var account_dal = require("../dal/account_dal");
 
 module.exports = {
+
     async get_client_by_term(params) {
         try {
             let db_result = await account_dal.get_client_by_term(params)
+            let result = db_result[0];
+            return result;
+        }
+        catch (err) {
+            // ... error checks 
+            throw { hasError: 1, errmsg: err.errmsg };
+        }
+    },
+
+    async get_client_by_term2(params) {
+        try {
+            let db_result = await account_dal.get_client_by_term2(params)
             let result = db_result[0];
             return result;
         }

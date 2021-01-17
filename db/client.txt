@@ -1,19 +1,11 @@
--- SQLINES DEMO *** sktop version to convert large SQL scripts,
--- SQLINES DEMO *** ny issues with Online conversion.
+USE `aluma_db` ;
 
--- SQLINES DEMO *** act us at support@sqlines.com
-USE `aluma_db`
-GO
 
-/* SQLINES DEMO *** le [dbo].[clients]    Script Date: 12/30/2020 07:06:40 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
 
-CREATE TABLE `dbo`.[clients](
-	`serial` int AUTO_INCREMENT NOT NULL,
+
+CREATE TABLE IF NOT EXISTS  clients(
+	`serial` int AUTO_INCREMENT PRIMARY KEY,
 	`id` int NOT NULL,
 	`last_name` nvarchar(25) NULL,
 	`first_name` nvarchar(20) NULL,
@@ -43,13 +35,6 @@ CREATE TABLE `dbo`.[clients](
 	`meeting_place` nvarchar(100) NULL,
 	`stop_smok` datetime NULL,
 	`client_rating` int NULL,
-	`no_health_fund` int NULL,
- CONSTRAINT `PK_client` PRIMARY KEY 
-(
-	`serial` ASC
-) 
-) ON [PRIMARY]
+	`no_health_fund` int NULL
 
-GO
-
-
+)

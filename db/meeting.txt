@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[meeting]    Script Date: 12/31/2020 11:14:06 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[meeting](
+CREATE TABLE IF NOT EXISTS meeting(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`client_serial` int NOT NULL,
 	`meeting_date` datetime NOT NULL,
@@ -18,19 +11,9 @@ CREATE TABLE `dbo`.[meeting](
 	`instruction_befor_meeting` Longtext NULL,
 	`meeting_status` int NULL,
 	`done` Tinyint NULL,
- CONSTRAINT `PK_meeting` PRIMARY KEY 
-(
-	`serial` ASC
-) 
-) ON [PRIMARY] TEXTIMAGE_ON `PRIMARY`
+	PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`client_serial`)
+      REFERENCES clients (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 
-GO
-
-ALTER TABLE `dbo`.`meeting`  WITH CHECK ADD  CONSTRAINT `FK_meeting_clients` FOREIGN KEY(`client_serial`)
-REFERENCES [dbo].[clients] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`meeting` CHECK CONSTRAINT `FK_Meeting_Clients`
-GO
-
-
+)

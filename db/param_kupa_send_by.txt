@@ -1,18 +1,12 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[param_kupa_send_by]    Script Date: 01/04/2021 14:55:42 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[param_kupa_send_by](
+CREATE TABLE IF NOT EXISTS param_kupa_send_by(
 	`serial` int AUTO_INCREMENT NOT NULL,
-	`param_name` nvarchar(50) NULL
-) ON [PRIMARY]
+	`param_name` nvarchar(50) NULL,
+	
+	PRIMARY KEY(`Serial` ASC) 
+) 
 
-GO
 
 

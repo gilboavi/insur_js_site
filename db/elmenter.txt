@@ -1,15 +1,9 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[elmenter]    Script Date: 12/31/2020 09:37:22 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[elmenter](
+CREATE TABLE IF NOT EXISTS elmenter(
 	`serial` int AUTO_INCREMENT NOT NULL,
+    `client_serial` int NULL,
 	`proposal_serial` int NULL,
 	`id` int NULL,
 	`coverage_num` int NULL,
@@ -20,19 +14,10 @@ CREATE TABLE `dbo`.[elmenter](
 	`create_datee` datetime NULL,
 	`name_edit_datee` int NULL,
 	`edit_datee` datetime NULL,
- CONSTRAINT `PK_elmenter` PRIMARY KEY 
-(
-	`serial` ASC
+	 PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`client_serial`)
+      REFERENCES clients (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 ) 
-) ON [PRIMARY]
-
-GO
-
-ALTER TABLE `dbo`.`elmenter`  WITH CHECK ADD  CONSTRAINT `FK_elmenter_proposal` FOREIGN KEY(`proposal_serial`)
-REFERENCES [dbo].[proposal] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`elmenter` CHECK CONSTRAINT `FK_elmenter_proposal`
-GO
 
 

@@ -15,6 +15,18 @@ module.exports = {
         }
     },
 
+    async get_client_by_term2(params) {
+       
+        try {
+            let bll_result = await account_bl.get_client_by_term2(params)
+            let result = bll_result;
+            return result;
+        } catch (err) {
+            // ... error checks 
+            throw { hasError: 1, errmsg: err.errmsg };
+        }
+    },
+
      async get_client_conversatios_communicatios_by_serial(params) {
 
         try {

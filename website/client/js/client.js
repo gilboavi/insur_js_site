@@ -467,6 +467,16 @@ function get_client_by_term(my_term) {
     };
     return  get_api_data_by_params(params);
 }
+
+function get_client_by_term3() {
+   var my_term="ggg";
+    var params = {
+        api: "account_api",
+        action: "get_client_by_term2",
+        term: my_term
+    };
+    return  get_api_data_by_params(params);
+}
 // after new client was seleceted
 // used in autoselect
 function on_select_client(serial) {

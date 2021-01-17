@@ -1,22 +1,10 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[agents]    Script Date: 12/31/2020 09:26:07 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[agents](
+CREATE TABLE IF NOT EXISTS agents(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`agent_name` nvarchar(50) NULL,
- CONSTRAINT `PK_agents` PRIMARY KEY 
-(
-	`serial` ASC
+ PRIMARY KEY (	`serial` ASC) 
 ) 
-) ON [PRIMARY]
-
-GO
 
 

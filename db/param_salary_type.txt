@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[param_salary_type]    Script Date: 01/05/2021 07:49:13 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[param_salary_type](
+CREATE TABLE IF NOT EXISTS param_salary_type(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`required` Tinyint NOT NULL,
 	`type_salary_old` nvarchar(50) NULL,
@@ -24,12 +17,6 @@ CREATE TABLE `dbo`.[param_salary_type](
 	`type_excel_file` int NULL,
 	`name_excel_file` nvarchar(50) NULL,
 	`comment` nvarchar(50) NULL,
- CONSTRAINT `PK_param_salary_type` PRIMARY KEY 
-(
-	`serial` ASC
+	 PRIMARY KEY(`serial` ASC) 
 ) 
-) ON [PRIMARY]
-
-GO
-
 

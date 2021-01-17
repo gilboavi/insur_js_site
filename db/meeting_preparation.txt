@@ -1,17 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[meeting_preparation]    Script Date: 12/31/2020 11:25:00 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
-GO
-
-CREATE TABLE `dbo`.[meeting_preparation](
+CREATE TABLE IF NOT EXISTS meeting_preparation(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`meeting_serial` int NOT NULL,
 	`description_0f_task` int NULL,
@@ -19,22 +9,11 @@ CREATE TABLE `dbo`.[meeting_preparation](
 	`comment` varchar(50) NULL,
 	`date_edit` datetime NULL,
 	`editor_name` int NULL,
- CONSTRAINT `PK_meeting_preparation` PRIMARY KEY 
-(
-	`serial` ASC
-) 
-) ON [PRIMARY]
+	 PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`meeting_serial`)
+      REFERENCES meeting (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 
-GO
-
-SET ANSI_PADDING OFF
-GO
-
-ALTER TABLE `dbo`.`meeting_preparation`  WITH CHECK ADD  CONSTRAINT `FK_meeting_preparation_meeting` FOREIGN KEY(`meeting_serial`)
-REFERENCES [dbo].[meeting] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`meeting_preparation` CHECK CONSTRAINT `FK_meeting_preparation_Meeting`
-GO
+)
 
 

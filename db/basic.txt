@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[basic]    Script Date: 12/31/2020 09:30:12 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[basic](
+CREATE TABLE IF NOT EXISTS basic(
 	`madd_now` Double NULL,
 	`dail_earia` nvarchar(4) NULL,
 	`agency1` smallint NULL,
@@ -41,8 +34,6 @@ CREATE TABLE `dbo`.[basic](
 	`doc_save` nvarchar(50) NULL,
 	`doc_bak` nvarchar(50) NULL,
 	`str_pas_new` nvarchar(100) NULL
-) ON [PRIMARY]
-
-GO
+) 
 
 

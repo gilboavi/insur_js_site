@@ -1,14 +1,7 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[kupa_gemel]    Script Date: 12/31/2020 10:36:14 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[Kupakupa_gemelGemel](
+CREATE TABLE IF NOT EXISTS kupa_gemel(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`client_serial` int NULL,
 	`serialClaint` int NULL,
@@ -43,19 +36,10 @@ CREATE TABLE `dbo`.[Kupakupa_gemelGemel](
 	`company` int NULL,
 	`no_agent_in_company` int NULL,
 	`employer` int NULL,
- CONSTRAINT `PK_kupa_gemel` PRIMARY KEY 
-(
-	`serial` ASC
+	 PRIMARY KEY (`serial` ASC ) ,
+     FOREIGN KEY(`client_serial`)
+      REFERENCES clients (`serial`)
+      ON UPDATE RESTRICT ON DELETE CASCADE
 ) 
-) ON [PRIMARY]
-
-GO
-
-ALTER TABLE `dbo`.`kupa_gemel`  WITH CHECK ADD  CONSTRAINT `FK_kupa_gemel_clients` FOREIGN KEY(`client_serial`)
-REFERENCES [dbo].[clients] (`serial`)
-GO
-
-ALTER TABLE `dbo`.`kupa_gemel` CHECK CONSTRAINT `FK_kupa_gemel_clients`
-GO
 
 

@@ -1,25 +1,13 @@
-USE `aluma_db`
-GO
+USE `aluma_db`;
 
-/* SQLINES DEMO *** le [dbo].[families]    Script Date: 12/31/2020 08:59:59 ******/
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE `dbo`.[families](
+CREATE TABLE IF NOT EXISTS families(
 	`serial` int AUTO_INCREMENT NOT NULL,
 	`client_serial` int NOT NULL,
 	`comment` nvarchar(150) NULL,
 	`group_serial` int NULL,
 	`mone` Double NULL,
- CONSTRAINT `PK_families` PRIMARY KEY 
-(
-	`serial` ASC
+     PRIMARY KEY(`serial` ASC) 
 ) 
-) ON [PRIMARY]
-
-GO
 
 

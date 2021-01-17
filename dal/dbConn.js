@@ -1,4 +1,5 @@
 ﻿var config = require("../config").config;
+
 const sql = require('mssql');
 var pool;
 
