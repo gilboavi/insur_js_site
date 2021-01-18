@@ -2,8 +2,9 @@
 var config = require("../config").config;
 var conversation = require("../dal/conversation_dal");
 const sql = require('mssql');
+const mysql = require('mysql2');
 const dbConn = require("./dbConn");
-const db_conn_mysql = require("./db_con_mysql");
+//const db_conn_mysql = require("./db_con_mysql");
 
 const  sql_client_helper_tables = " SELECT[Serial], [ParamName] FROM [ParamClientType] ORDER BY ParamName " + ";" +
     " SELECT[Serial], [AgentName] FROM [Agents]  ORDER BY AgentName " + ";" +
@@ -167,15 +168,38 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let name_to_find= typeof params.term === 'string'? params.term :'';
-            let result = await db_conn_mysql.getPool()               
-                .query('select * from clients', function (err, result, fields) {
+          //  let name_to_find= typeof params.term === 'string'? params.term :'';
+           // let pool =  db_conn_mysql.getPool()  ; 
+           let my_pool = mysql.createPool({
+                    host     : 'localhost',
+                     user     : 'avi_g',
+                     database: 'aluma_db',
+                    password : 'Aa123456!'
+                   });               
+                my_pool.query('select * from `clients` where `first_name`=? ',
+                ['אבי'],
+                function (err, result, fields) {
                     if (err) throw new Error(err)
                     // Do something with result.
-                    return result;
+                      return result;
                 })
 
-         //   return result.recordsets;
+            return result.recordsets;
+
+        //  var connection = mysql.createConnection({
+        //     host     : 'localhost',
+        //     user     : 'avi_g',
+        //     password : 'Aa123456!'
+        //   });
+           
+        //   connection.connect(function(err) {
+        //     if (err) {
+        //       console.error('error connecting: ' + err.stack);
+        //       return;
+        //     }
+           
+        //     console.log('connected as id ' + connection.threadId);
+        //   });
 
         } catch (err) {
             // ... error checks 

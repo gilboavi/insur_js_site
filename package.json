@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "mssql": "^4.0.4",
     "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
     "officegen": "^0.6.4",
     "serve-favicon": "^2.4.3",
     "underscore": "^1.8.3",
