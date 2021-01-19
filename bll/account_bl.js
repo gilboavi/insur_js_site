@@ -17,7 +17,7 @@ module.exports = {
     async get_client_by_term2(params) {
         try {
             let db_result = await account_dal.get_client_by_term2(params)
-            let result = db_result[0];
+            let result = db_result;
             return result;
         }
         catch (err) {

@@ -1,0 +1,26 @@
+USE `aluma_db`;
+ 
+
+/* SQLINES DEMO *** le [dbo].[Users]    Script Date: 01/19/2021 19:26:35 ******/
+/* SET ANSI_NULLS ON */
+ 
+
+/* SET QUOTED_IDENTIFIER ON */
+ 
+
+CREATE TABLE users(
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`user_name` nvarchar(50) NULL,
+	`hser_name_h` nvarchar(50) NULL,
+	`pass_word` nvarchar(50) NULL,
+	`role` int NOT NULL,
+	`email_address` nvarchar(50) NULL,
+	`email_user_name` nvarchar(50) NULL,
+	`email_pass_word` nvarchar(50) NULL,
+	
+	`active_client` Tinyint NULL,
+     PRIMARY KEY (`Serial` ASC) 
+);
+
+
+

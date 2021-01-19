@@ -1,0 +1,23 @@
+ USE `aluma_db`;
+
+
+ 
+
+CREATE VIEW `clients_with_params`
+AS
+SELECT     TOP (100) PERCENT clients.serial, clients.id, clients.last_name, clients.first_name, clients.agent, clients.birthday,
+                             clients.sex, 
+                      clients.smok, clients.operation, clients.street, clients.city,  clients.micud,  
+                      clients.post_box,  clients.email,  clients.selolry, 
+                      clients.potenion, clients.family_status, clients.work_status, clients.place_work, clients.falg, clients.comment,
+					  clients.status, 
+                       clients.client_picture, clients.exsist_id, clients.exsist_minu, agents.agent_name, 
+                      param_operation.param_name AS operation_name, param_client_type.param_name AS status_name, 
+                      param_work_status.param_name AS work_status_name
+FROM         clients LEFT OUTER JOIN
+                      param_work_status ON clients.work_status = param_work_status.serial LEFT OUTER JOIN
+                      param_client_type ON clients.status = param_client_type.serial LEFT OUTER JOIN
+                      param_operation ON clients.operation = param_operation.serial LEFT OUTER JOIN
+                      agents ON clients.agent = agents.serial
+ORDER BY clients.last_name, clients.first_name
+

@@ -10,16 +10,27 @@ const  sql_client_helper_tables = " SELECT[Serial], [ParamName] FROM [ParamClien
     " SELECT[Serial], [AgentName] FROM [Agents]  ORDER BY AgentName " + ";" +
     " SELECT[Serial], [ParamName] FROM [ParamOperation] ORDER BY ParamName ;" ;
  
-const sql_client ="SELECT  * FROM  [ClientsWithParams]  WHERE [Serial]= @serial;";
+const sql_client =" SELECT  * FROM  `clients_with_params` "+
+                  "  WHERE `serial`= ?;";
 
-const sql_communicatuion= "SELECT [CommunicationType] , [CommunicationValue] ,"+
-                "  [Comment] , Serial FROM  [Communication] WHERE [ClientSerial]= @serial; " ;
+const sql_communicatuion= "SELECT `communication_type` ,"+
+                                 " `communication_value` ,"+
+                                 "  `comment` , `serial` "+
+                                 " FROM  `communication` "+
+                                 " WHERE `client_serial`= ? ;" ;
+//  CONVERT( varchar, [Datee] , 103)
 
-const sql_conversation= " SELECT CONVERT( varchar, [Datee] , 103) , "+
-                " SummaryOfConversation, GoalOfTalkName , " + " " +
-                "UserName ,TypeFollowupConversationName ," + " " + " NoPolice ," + " Done , Immediately ," +
-                " [Serial] " + " " +
-                " FROM [ConversationWithParam]  WHERE ClientSerial=@serial ; ";
+const sql_conversation= " SELECT `datee`  , "+
+                " `summary_of_conversation`, "+
+                " `goal_of_talk_name` , " + 
+                " `user_name` , "+
+                "  `type_followup_conversation_name` ," + 
+                 " `no_police` ," +
+                  " `done' , "+
+                  " `immediately` ," +
+                " `serial` " + " " +
+                " FROM `conversation_with_param` "+
+                "  WHERE `clientSerial`=? ; ";
 
 const sql_followup_conversation= " SELECT  	[DateFollowUp]  , Summary , UserName , "+
         " [StatusFollowUp]  , [ConversationsSerial] , [Serial] " + " " +
@@ -168,23 +179,23 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-          //  let name_to_find= typeof params.term === 'string'? params.term :'';
-           // let pool =  db_conn_mysql.getPool()  ; 
-           let my_pool = mysql.createPool({
-                    host     : 'localhost',
-                     user     : 'avi_g',
-                     database: 'aluma_db',
-                    password : 'Aa123456!'
-                   });               
-                my_pool.query('select * from `clients` where `first_name`=? ',
-                ['אבי'],
-                function (err, result, fields) {
-                    if (err) throw new Error(err)
-                    // Do something with result.
-                      return result;
-                })
+            let name_to_find= typeof params.term === 'string'? params.term :'';
+           
+           let result =await mysql.createPool(config.mysql.my_sql_detailes).promise()               
+                // my_pool.query('select * from `clients` where `first_name`=? ',
+                // ['אבי'],
+                .query('select * from `clients` where `last_name` LIKE ? ',
+                [`${name_to_find}%`]);
+                // function (err, result, fields) {
+                //     if (err){
 
-            return result.recordsets;
+                //         throw new Error(err)
+                //     } 
+                //     // Do something with result.
+                //       return result.recordset;
+                // })
+            var a=result[0];
+            return result[0];
 
         //  var connection = mysql.createConnection({
         //     host     : 'localhost',
@@ -211,6 +222,58 @@ module.exports = {
     },
 
     async get_client_conversatios_communicatios_by_serial(params) {
+           
+        var sql_string =sql_client+
+                        sql_communicatuion+
+                        sql_conversation+
+                        sql_followup_conversation+
+                        sql_families;
+
+        try {
+            
+            //  pool = await sql.connect(config.mssql.test_db);
+            // let result = await pool.request()
+            
+            let result = await dbConn.getPool().request()
+                .input('serial', sql.Int, params.serial)
+                .query(sql_string);
+
+            var my_data = {
+                my_client: result.recordsets[0],
+                communication_list: result.recordsets[1],
+                conversation_list: result.recordsets[2],
+                FollowUpConversation_list: result.recordsets[3]
+
+            };
+            let  families_serial=result.recordsets[4];
+            if(   families_serial.length != 0 ){
+             
+              my_data.families_serial=families_serial[0].FamiliesSerial;
+            }
+           // if(families_serial!="undefined"){
+            if(families_serial.length>0){
+                let resul2 = await dbConn.getPool().request()
+                .input('families_serial', sql.Int, families_serial[0].FamiliesSerial)
+                .query(sql_family_members);
+
+                my_data.family_members=resul2.recordsets;
+            }else{
+                my_data.family_members={};
+            }
+          
+            return my_data;
+         
+        } catch (err) {
+        
+            throw { errmsg: err };
+        }
+        // finally {
+        //     sql.close();
+        // }
+
+    },
+
+    async get_client_conversatios_communicatios_by_serial2(params) {
            
         var sql_string =sql_client+
                         sql_communicatuion+

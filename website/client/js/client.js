@@ -124,12 +124,14 @@ $(document).ready(function () {
             return '<div class="select2-tag-cust" title="' + item.text + '">' + item.text + '</div>';
         },
         query: function (query) {
-            get_client_by_term(query.term).done(function (dataObj) {
+            get_client_by_term3(query.term).done(function (dataObj) {
                 //  console.log(dataObj);
                 my_data = dataObj;
                 $.each(dataObj, function () {
-                    this.text = ([this.LastName, this.FirstName]).join(" ");
-                    this.id = this.Serial;
+                    this.text = ([this.last_name, this.first_name]).join(" ");
+                    this.id = this.serial;
+                    // this.text = ([this.LastName, this.FirstName]).join(" ");
+                    // this.id = this.Serial;
                 });
                 query.callback({
                     results: dataObj
@@ -468,8 +470,8 @@ function get_client_by_term(my_term) {
     return  get_api_data_by_params(params);
 }
 
-function get_client_by_term3() {
-   var my_term="ggg";
+function get_client_by_term3(my_term) {
+   //var my_term="ggg";
     var params = {
         api: "account_api",
         action: "get_client_by_term2",

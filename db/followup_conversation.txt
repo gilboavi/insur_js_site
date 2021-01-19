@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS followup_conversation(
 	`summary` Longtext NULL,
 	`user_serial` int NULL,
 	`done` Tinyint NOT NULL,
-	`aate_to_call` datetime NULL,
+	`date_to_call` datetime NULL,
 	`delivered_to` int NULL,
 	`type_followup_conversation` int NULL,
 	`stop_reminder` Tinyint NOT NULL,

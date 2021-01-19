@@ -1,0 +1,24 @@
+USE `aluma_db`;
+ 
+
+
+
+CREATE VIEW `conversation_with_param`
+AS
+SELECT      conversation.serial, conversation.client_serial, conversation.meeting_serial, conversation.datee, conversation.get_call_name, 
+                      conversation.send_to_user_by, conversation.delivered_to, conversation.summary_of_conversation, conversation.day_to_call, conversation.goal_of_talk, conversation.priority, 
+                      conversation.immediately, conversation.to_execution, conversation.sum_sale, conversation.meeting, conversation.sale, conversation.yozma, conversation.done, 
+                      conversation.hour_to_call, conversation.form_is_openn, conversation.type_of_call, conversation.status_get_call_name, conversation.type_followup_conversation, 
+                      clients.last_name, clients.first_name, users.user_name, param_type_followup_conversation.param_name AS type_followup_conversation_name, 
+                      param_goal_of_talk.param_name AS goal_of_talk_name, clients.id, TIMESTAMPDIFF(day, conversation.datee, NOW() + INTERVAL 3 DAY) AS days, conversation.suspend, conversation.no_police, 
+                      conversation.data_of_sending, param_tevia_details.param_name AS type_tevia_name, conversation.type_tevia, a.last_date
+FROM         conversation LEFT OUTER JOIN
+                          (SELECT     conversations_serial, MAX(date_followup) AS last_date
+                            FROM          followup_conversation
+                            GROUP BY conversations_serial) AS a ON conversation.serial = a.conversations_serial LEFT OUTER JOIN
+                      param_tevia_details ON conversation.type_tevia = param_tevia_details.serial LEFT OUTER JOIN
+                      param_goal_of_talk ON conversation.goal_of_talk = param_goal_of_talk.serial LEFT OUTER JOIN
+                      param_type_followup_conversation ON conversation.type_followup_conversation = param_type_followup_conversation.serial LEFT OUTER JOIN
+                      users ON conversation.get_call_name = users.serial LEFT OUTER JOIN
+                      clients ON conversation.client_serial = clients.serial
+ORDER BY conversation.immediately DESC, conversation.datee

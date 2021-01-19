@@ -1,0 +1,14 @@
+USE `aluma_db`;
+
+
+CREATE TABLE IF NOT EXISTS param_type_followupconversation(
+	`serial` int AUTO_INCREMENT NOT NULL,
+	`param_name` nvarchar(50) NULL,
+	
+	PRIMARY KEY(`Serial` ASC) 
+) 
+
+
+
+
+
