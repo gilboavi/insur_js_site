@@ -1,7 +1,9 @@
 ﻿var config = require("../config").config;
-var my_sql =  require('mysql');
+var my_sql =  require('mysql2');
 
-var pool = my_sql.createPool(config.mysql.my_sql_detailes);
+var pool = my_sql.createPool(
+        config.mysql.my_sql_detailes
+);
 
 pool.getConnection((err, connection) => {
     if (err) {

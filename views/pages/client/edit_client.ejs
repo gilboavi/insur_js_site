@@ -7,7 +7,7 @@
             <td>
                 <div> יש צילום ת.זהות</div>
                 <div >
-                    <% if(data.main[0].ExsistId>0) {%>
+                    <% if(data.main[0].exsist_id>0) {%>
                         <input type="checkbox" name="exsist_id" checked  />
                     <%} else{%>
                         <input type="checkbox" name="exsist_id"   />
@@ -38,25 +38,25 @@
                     <td>
                          <div>שם משפחה</div>
                          <div>
-                             <input name="lastName" id="lastName" value="<%= data.main[0].LastName  %> "  />
+                             <input name="lastName" id="lastName" value="<%= data.main[0].last_name  %> "  />
                         </div>
                     </td>
                     <td>
                         <div>שם פרטי</div>
                          <div>
-                                <input name="firstName" id="firstName" value="<%= data.main[0].FirstName %>" />
+                                <input name="firstName" id="firstName" value="<%= data.main[0].first_name %>" />
                          </div>
                      </td>
                      <td>
                         <div>תאריך לידה</div>
                          <div>
-                                <input name="birthday" id="birthday"  value="<%= data.main[0].Birthday %>" size="10" />
+                                <input name="birthday" id="birthday"  value="<%= data.main[0].birthday %>" size="10" />
                          </div>
                      </td>
                       <td>
                         <div>מין</div>
                          <div>
-                                <input name="sex" id="sex" value="<%= data.main[0].Sex %>"  size="2"/>
+                                <input name="sex" id="sex" value="<%= data.main[0].sex %>"  size="2"/>
                          </div>
                      </td>
                       <td>
@@ -65,12 +65,12 @@
                                  <select name="agent"  id="agent" >
                                            <option value="0" > </option>
                                            <%    $.each(data.agents_list, function(key,val){
-                                                 if(val.Serial != data.main[0].Agent){ %>
-                                                       <option value="<%=val.Serial%>" ><%=val.AgentName%></option>
+                                                 if(val.Serial != data.main[0].agent){ %>
+                                                       <option value="<%=val.Serial%>" ><%=val.agent_name%></option>
                      
                                                <%}
                                                   else{ %>
-                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.AgentName%></option>
+                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.agent_name%></option>
                                                <%  }
                                          });%>
                           </select>
@@ -79,7 +79,7 @@
                      <td>
                             <div>דרוג לקוח</div>
                              <div>
-                                    <input name="client_rating" id="client_rating" value="<%= data.main[0].ClientRating %>"  size="2"/>
+                                    <input name="client_rating" id="client_rating" value="<%= data.main[0].client_rating %>"  size="2"/>
                              </div>
                          </td>
                
@@ -89,12 +89,12 @@
                                          <select name="no_health_fund"  id="no_health_fund" >
                                                    <option value="0" > </option>
                                                    <%    $.each(data.no_health_fund_list, function(key,val){
-                                                         if(val.Serial != data.main[0].NoHealthFund){ %>
-                                                               <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                                         if(val.Serial != data.main[0].no_health_fund){ %>
+                                                               <option value="<%=val.Serial%>" ><%=val.param_name%></option>
                              
                                                        <%}
                                                           else{ %>
-                                                                  <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                                                  <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                                                        <%  }
                                                  });%>
                                         </select>
@@ -108,7 +108,7 @@
                      <div>כתובת</div>
                      <div>
                      
-                         <input name="street" id="street" value=" <%= data.main[0].Street %>" />
+                         <input name="street" id="street" value=" <%= data.main[0].street %>" />
                         
                      </div>
                 </td>
@@ -116,7 +116,7 @@
                      <div>עיר</div>
                      <div>
                     
-                         <input name="city" id="city" value=" <%= data.main[0].City %>" />
+                         <input name="city" id="city" value=" <%= data.main[0].city %>" />
                         
                      </div>
                 </td>
@@ -126,11 +126,11 @@
                     <select name="status"  id ="status1" >
                         <option value="0" > </option>
                         <%    $.each(data.client_type_list, function(key,val){
-                            if(val.Serial != data.main[0].Status){
+                            if(val.Serial != data.main[0].status){
                             %>
-                                <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                <option value="<%=val.serial%>" ><%=val.param_name%></option>
                             <%} else { %>
-                                    <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                    <option value="<%=val.serial%>" selected="selected" ><%=val.ParamName%></option>
                             <%}
                         });%>
                     </select>
@@ -142,12 +142,12 @@
                                  <select name="operation" id="operation">
                                            <option value="0" > </option>
                                            <%    $.each(data.operation_list, function(key,val){
-                                                 if(val.Serial != data.main[0].Operation){ %>
-                                                       <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                                 if(val.Serial != data.main[0].operation){ %>
+                                                       <option value="<%=val.serial%>" ><%=val.param_name%></option>
                      
                                                <%}
                                                   else{ %>
-                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                                        <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                                                <%  }
                                          });%>
                           </select>
@@ -160,7 +160,7 @@
                         <div>דוא"ל</div>
                         <div>
                        
-                            <input name="email" id="email" value=" <%= data.main[0].Email %>" />
+                            <input name="email" id="email" value=" <%= data.main[0].email %>" />
                            
                         </div>
                    </td>
@@ -168,6 +168,6 @@
            
      </table > 
      <p> הערה<p> 
-     <input name="comment" value=" <%= data.main[0].Comment %>" style='width:80%'/>
+     <input name="comment" value=" <%= data.main[0].comment %>" style='width:80%'/>
    </form>  
 </script>

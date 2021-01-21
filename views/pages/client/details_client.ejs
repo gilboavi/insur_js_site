@@ -1,15 +1,15 @@
 ﻿
 <script id="details_client" type="text/html">
   
-  <input type="hidden" name="serial" id="serial" value="<%= data[0].Serial %>" />
+  <input type="hidden" name="serial" id="serial" value="<%= data[0].serial %>" />
   <input type="hidden" name="client_id" id="client_id" value="<%= data[0].id %>" />
-  <input type="hidden"  id="last_name1" value="<%= data[0].LastName %>" />
-  <input type="hidden"  id="first_name1" value="<%= data[0].FirstName %>" />
-  <input type="hidden"  id="street1" value=" <%= data[0].Street %>" />
-  <input type="hidden"  id="city1" value=" <%= data[0].City %>" />
+  <input type="hidden"  id="last_name1" value="<%= data[0].last_name %>" />
+  <input type="hidden"  id="first_name1" value="<%= data[0].first_name %>" />
+  <input type="hidden"  id="street1" value=" <%= data[0].street %>" />
+  <input type="hidden"  id="city1" value=" <%= data[0].city %>" />
   <input type="hidden"  id="client_id" value=" <%= data[0].id %>" />
     
-       <a id="btn_save" onclick="edit_client('<%= data[0].Serial %>' )" >עריכה</a> 
+       <a id="btn_save" onclick="edit_client('<%= data[0].serial %>' )" >עריכה</a> 
       &nbsp
         <a onclick="edit_client(0)" >לקוח חדש</a> 
         &nbsp
@@ -17,9 +17,9 @@
         &nbsp
       <!--  <a onclick="get_si()"  > stam</a> !--> 
             <h1 class="font_client_details">
-              <%= data[0].LastName  %>
+              <%= data[0].last_name  %>
                 &nbsp
-                <%= data[0].FirstName %>
+                <%= data[0].first_name %>
                 
 
               
@@ -35,9 +35,9 @@
               <div>
                 כתובת -
                   &nbsp
-                  <%= data[0].Street %>
+                  <%= data[0].street %>
                   &nbsp
-                  <%= data[0].City %>
+                  <%= data[0].city %>
               </div>
               <div>
                 עישון -
@@ -57,13 +57,13 @@
                   &nbsp
                  
                   &nbsp
-                  <%=moment(data[0].Birthday).format("DD/MM/YYYY") %>
+                  <%=moment(data[0].birthday).format("DD/MM/YYYY") %>
                   
               </div>
               <div>
                 סטטוס -
                   &nbsp
-                  <%= data[0].StatusName %>
+                  <%= data[0].statusname %>
                 
               </div>
           </div>
