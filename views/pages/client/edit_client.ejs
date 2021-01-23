@@ -1,6 +1,6 @@
 ﻿<script id="edit_client" type="text/html">
    <form id="editClient" name="editClient">
-  <input type="hidden" name="serial" value="<%= data.main[0].Serial %>" />
+  <input type="hidden" name="serial" value="<%= data.main[0].serial %>" />
        <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="save" />
     <table >
         <tr> 
@@ -38,13 +38,13 @@
                     <td>
                          <div>שם משפחה</div>
                          <div>
-                             <input name="lastName" id="lastName" value="<%= data.main[0].last_name  %> "  />
+                             <input name="last_name" id="lastName" value="<%= data.main[0].last_name  %> "  />
                         </div>
                     </td>
                     <td>
                         <div>שם פרטי</div>
                          <div>
-                                <input name="firstName" id="firstName" value="<%= data.main[0].first_name %>" />
+                                <input name="first_name" id="firstName" value="<%= data.main[0].first_name %>" />
                          </div>
                      </td>
                      <td>
@@ -65,12 +65,12 @@
                                  <select name="agent"  id="agent" >
                                            <option value="0" > </option>
                                            <%    $.each(data.agents_list, function(key,val){
-                                                 if(val.Serial != data.main[0].agent){ %>
-                                                       <option value="<%=val.Serial%>" ><%=val.agent_name%></option>
+                                                 if(val.serial != data.main[0].agent){ %>
+                                                       <option value="<%=val.serial%>" ><%=val.agent_name%></option>
                      
                                                <%}
                                                   else{ %>
-                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.agent_name%></option>
+                                                          <option value="<%=val.serial%>" selected="selected" ><%=val.agent_name%></option>
                                                <%  }
                                          });%>
                           </select>
@@ -89,8 +89,8 @@
                                          <select name="no_health_fund"  id="no_health_fund" >
                                                    <option value="0" > </option>
                                                    <%    $.each(data.no_health_fund_list, function(key,val){
-                                                         if(val.Serial != data.main[0].no_health_fund){ %>
-                                                               <option value="<%=val.Serial%>" ><%=val.param_name%></option>
+                                                         if(val.serial != data.main[0].no_health_fund){ %>
+                                                               <option value="<%=val.serial%>" ><%=val.param_name%></option>
                              
                                                        <%}
                                                           else{ %>
@@ -126,11 +126,11 @@
                     <select name="status"  id ="status1" >
                         <option value="0" > </option>
                         <%    $.each(data.client_type_list, function(key,val){
-                            if(val.Serial != data.main[0].status){
+                            if(val.serial != data.main[0].status){
                             %>
                                 <option value="<%=val.serial%>" ><%=val.param_name%></option>
                             <%} else { %>
-                                    <option value="<%=val.serial%>" selected="selected" ><%=val.ParamName%></option>
+                                <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                             <%}
                         });%>
                     </select>
@@ -142,12 +142,12 @@
                                  <select name="operation" id="operation">
                                            <option value="0" > </option>
                                            <%    $.each(data.operation_list, function(key,val){
-                                                 if(val.Serial != data.main[0].operation){ %>
+                                                 if(val.serial != data.main[0].operation){ %>
                                                        <option value="<%=val.serial%>" ><%=val.param_name%></option>
                      
                                                <%}
                                                   else{ %>
-                                                        <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
+                                                       <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                                                <%  }
                                          });%>
                           </select>

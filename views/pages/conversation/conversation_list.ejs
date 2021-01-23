@@ -17,18 +17,18 @@
         <tbody>
             <% $.each(data.conversation_list, function(rowindex,row) {
             
-                if(row.Done==true){ %> 
+                if(row.done==true){ %> 
                     <tr >
-                <%  } else  if(row.Immediately==true) {%> 
+                <%  } else  if(row.immediately==true) {%> 
                 
                  <tr class="red_text">
-              <%  } else if(row.Done==false){ %>
+              <%  } else if(row.done==false){ %>
                     <tr class="green_text">
                        
                 <%}%>        
 
                      <% $.each(row, function(key,val){  
-                         if(key=="Serial") {%>
+                         if(key=="serial") {%>
                             <td>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
@@ -45,10 +45,10 @@
                                 &nbsp
                                 <a href="#" onclick=" get_followup_conversations_list_by_clientserial(<%= val%>)"> מעקב</a> !-->
                             </td>
-                        <% } else if(key=="Immediately") { 
+                        <% } else if(key=="immediately") { 
                            // alert(this);
                           //  this.parent().css( "background-color", "red" );
-                         } else if(key!="Done") { %>
+                         } else if(key!="done") { %>
                                 <td><%= val%></td>
                     <%} });%>
                  </tr>

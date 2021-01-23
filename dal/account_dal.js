@@ -6,9 +6,9 @@ const mysql = require('mysql2');
 const dbConn = require("./dbConn");
 const db_conn_mysql = require("./db_con_mysql");
 
-const  sql_client_helper_tables = " SELECT[Serial], [ParamName] FROM [ParamClientType] ORDER BY ParamName " + ";" +
-    " SELECT[Serial], [AgentName] FROM [Agents]  ORDER BY AgentName " + ";" +
-    " SELECT[Serial], [ParamName] FROM [ParamOperation] ORDER BY ParamName ;" ;
+const  sql_client_helper_tables = " SELECT `serial`, `param_name` FROM `param_client_type` ORDER BY `param_name` " + ";" +
+    " SELECT `serial`, `agent_name` FROM `agents`  ORDER BY `agent_name` " + ";" +
+    " SELECT `serial`, `param_name` FROM `param_operation` ORDER BY `param_name` ;" ;
  
 const sql_client =" SELECT  * FROM  `clients_with_params` WHERE `serial`= ?;";
 
@@ -25,7 +25,7 @@ const sql_conversation= " SELECT `datee`  , "+
                 " `user_name` , "+
                 "  `type_followup_conversation_name` ," + 
                  " `no_police` ," +
-                  " `done' , "+
+                  " `done` , "+
                   " `immediately` ," +
                 " `serial` " + 
                 " FROM `conversation_with_param` "+
@@ -40,9 +40,9 @@ const sql_for_auto_complete="SELECT *  FROM Clients " +
         "OR[LastName]  like @term + '%' " +
         "OR[FirstName] like @term + '%'  Order by LastName";
 
-const sql_families="SELECT *  FROM FamilyMembers Where ClientSerial= @serial; " ;
+const sql_families="SELECT *  FROM `family_members` Where `client_serial` = ?; " ;
 
-const sql_family_members=" Select LastName, FirstName,Member_type, ClientSerial From FamilyMembersWithParams Where FamiliesSerial=@families_serial"
+const sql_family_members=" Select last_name, first_name,member_type, client_serial From family_members_with_params Where families_serial=?"
 
 function compare(a, b) {
     // Use toUpperCase() to ignore character casing
@@ -199,10 +199,12 @@ module.exports = {
     async get_client_conversatios_communicatios_by_serial(params) {
            
         var sql_string =sql_client 
-                         +" " + sql_communicatuion;
-                        // sql_conversation+
+                         +" " + sql_communicatuion
+                         +" " + sql_conversation 
+                         +" " +sql_families;
+
                         // sql_followup_conversation+
-                        // sql_families;
+                        
 
         try {
             
@@ -214,29 +216,32 @@ module.exports = {
             //     .query(sql_string);
             let result=await db_conn_mysql.getPool().promise()
             .query(sql_string,
-            [params.serial,params.serial]);
+            [params.serial,
+             params.serial,
+             params.serial,
+             params.serial]);
 
             var my_data = {
                 my_client: result[0][0],
-                communication_list:result[0][1]
-                // conversation_list: result.recordsets[2],
+                communication_list:result[0][1],
+                 conversation_list: result[0][2],
                 // FollowUpConversation_list: result.recordsets[3]
 
             };
-            let  families_serial;
+            let  my_families;
             try{
-                families_serial=result.recordsets[4];
-                if(   families_serial.length != 0 ){
+                my_families=result[0][3];
+                if(   my_families.length != 0 ){
              
-                    my_data.families_serial=families_serial[0].FamiliesSerial;
+                    my_data.families_serial=my_families[0].families_serial;
                   }
                  // if(families_serial!="undefined"){
-                  if(families_serial.length>0){
-                      let resul2 = await dbConn.getPool().request()
-                      .input('families_serial', sql.Int, families_serial[0].FamiliesSerial)
-                      .query(sql_family_members);
+                  if(my_families.length>0){
+                      let resul2 = await db_conn_mysql.getPool().promise()
+                      .query(sql_family_members,
+                      [my_data.families_serial]);
       
-                      my_data.family_members=resul2.recordsets;
+                      my_data.family_members=resul2[0];
                   }else{
                       my_data.family_members={};
                   }
@@ -314,7 +319,7 @@ module.exports = {
     async get_client_by_serial(params) {
         
         var sql_str = "";
-        var sql_str1 = "SELECT  * FROM [Clients]  WHERE [Serial]= @serial;";
+        var sql_str1 = "SELECT  * FROM `clients`  WHERE `serial`= ?;";
            
        
 
@@ -326,9 +331,13 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .query(sql_str);
+            let result = await db_conn_mysql.getPool().promise()
+                  .query(sql_str,
+                  [params.serial,
+                   params.serial,
+                   params.serial,
+                   params.serial
+                  ]);
 
 
             var my_data = {};
@@ -341,10 +350,10 @@ module.exports = {
                 my_data.operation_list = result.recordsets[2];
                 my_data.no_health_fund_list=no_health_fund_list();
             } else {
-                my_data.main = result.recordsets[0];
-                my_data.client_type_list = result.recordsets[1];
-                my_data.agents_list = result.recordsets[2];
-                my_data.operation_list = result.recordsets[3];
+                my_data.main = result[0][0];
+                my_data.client_type_list = result[0][1];
+                my_data.agents_list = result[0][2];
+                my_data.operation_list = result[0][3];
                  my_data.no_health_fund_list=no_health_fund_list();
                
             }
@@ -362,24 +371,35 @@ module.exports = {
 
       async save_client(params) {
           let that = this;
-          var sql_str = "UPDATE   dbo.Clients SET " +
-              "id=@id," + 
-            " LastName=@lastName ," + 
-            " FirstName=@firstName , " +
-            " Birthday=@birthday ," +
-            " Street=@street ," +
-            " City=@city ," +
-              " Status=@status , " +
-              " ExsistId=@exsist_id ," +
-              " Agent=@agent ," +
-              " Operation=@operation , " +
-              " Comment=@comment , " +
-              " Email=@email , " +
-              " ClientRating=@client_rating , " +
-              " NoHealthFund=@no_health_fund  " +
+          if(params.exsist_id=='true'){
+            params.exsist_id=1;
+          } else if(params.exsist_id=='false'){
+            params.exsist_id=0;
+          }
+          if(params.smok=='true'){
+            params.smok=1;
+          } else if(params.smok=='false'){
+            params.smok=0;
+          }
+          var sql_update = "UPDATE   clients SET " +
+              "`id`=?," + 
+            " `last_name`=? ," + 
+            " `first_name`=? , " +
+            " `sex`=? , " +
+            " `birthday`=? ," +
+            " `street`=? ," +
+            " `city`=? ," +
+              " `status`=? , " +
+              " `exsist_id`=? ," +
+              " `agent`=? ," +
+              " `operation`=? , " +
+              " `comment`=? , " +
+              " `email`=? , " +
+              " `client_rating`=? , " +
+              " `no_health_fund`=?  " +
               
-              "  WHERE [Serial]= @serial ";
-
+              "  WHERE `serial`=? ";
+           
       
           try {
               var my_data = {
@@ -411,23 +431,29 @@ module.exports = {
             }
 
            // let result = await pool.request()
-           let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('id', sql.Int, params.id)
-                .input('lastName', sql.NVarChar, params.lastName)
-                .input('firstName', sql.NVarChar, params.firstName)
-                .input('birthday', sql.DateTime, params.birthday)
-                .input('street', sql.NVarChar, params.street)
-                .input('city', sql.NVarChar, params.city)
-                .input('status', sql.Int, params.status)
-                .input('exsist_id', sql.Bit, params.exsist_id)
-                .input('operation', sql.Int, params.operation)
-                .input('agent', sql.Int, params.agent)
-                .input('comment', sql.NVarChar, params.comment)
-                .input('email', sql.NVarChar, params.email)
-                .input('client_rating', sql.Int, params.client_rating)
-                .input('no_health_fund', sql.Int, params.no_health_fund)
-                .query(sql_str );
+           let result = await db_conn_mysql.getPool().promise()
+           .query(sql_update,
+            [
+                params.id,
+                `${params.last_name}`,
+                `${params.first_name}`,
+                `${params.sex}`,
+                params.birthday,
+                `${params.street}`,
+                `${params.city}`,
+                params.status,
+                params.exsist_id,
+                params.agent !=null ? params.agent:0,
+                params.operation,
+                `${params.comment}`,
+                `${params.email}`,
+                params.client_rating != '' ?  params.client_rating :0,
+                params.no_health_fund!= '' ?  params.client_rating :0,
+                params.serial
+            ]
+           );
+               
+            var a=result;   
          
             return my_data;
             // Stored procedure 

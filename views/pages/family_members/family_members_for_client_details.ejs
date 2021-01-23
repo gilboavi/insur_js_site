@@ -26,12 +26,12 @@
                 </thead>
                 <tbody>
                     <% if(data.family_members.length >0) {
-                        $.each(data.family_members[0], function(rowindex,row) {%>
+                        $.each(data.family_members, function(rowindex,row) {%>
                             <tr>
                                 
                                 
                                     <%   $.each(row, function(key,val){  
-                                        if(key!="ClientSerial" )  {%>
+                                        if(key!="client_serial" )  {%>
                                             <td><%= val%></td>
                                         <% } else { %>
                                             <td>

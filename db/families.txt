@@ -1,5 +1,8 @@
 USE `aluma_db`;
+ 
 
+
+ 
 
 CREATE TABLE IF NOT EXISTS families(
 	`serial` int AUTO_INCREMENT NOT NULL,
@@ -7,7 +10,5 @@ CREATE TABLE IF NOT EXISTS families(
 	`comment` nvarchar(150) NULL,
 	`group_serial` int NULL,
 	`mone` Double NULL,
-     PRIMARY KEY(`serial` ASC) 
-) 
-
-
+     PRIMARY KEY (	`serial` ASC) 
+);

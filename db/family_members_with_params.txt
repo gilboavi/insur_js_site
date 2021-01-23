@@ -1,0 +1,11 @@
+USE `aluma_db`;
+ 
+
+
+CREATE VIEW `family_members_with_params`
+AS
+SELECT     family_members.Member_type, clients.id, clients.last_name, clients.first_name, clients.street, clients.city, family_members.comment, 
+                      family_members.client_serial, family_members.serial, family_members.families_serial
+FROM         family_members LEFT OUTER JOIN
+                      clients ON family_members.client_serial = clients.serial
+

@@ -500,7 +500,7 @@ function render_family_members(data){
 // render client_details , conversation_list , communication_list
 // used in client_details , save client ( new client)
 function render_client_conversation(data){
-    var full_name = (data.my_client)[0].LastName + " " + data.my_client[0].FirstName;
+    var full_name = (data.my_client)[0].last_name + " " + data.my_client[0].first_name;
     $("#full_name").text(full_name);
 
     // client_detail
@@ -511,11 +511,11 @@ function render_client_conversation(data){
     render_html_with_data(my_params);
      // family_members
 
-     render_family_members(data);
-   //  if(data.families_serial!=null) {
-   //  my_params=params_family_members(data);
-   //  render_html_with_data(my_params);
-   //  }
+   // render_family_members(data);
+    if(data.families_serial!=null) {
+    my_params=params_family_members(data);
+    render_html_with_data(my_params);
+    }
     // conversation  
     my_params=params_conversation(data);
     render_html_with_data_and_hide_div(my_params );
@@ -554,7 +554,7 @@ function edit_client(serial) {
    
     get_api_data_by_params(params).done(function (data) {
         open_colorbox("#edit_client", data);
-        set_datepicker_format("birthday", data.main[0].Birthday);
+        set_datepicker_format("birthday", data.main[0].birthday);
      })
 };
 
@@ -567,8 +567,8 @@ function save_client() {
     var params = {};
     params = $.parseJSON(params_temp);
     params.birthday = moment(params.birthday, "DD/MM/YYYY").toDate();
-    params.lastName = (params.lastName).trim();
-    params.firstName = (params.firstName).trim();
+    params.lastName = (params.last_name).trim();
+    params.firstName = (params.first_name).trim();
     params.city = (params.city).trim();
     params.street = (params.street).trim();
     params.api = "account_api";
@@ -578,37 +578,37 @@ function save_client() {
     save_from_coler_box2(params).done(function (data) { 
         if(!data.my_client) {
             var my_client =[ {
-                Serial: $("#serial").val(),
+                serial: $("#serial").val(),
                 id: $("#id").val(),
-                LastName:  $("#lastName").val(),
-                FirstName:  $("#firstName").val(),
-                Agent:  agent.options[agent.selectedIndex].text,
-                Birthday:  $("#birthday").val(),
-                Sex:  $("#sex").val(),
+                last_name:  $("#last_name").val(),
+                first_name:  $("#first_name").val(),
+                agent:  agent.options[agent.selectedIndex].text,
+                birthday:  $("#birthday").val(),
+                sex:  $("#sex").val(),
             //  smok:  $("$firstName").val(),
-                Operation:  operation.options[operation.selectedIndex].text,
-                Street:  $("#street").val(),
-                City:  $("#city").val(),
-                Micud: null,
+                operation:  operation.options[operation.selectedIndex].text,
+                street:  $("#street").val(),
+                city:  $("#city").val(),
+                micud: null,
             //  StreetWork: null,
             //  CityWork: null,
             
             //   MicudWork: null,
-                Post_box: null,
-                Email: null,
-                Potenion: null,
-                Family_status: null,
+                post_box: null,
+                email: null,
+                potenion: null,
+                family_status: null,
                 Place_work: null,
                 falg: null,
-                Comment: null,
-                StatusName:  status1.options[status1.selectedIndex].text,
-                ClientPicture: null,
-                ExsistId: null,
-                ExsistMinu: null,
-                MeetingPlace: null,
-                StopSmok: null,
-                ClientRating: null,
-                NoHealthFund: null
+                comment: null,
+                status_name:  status1.options[status1.selectedIndex].text,
+                client_picture: null,
+                exsist_id: null,
+                exsist_minu: null,
+                meeting_place: null,
+                stop_smok: null,
+                client_rating: null,
+                no_health_fund: null
             }];
 
             var my_params=params_client_details(my_client)
