@@ -69,6 +69,28 @@ function dynamicSort(property) {
         return result * sortOrder;
     }
 }
+
+function built_sql_string(sql_head,oprator,sql_end){
+
+    var sql_update_insert = sql_head + " " +
+            "`id`"+oprator+"," + 
+            " `last_name`"+oprator+" ," + 
+            " `first_name`"+oprator+" , " +
+            " `sex`"+oprator+" , " +
+            " `birthday`"+oprator+" ," +
+            " `street`"+oprator+" ," +
+            " `city`"+oprator+" ," +
+            " `status`"+oprator+" , " +
+            " `exsist_id`"+oprator+" ," +
+            " `agent`"+oprator+" ," +
+            " `operation`"+oprator+" , " +
+            " `comment`"+oprator+" , " +
+            " `email`"+oprator+" , " +
+            " `client_rating`"+oprator+" , " +
+            " `no_health_fund`" +oprator+"  " +
+               sql_end;
+    return sql_update_insert;
+}
 // list of kupat holime
 const no_health_fund_list=()=>{
     var no_health_fund_list=[
@@ -103,36 +125,34 @@ const get_type_filter_client = (params) => {
 
 const get_empty_client = (params) => {
     var my_client = {
-        Serial: 0,
+        serial: 0,
         id: null,
-        LastName: null,
-        FirstName: null,
-        Agent: 0,
-        Birthday: null,
-        Sex: null,
+        last_name: null,
+        first_name: null,
+        agent: 0,
+        birthday: null,
+        sex: null,
         smok: null,
-        Operation: null,
-        Street: null,
-        StreetWork: null,
-        City: null,
-        CityWork: null,
-        Micud: null,
-        MicudWork: null,
-        Post_box: null,
-        Email: null,
-        Potenion: null,
-        Family_status: null,
-        Place_work: null,
+        operation: null,
+        street: null,
+        street_work: null,
+        city: null,
+        city_work: null,
+        micud: null,
+        micud_work: null,
+        post_box: null,
+        Eeamily_status: null,
+        place_work: null,
         falg: null,
-        Comment: null,
-        Status: null,
-        ClientPicture: null,
-        ExsistId: null,
-        ExsistMinu: null,
-        MeetingPlace: null,
-        StopSmok: null,
-        ClientRating: null,
-        NoHealthFund: null
+        comment: null,
+        status: null,
+        client_picture: null,
+        exsist_id: null,
+        exsist_minu: null,
+        meeting_place: null,
+        stop_smok: null,
+        client_rating: null,
+        no_health_fund: null
     }
     return my_client;
 }
@@ -345,9 +365,9 @@ module.exports = {
                 var main_t = [];
                 main_t.push(get_empty_client(params));
                 my_data.main = main_t;
-                my_data.client_type_list = result.recordsets[0];
-                my_data.agents_list = result.recordsets[1];
-                my_data.operation_list = result.recordsets[2];
+                my_data.client_type_list = result[0][0];
+                my_data.agents_list = result[0][1];
+                my_data.operation_list = result[0][2];
                 my_data.no_health_fund_list=no_health_fund_list();
             } else {
                 my_data.main = result[0][0];
@@ -370,7 +390,13 @@ module.exports = {
     },
 
       async save_client(params) {
+
           let that = this;
+          var sql_head="";
+          var sql_oprator="";
+          var sql_end="";
+          var sql_update_insert ="";
+
           if(params.exsist_id=='true'){
             params.exsist_id=1;
           } else if(params.exsist_id=='false'){
@@ -382,7 +408,7 @@ module.exports = {
             params.smok=0;
           }
           var sql_update = "UPDATE   clients SET " +
-              "`id`=?," + 
+            "`id`=?," + 
             " `last_name`=? ," + 
             " `first_name`=? , " +
             " `sex`=? , " +
@@ -399,44 +425,53 @@ module.exports = {
               " `no_health_fund`=?  " +
               
               "  WHERE `serial`=? ";
-           
+             
+            // var sql_update_insert = sql_head + " " +
+            // "`id`"+oprator+"," + 
+            // " `last_name`"+oprator+" ," + 
+            // " `first_name`"+oprator+" , " +
+            // " `sex`"+oprator+" , " +
+            // " `birthday`"+oprator+" ," +
+            // " `street`"+oprator+" ," +
+            // " `city`"+oprator+" ," +
+            // " `status`"+oprator+" , " +
+            // " `exsist_id`"+oprator+" ," +
+            // " `agent`"+oprator+" ," +
+            // " `operation`"+oprator+" , " +
+            // " `comment`"+oprator+" , " +
+            // " `email`"+oprator+" , " +
+            // " `client_rating`"+oprator+" , " +
+            //    sql_end;   
       
           try {
               var my_data = {
                   message: "הרשומה נשמרה היטב"
               };
-
+            
            // let pool = await sql.connect(config.mssql.test_db)
+            // insert
 
+            sql_head="UPDATE   clients SET ";
+          sql_oprator="=?";
+          sql_end="   WHERE `serial`=? ";
             if (params.serial == 0) {
-                sql_str = "INSERT INTO [Clients] " + " " +
-                    " ( [id] , [LastName] ,  [FirstName]  ,  [Birthday]  ,  [Street] ,  [City] ,[Status] , ExsistId , Comment , Email , ClientRating , NoHealthFund)" + " " +
-                    "   VALUES " + " " +
-                    " (@id , @lastName , @firstName  ,@birthday, @street , @city , @status, @exsist_id  , @comment , @email , @client_rating , @no_health_fund  ); ";
-              //  let result1 = await pool.request()
-              let result1 = await dbConn.getPool().request()
-                    .input('serial', sql.Int, params.serial)
-                    .input('id', sql.Int, params.id)
-                    .query("Select * From Clients Where id=@id");
-                if(result1.recordset[0]){
-                    if (result1.recordset[0].id) {
-                      
-                        params.pool1=pool;
-                        params.serial=result1.recordset[0].Serial;
-                        my_data =await that.get_client_conversatios_communicatios_by_serial(params) ;
-                        my_data.message = "לקוח עם תעודת זהות זו - קיים";
-                        return my_data;
-                    }
-                }
+                sql_head=" INSERT into   clients ( ";
+                sql_oprator=" ";
+                sql_end=") VALUES (?,?,?,?,?,"+
+                                 "?,?,?,?,?,"+
+                                 "?,?,?,?,?  ) "; 
             }
 
-           // let result = await pool.request()
+           // udate
+           var stam=params.last_name;
+           params.last_name =stam.trim();
+          sql_update_insert=built_sql_string(sql_head,sql_oprator,sql_end);
            let result = await db_conn_mysql.getPool().promise()
-           .query(sql_update,
+           .query(sql_update_insert,
             [
                 params.id,
                 `${params.last_name}`,
-                `${params.first_name}`,
+                `${params.first_name.trim()}`,
                 `${params.sex}`,
                 params.birthday,
                 `${params.street}`,
