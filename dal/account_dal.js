@@ -5,6 +5,7 @@ const sql = require('mssql');
 const mysql = require('mysql2');
 const dbConn = require("./dbConn");
 const db_conn_mysql = require("./db_con_mysql");
+const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 const  sql_client_helper_tables = " SELECT `serial`, `param_name` FROM `param_client_type` ORDER BY `param_name` " + ";" +
     " SELECT `serial`, `agent_name` FROM `agents`  ORDER BY `agent_name` " + ";" +
@@ -94,10 +95,10 @@ function built_sql_string(sql_head,oprator,sql_end){
 // list of kupat holime
 const no_health_fund_list=()=>{
     var no_health_fund_list=[
-        { Serial: 1, ParamName: "כללית" },
-        { Serial: 2, ParamName: "מאוחדת" },
-        { Serial: 3, ParamName: "לאומית" },
-        { Serial: 4, ParamName: "מכבי" },
+        { serial: 1, param_name: "כללית" },
+        { serial: 2, param_name: "מאוחדת" },
+        { serial: 3, param_name: "לאומית" },
+        { serial: 4, param_name: "מכבי" },
     ];
     return no_health_fund_list;
 
@@ -234,7 +235,7 @@ module.exports = {
             // let result = await dbConn.getPool().request()
             //     .input('serial', sql.Int, params.serial)
             //     .query(sql_string);
-            let result=await db_conn_mysql.getPool().promise()
+            let result=await db_conn_mysql_multi.getPool().promise()
             .query(sql_string,
             [params.serial,
              params.serial,
@@ -349,9 +350,8 @@ module.exports = {
             sql_str = sql_client_helper_tables;
         }
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await db_conn_mysql.getPool().promise()
+            
+            let result = await db_conn_mysql_multi.getPool().promise()
                   .query(sql_str,
                   [params.serial,
                    params.serial,
@@ -407,89 +407,60 @@ module.exports = {
           } else if(params.smok=='false'){
             params.smok=0;
           }
-          var sql_update = "UPDATE   clients SET " +
-            "`id`=?," + 
-            " `last_name`=? ," + 
-            " `first_name`=? , " +
-            " `sex`=? , " +
-            " `birthday`=? ," +
-            " `street`=? ," +
-            " `city`=? ," +
-              " `status`=? , " +
-              " `exsist_id`=? ," +
-              " `agent`=? ," +
-              " `operation`=? , " +
-              " `comment`=? , " +
-              " `email`=? , " +
-              " `client_rating`=? , " +
-              " `no_health_fund`=?  " +
-              
-              "  WHERE `serial`=? ";
-             
-            // var sql_update_insert = sql_head + " " +
-            // "`id`"+oprator+"," + 
-            // " `last_name`"+oprator+" ," + 
-            // " `first_name`"+oprator+" , " +
-            // " `sex`"+oprator+" , " +
-            // " `birthday`"+oprator+" ," +
-            // " `street`"+oprator+" ," +
-            // " `city`"+oprator+" ," +
-            // " `status`"+oprator+" , " +
-            // " `exsist_id`"+oprator+" ," +
-            // " `agent`"+oprator+" ," +
-            // " `operation`"+oprator+" , " +
-            // " `comment`"+oprator+" , " +
-            // " `email`"+oprator+" , " +
-            // " `client_rating`"+oprator+" , " +
-            //    sql_end;   
       
-          try {
+        try {
               var my_data = {
                   message: "הרשומה נשמרה היטב"
               };
-            
-           // let pool = await sql.connect(config.mssql.test_db)
-            // insert
-
+ 
             sql_head="UPDATE   clients SET ";
-          sql_oprator="=?";
-          sql_end="   WHERE `serial`=? ";
+            sql_oprator="=?";
+            sql_end="   WHERE `serial`=? ";
+          // insert
             if (params.serial == 0) {
                 sql_head=" INSERT into   clients ( ";
                 sql_oprator=" ";
                 sql_end=") VALUES (?,?,?,?,?,"+
                                  "?,?,?,?,?,"+
                                  "?,?,?,?,?  ) "; 
-            }
+                let result_1 = await db_conn_mysql.getPool().promise()
+                                 .query("select `serial`,`id` from `clients` where  id=?", 
+                                 [params.id]               
+                            );
+                if (result_1[0][0].id !=null){
+                    params.serial=result_1[0][0].serial;
+                    my_data =await that.get_client_conversatios_communicatios_by_serial(params) ;
+                    my_data.message = "לקוח עם תעודת זהות זו - קיים";
+                    return my_data;
+                }
+            }    
 
            // udate
-           var stam=params.last_name;
-           params.last_name =stam.trim();
-          sql_update_insert=built_sql_string(sql_head,sql_oprator,sql_end);
-           let result = await db_conn_mysql.getPool().promise()
-           .query(sql_update_insert,
-            [
-                params.id,
-                `${params.last_name}`,
-                `${params.first_name.trim()}`,
-                `${params.sex}`,
-                params.birthday,
-                `${params.street}`,
-                `${params.city}`,
-                params.status,
-                params.exsist_id,
-                params.agent !=null ? params.agent:0,
-                params.operation,
-                `${params.comment}`,
-                `${params.email}`,
-                params.client_rating != '' ?  params.client_rating :0,
-                params.no_health_fund!= '' ?  params.client_rating :0,
-                params.serial
-            ]
-           );
+          
+            params.last_name =params.last_name.trim();
+            sql_update_insert=built_sql_string(sql_head,sql_oprator,sql_end);
+            let result = await db_conn_mysql.getPool().promise()
+                    .query(sql_update_insert,
+                            [
+                                params.id,
+                                `${params.last_name}`,
+                                `${params.first_name}`,
+                                params.sex,
+                                params.birthday,
+                                `${params.street}`,
+                                `${params.city}`,
+                                params.status,
+                                params.exsist_id,
+                                params.agent !=null ? params.agent:0,
+                                params.operation,
+                                `${params.comment}`,
+                                `${params.email}`,
+                                 params.client_rating != '' ?  params.client_rating :0,
+                                params.no_health_fund!= '' ?  params.client_rating :0,
+                                params.serial
+                            ]
+                        );
                
-            var a=result;   
-         
             return my_data;
             // Stored procedure 
         } catch (err) {
