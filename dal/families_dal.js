@@ -1,14 +1,15 @@
 var family_members = require("../dal/family_members_dal");
 const sql = require('mssql');
 const dbConn = require("./dbConn");
+const db_conn_mysql = require("./db_con_mysql");
 
-const sql_update_families=  "UPDATE   Families SET " +
-                            "LastName=@last_name  " + "," +
-                            "FirstName=@first_name  " + "," +
-                            "Street=@street  " + "," +
-                            "City=@city"+  "," +
-                            " Comment=@comment " +
-                            "  WHERE [Serial]= @serial ";
+const sql_update_families=  "UPDATE   families SET " +
+                            "`last_name`=?  " + "," +
+                            "first_name=?  " + "," +
+                            "`street`=?  " + "," +
+                            "`city`=?"+  "," +
+                            " `comment`=? " +
+                            "  WHERE `serial`= ? ";
 
 const sql_insert_families=   "INSERT INTO  Families " + " " +
                     " ( LastName , FirstName, Street , City , Comment , Mone)" + " " +
@@ -42,8 +43,8 @@ const sql_get_familyMenbers_list_by_client_serial= "SELECT FamilyMembers.Serial,
                         " FROM  FamilyMembers AS FamilyMembers_1" +
                         " WHERE      (ClientSerial = @client_serial)))" ;
 
-const sql_get_families_by_mone_and_client_serial= "select Serial from families " +
-               " where mone=@mone and ClientSerial=@client_serial "
+const sql_get_families_by_mone_and_client_serial= "select `serial` from `families` " +
+               " where `mone`=? and `client_serial`=? "
 
 
 const sql_get_family_by_client_serial= "SELECT Serial From Families Where ClientSerial=@client_serial "
@@ -124,24 +125,30 @@ module.exports = {
                // insert new families
                 let my_mone=Math.random() * 100000 | 0;
                 let client_serial=params.client_serial;
-                let result = await dbConn.getPool().request()
-                    .input('client_serial', sql.Int, client_serial)
-                    .input('mone', sql.Float, my_mone)
-                    .query(sql_insert_families_new );
+                let result = await db_conn_mysql.get_pool().promise()
+                    
+                    .query(sql_insert_families_new ,
+                        [client_serial,
+                            my_mone]);
                 // get Serial of new families
-                    result = await dbConn.getPool().request()
+                    result = await db_conn_mysql.get_pool().promise()
                     .input('mone',  sql.Float, my_mone)
                     .input('client_serial', sql.Int, client_serial)
-                    .query( sql_get_families_by_mone_and_client_serial );
+                    .query( sql_get_families_by_mone_and_client_serial, 
+                          [ my_mone,
+                            client_serial
+                          ]);
                 // insert new family member
                     let  families_serial;
-                    if( result.recordsets[0].length !=0 ){
-                     families_serial= result.recordsets[0][0].Serial;
-                     let   result2 = await dbConn.getPool().request()
-                        .input('client_serial', sql.Int, client_serial)
-                        .input('families_serial', sql.Int, families_serial)
+                    if( result[0][0].length !=0 ){
+                     families_serial= result[0][0].serial;
+                     let   result2 = await db_conn_mysql.get_pool().promise()
                         
-                        .query(sql_insert_family_members_first_member );
+                        .query(sql_insert_family_members_first_member,
+                                [   client_serial,
+                                families_serial
+                                ] 
+                              );
 
                     }
 
@@ -149,7 +156,7 @@ module.exports = {
                     families_serial:families_serial
                  }  
                  // return family members
-                 let my_data=await family_members.get_familiesMembers_by_familiesSerial(my_params);
+                 let my_data=await family_members.get_families_members_by_families_serial(my_params);
                 return my_data;
            
             } catch (err) {

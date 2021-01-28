@@ -21,7 +21,9 @@ jQuery(function($){
     });
 })
 
-
+function hide_family_members_div(){
+    $('#family_members_in_client_details_div').html("");
+}
     
 
 $("#hide_show_client_details").click(function () {
@@ -515,6 +517,9 @@ function render_client_conversation(data){
     if(data.families_serial!=null) {
     my_params=params_family_members(data);
     render_html_with_data(my_params);
+    } else{
+ 
+        $('#family_members_in_client_details_div').html("");
     }
     // conversation  
     my_params=params_conversation(data);

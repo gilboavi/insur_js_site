@@ -202,7 +202,7 @@ module.exports = {
             let name_to_find= typeof params.term === 'string'? params.term :'';
             
            //let result =await mysql.createPool(config.mysql.my_sql_detailes).promise() 
-           let result =await db_conn_mysql.getPool().promise()              
+           let result =await db_conn_mysql.get_pool().promise()              
                 .query('select * from `clients` where `last_name` LIKE ? ',
                 [`${name_to_find}%`]);
 
@@ -258,7 +258,7 @@ module.exports = {
                   }
                  // if(families_serial!="undefined"){
                   if(my_families.length>0){
-                      let resul2 = await db_conn_mysql.getPool().promise()
+                      let resul2 = await db_conn_mysql.get_pool().promise()
                       .query(sql_family_members,
                       [my_data.families_serial]);
       
@@ -423,7 +423,7 @@ module.exports = {
                 sql_end=") VALUES (?,?,?,?,?,"+
                                  "?,?,?,?,?,"+
                                  "?,?,?,?,?  ) "; 
-                let result_1 = await db_conn_mysql.getPool().promise()
+                let result_1 = await db_conn_mysql.get_pool().promise()
                                  .query("select `serial`,`id` from `clients` where  id=?", 
                                  [params.id]               
                             );
@@ -439,7 +439,7 @@ module.exports = {
           
             params.last_name =params.last_name.trim();
             sql_update_insert=built_sql_string(sql_head,sql_oprator,sql_end);
-            let result = await db_conn_mysql.getPool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
                     .query(sql_update_insert,
                             [
                                 params.id,
