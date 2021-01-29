@@ -62,11 +62,10 @@ function    get_family_members_list_from_db_by_client_serial(client_serial) {
 function built_sql_string(sql_head,oprator,sql_end){
 
     var sql_update_insert = sql_head + " " +
-    
-            "`families_seriald`"+oprator+"," + 
-            " `client_serial`"+oprator+" ," + 
-            " `member_type`"+oprator+" , " +
-            " `comment`"+oprator+" " +
+            " families_serial "+oprator+"," + 
+            " client_serial"+oprator+" ," + 
+            " member_type "+oprator+"  ," +
+            " comment "+oprator+" " +
                sql_end;
     return sql_update_insert;
 }
@@ -156,27 +155,32 @@ module.exports = {
     async  add_families_members(params){
         let that=this;
         
-        var sql_head=" INSERT into  familly_members ( ";
-        var sql_oprator=" ";
-        var sql_end=") VALUES (?,?,?,?)";
+        var sql_head=" INSERT into  family_members ( ";
+        var sql_oprator="";
+        var sql_end=") VALUES (? , ? , ? , ?)";
                                  
 
-       var sql_str= built_sql_string(sql_head,sql_oprator,sql_end)
+       var sql_insert_families_members= built_sql_string(sql_head,sql_oprator,sql_end)
         try {
             // find if family member exsists
             let result =await db_con_mysql.get_pool().promise()
                 .query(sql_find_by_family_serial_and_client_serial,
-                 [params.families_serial,params.client_serial] 
+                 [params.families_serial,
+                    params.client_serial] 
                  ); 
             // insert
-            if( result[0][0].length ==0 ){
+            if( result[0].length ==0 ){
                let member_type=params.member_type;
                let comment=params.comment;
                 let result_families_members = await dbConn.getPool().request()
-                    .query(sql_insert_families_members,member_type
-                        [params.families_serial, params.client_serial,comment] );  
+                    .query(sql_insert_families_members,
+                        [parseInt(params.families_serial), 
+                            parseInt(params.client_serial),
+                         params.member_type,
+                         params.comment
+                        ] );  
             }
-                let my_data=await that.get_familiesMembers_by_familiesSerial(params);
+                let my_data=await that.get_families_members_by_families_serial(params);
               
                 return my_data;
 

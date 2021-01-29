@@ -3,6 +3,7 @@ var communication_bl = require("../bll/communication_bl");
 //var r = account_bl.get_client_by_term(params);
 
 module.exports = {
+
     async get_communication_list_by_clientserial(params) {
 
         try {
@@ -38,7 +39,20 @@ module.exports = {
             // ... error checks 
             throw { hasError: 1, errmsg: err.errmsg };
         }
-    }
+    },
+    // 
+    async delete_communication_row_by_serial(params) {
+        
+        try {
+            let bll_result = await communication_bl.delete_communication_row_by_serial(params)
+            let result = bll_result;
+            return result;
+        } catch (err) {
+            // ... error checks 
+            throw { hasError: 1, errmsg: err.errmsg };
+        }
+    },
+
 
 
 

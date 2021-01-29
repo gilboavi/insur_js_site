@@ -8,7 +8,7 @@ const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 const  sql_client_helper_tables = " SELECT `serial`, `param_name` FROM `param_client_type` ORDER BY `param_name` " + ";" +
-    " SELECT `serial`, `agent_name` FROM `agents`  ORDER BY `agent_name` " + ";" +
+    " SELECT serial, agent_name FROM agents  ORDER BY agent_name " + ";" +
     " SELECT `serial`, `param_name` FROM `param_operation` ORDER BY `param_name` ;" ;
  
 const sql_client =" SELECT  * FROM  `clients_with_params` WHERE `serial`= ?;";
@@ -340,7 +340,7 @@ module.exports = {
     async get_client_by_serial(params) {
         
         var sql_str = "";
-        var sql_str1 = "SELECT  * FROM `clients`  WHERE `serial`= ?;";
+        var sql_str1 = "SELECT  * FROM clients  WHERE serial= ?;";
            
        
 

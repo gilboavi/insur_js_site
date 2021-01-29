@@ -22,7 +22,7 @@ jQuery(function($){
 })
 
 function hide_family_members_div(){
-    $('#family_members_in_client_details_div').html("");
+//$('#family_members_in_client_details_div').html("");
 }
     
 
@@ -84,12 +84,12 @@ function set_autocomplite(hide_str,expose_str){
             return '<div class="select2-tag-cust" title="' + item.text + '">' + item.text + '</div>';
         },
         query: function (query) {
-            get_client_by_term(query.term).done(function (dataObj) {
+            get_client_by_term3(query.term).done(function (dataObj) {
                 //  console.log(dataObj);
                 my_data = dataObj;
                 $.each(dataObj, function () {
-                    this.text = ([this.LastName, this.FirstName,",",this.City,",", this.Street]).join(" ");
-                    this.id = this.Serial;
+                    this.text = ([this.last_name, this.firstN_nme,",",this.city,",", this.street]).join(" ");
+                    this.id = this.serial;
                 });
                 query.callback({
                     results: dataObj
@@ -1126,11 +1126,11 @@ function new_communication() {
     var client_serial = $("#client_serial").val();
     var data ={
         0: [{
-            "Serial": 0, "ClientSerial": client_serial  ,
-             "CommunicationValue": "" ,  "Comment": "" } ]
+            "serial": 0, "client_serial": client_serial  ,
+             "communication_value": "" ,  "comment": "" } ]
     };
   
-    open_colorbox("#edit_communicationt", data);
+    open_colorbox("#edit_communicationt", data[0]);
   //  $("#communicationt_client_serial").val(client_serial);
   
 }
@@ -1156,6 +1156,33 @@ function save_communication() {
          alert(" no end");
          
       }); 
+}
+
+function delete_communication_row_by_serial(serial){
+    var client_serial = $("#client_serial").val();
+    var hi= confirm("האם למחוק את הרשומה ?");
+    if (hi!= true){
+       return;
+    }
+    
+    var params = {
+        api: "communication_api",
+        action: "delete_communication_row_by_serial",
+        serial: serial,
+        client_serial:client_serial
+        
+    };
+    
+    get_api_data_by_params(params).done(function (data) {
+        var my_params={};
+        my_params.data=data;
+        my_params.table_template="templat_communication_list";
+        my_params.div_result="communication_div";
+        $("#communication_div").html("");
+        render_html_with_data(my_params);
+    }).fail(function(e){
+
+    });
 }
 
 // ===================== kupa_gemel  ============================
@@ -1486,7 +1513,7 @@ function delete_from_familiesMembers(families_serial, client_serial){
         my_params.data=data;
         my_params.table_template="templat_family_members_for_client_details";
         my_params.div_result="family_members_in_client_details_div";
-       // $("#family_members_in_client_details_div").html("");
+        $("#family_members_in_client_details_div").html("");
         render_html_with_data(my_params);
     }).fail(function(e){
 

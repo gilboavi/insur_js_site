@@ -1,28 +1,40 @@
 var config = require("../config").config;
 const sql = require('mssql');
 const dbConn = require("./dbConn");
+const db_conn_mysql = require("./db_con_mysql");
 
-const sql_communication_list="SELECT  " +
-           "	[CommunicationType]  , [CommunicationValue] , [Comment] , Serial  " + 
-            " FROM [Communication] " + " " +
-            "WHERE ClientSerial=@client_serial"
+const sql_communication_list_by_client_serial="SELECT `communication_type` ,"+
+                " `communication_value` ,"+
+                "  `comment` , `serial` "+
+                " FROM  `communication` "+
+                " WHERE `client_serial`= ? ;" ; 
+function built_sql_string(sql_head,oprator,sql_end){
+
+        var sql_update_insert = sql_head + " " +
+                            "`client_serial`"+oprator+"," +
+                            "`communication_type`"+oprator+"," + 
+                            " `communication_value`"+oprator+" ," + 
+                            " `comment`"+oprator+" " +
+                            
+                               sql_end;
+                    return sql_update_insert;
+                }               
 
 module.exports = {
-    async get_communication_list_by_clientserial(params) {
+
+    async get_communication_list_by_client_serial(params) {
         //  console.log(params.term);
 
         try {
           
             
-            // let   pool = await sql.connect(config.mssql.test_db)
-          
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('client_serial', sql.Int, params.serial)
-                .query(sql_communication_list);
+            
+            let result = await db_conn_mysql.get_pool().promise()
+                   .query(sql_communication_list_by_client_serial,
+                    [params.client_serial]);
 
 
-            return result.recordsets;
+            return result[0];
 
             // Stored procedure 
 
@@ -41,18 +53,17 @@ module.exports = {
 
 
     async get_communication_by_serial(params) {
-        var a = params.serial;
-        var sql_string = "SELECT  * FROM [InsurDB].[dbo].[Communication]  WHERE [Serial]= @serial;";
+      
+        var sql_string = "SELECT  * FROM communication  WHERE serial= ?;";
            
 
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .query(sql_string);
+            
+            let result = await db_conn_mysql.get_pool().promise()
+                
+                .query(sql_string,[params.serial]);
 
-            return result.recordsets;
+            return result[0];
             // Stored procedure 
         } catch (err) {
             // ... error checks 
@@ -65,39 +76,38 @@ module.exports = {
 
     async save_communication(params) {
         let _this=this;
-        var sql_str = "";
-        if (params.serial!="0") {
-             sql_str = "UPDATE   dbo.Communication SET " +
-                "CommunicationType=@communication_type  " + "," +
-                "CommunicationValue=@communication_value  " + "," +
-                " Comment=@comment " +
-                "  WHERE [Serial]= @serial ";
-        } else {
-            sql_str = "INSERT INTO [InsurDB].[dbo].[Communication] " + " " +
-                "( [ClientSerial]  , [CommunicationType] , [CommunicationValue], [Comment]    )" + " " +
-                "   VALUES " + " " +
-                "(@client_serial , @communication_type , @communication_value , @comment )";
+        
+        var sql_head="UPDATE   communication SET";
+        var oprator="=?";
+        var sql_end="Where serial=?;"
+        if (params.serial=="0") {
+           
+            sql_head="INSERT INTO communication (";
+            oprator="";
+            sql_end=", serial) Values (?,?,?,?,?)";
+           // params.serial=0;
+           
 
         }
-       
+       var sql_str=built_sql_string(sql_head,oprator,sql_end);
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('client_serial', sql.Int, params.client_serial)
-                .input('communication_type', sql.NVarChar, params.communication_type)
-                .input('communication_value', sql.NVarChar, params.communication_value.trim())
-                .input('comment', sql.NVarChar, params.comment)
-                .query(sql_str );
-              //  params.pool1=pool;
+            let result = await db_conn_mysql.get_pool().promise()
+                   .query(sql_str,
+                   [params.client_serial,
+                    params.communication_type,
+                    params.communication_value.trim(),
+                    params.comment,
+                    params.serial
+                    ]  );
             
-           // let result2 = await pool.request()
-           let result2 = await dbConn.getPool().request()
-                .input('client_serial', sql.Int, params.client_serial)
-                .query(sql_communication_list);
+            
+        
+           let result2 = await  db_conn_mysql.get_pool().promise()
+                .query(sql_communication_list_by_client_serial, [params.client_serial]);
             let my_data ={
-                communication_list:result2.recordsets[0]
+                communication_list:result2[0]
             }    
 
             return my_data;
@@ -109,6 +119,25 @@ module.exports = {
         // finally {
         //     sql.close();
         // }
+    },
+    // delete_communication_row_by_serial
+    async  delete_communication_row_by_serial(params){
+        var sql_string = "Delete   FROM communication  WHERE serial= ?;";
+        let that=this;  
+
+        try {
+            var serial=parseInt(params.serial);
+            let result = await db_conn_mysql.get_pool().promise()
+                
+                .query(sql_string,[serial]);
+
+                let my_data=await that.get_communication_list_by_client_serial(params);
+                return my_data;
+            // Stored procedure 
+        } catch (err) {
+            // ... error checks 
+            throw { errmsg: err };
+        }
     }
 
 

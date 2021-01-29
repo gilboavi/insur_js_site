@@ -18,10 +18,21 @@
             <% $.each(data, function(rowindex,row) {%>
                  <tr>
                        <% $.each(row, function(key,val){  
-                          if(key!="Serial") {%>
+                          if(key!="serial") {%>
                            <td><%= val%></td>
                      <% } else { %>
-                          <td> <a href="#" onclick=" edit_communication(<%= val%>,<%=(rowindex+1)%>)"> ע</a> </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        בחר  <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" onclick="edit_communication(<%= val%>,<%=(rowindex+1)%>)"s>  עריכה   </a></li>
+                                        <li><a href="#" onclick="delete_communication_row_by_serial(<%= val%>)">  מחיקה   </a></li>
+                                    </ul>
+                                </div>  
+                            </td>
                        <%} });%>
                  </tr>
             <%}); %>
