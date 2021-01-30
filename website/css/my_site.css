@@ -87,3 +87,41 @@ a:hover{
   color:white;
   background-color: blue;
 }
+
+.fieldLabel {
+  height: 80px;
+ 
+  color: rgb(53, 21, 240);
+  font-size: 14;
+  font-family: Arial, Helvetica, sans-serif;
+  
+}
+.fieldValue {
+  height: 40px;
+  border: 1px solid black;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+.w3-input{
+  padding:8px;
+  display:block;
+  border:none;
+  border-bottom:1px solid #ccc;
+  color: black;
+  width:100%
+}
+
+.w3-container,.w3-panel{
+  padding:0.01em 16px
+}
+.w3-panel{
+  margin-top:16px;margin-bottom:16px
+}
+.w3-blue,.w3-hover-blue:hover{
+  color:#fff!important;
+  background-color:#2196F3!important
+}

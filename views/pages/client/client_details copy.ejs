@@ -1,0 +1,215 @@
+<script id="templat__client_details" type="text/html">
+    <form id="editClient_details" name="editClient_details">
+        <input type="hidden" name="serial" value="<%= data.main[0].serial %>" />
+        <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="save" />
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div> יש צילום ת.זהות</div>        
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <% if(data.main[0].exsist_id>0) {%>
+                        <input type="checkbox" name="exsist_id" checked  />
+                    <%} else{%>
+                        <input type="checkbox" name="exsist_id"   />
+                    <%}%>                    
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div> מעשן/ת</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div >
+                        <% if(data.main[0].smok>0) {%>
+                            <input type="checkbox" name="smok" checked  />
+                        <%} else{%>
+                            <input type="checkbox" name="smok"   />
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>תעודת זהות</div>
+                          
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div >
+                        <input name="id"  id="id"value=" <%= data.main[0].id %>" size="10"  />
+                   </div>
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div>שם משפחה</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="last_name" id="lastName" value="<%= data.main[0].last_name  %> "  />
+                   </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>שם פרטי</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="first_name" id="first_name" value="<%= data.main[0].first_name %>" />
+                    </div>                    
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div>תאריך לידה</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="birthday" id="birthday"  value="<%= data.main[0].birthday %>" size="10" />
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>מין</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="sex" id="sex" value="<%= data.main[0].sex %>"  size="2"/>
+                    </div>    
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div>שם סוכן</div> 
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <select name="agent"  id="agent" >
+                                <option value="0" > </option>
+                                <%    $.each(data.agents_list, function(key,val){
+                                        if(val.serial != data.main[0].agent){ %>
+                                            <option value="<%=val.serial%>" ><%=val.agent_name%></option>
+            
+                                    <%}
+                                        else{ %>
+                                                <option value="<%=val.serial%>" selected="selected" ><%=val.agent_name%></option>
+                                    <%  }
+                                });%>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>דרוג לקוח</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="client_rating" id="client_rating" value="<%= data.main[0].client_rating %>"  size="2"/>
+                    </div>    
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div> קופת חולים</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <select name="no_health_fund"  id="no_health_fund" >
+                                    <option value="0" > </option>
+                                    <%    $.each(data.no_health_fund_list, function(key,val){
+                                        if(val.serial != data.main[0].no_health_fund){ %>
+                                                <option value="<%=val.serial%>" ><%=val.param_name%></option>
+            
+                                        <%}
+                                            else{ %>
+                                                    <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
+                                        <%  }
+                                });%>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>	
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>כתובת</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="street" id="street" value=" <%= data.main[0].street %>" />
+                    </div>   
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div>עיר</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="city" id="city" value=" <%= data.main[0].city %>" />
+                    </div>
+                </div>
+                
+            </div>	
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>סטטוס</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <select name="status"  id ="status1" >
+                            <option value="0" > </option>
+                            <%    $.each(data.client_type_list, function(key,val){
+                                if(val.serial != data.main[0].status){
+                                %>
+                                    <option value="<%=val.serial%>" ><%=val.param_name%></option>
+                                <%} else { %>
+                                    <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
+                                <%}
+                            });%>
+                         </select>
+                       </div>
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                    <div>קבוצה</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <select name="operation" id="operation">
+                                <option value="0" > </option>
+                                <%    $.each(data.operation_list, function(key,val){
+                                        if(val.serial != data.main[0].operation){ %>
+                                            <option value="<%=val.serial%>" ><%=val.param_name%></option>
+                                    <%}
+                                        else{ %>
+                                            <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
+                                    <%  }
+                                });%>
+                        </select>
+                    </div>
+                </div>
+                
+            </div>	
+            <div class="row">
+                <div class="col-sm-3 fieldLabel">
+                    <div>דוא"ל</div>
+                </div>
+                <div class="col-sm-3 fieldValue">
+                    <div>
+                        <input name="email" id="email" value=" <%= data.main[0].email %>" />
+                    </div>     
+                </div>
+                <div class="col-sm-3 fieldLabel">
+                
+                </div>
+                <div class="col-sm-3 fieldValue">
+
+                </div>
+                
+            </div>
+            <div class="row">
+                <p> הערה<p>
+                <div class="<col-sm-10></col-sm-10> fieldValue">
+                    <input name="comment" value=" <%= data.main[0].comment %>" style='width:80%'/>
+                </div>
+            </div>
+        </div>
+ 
+       
+     
+    </form>  
+ </script>

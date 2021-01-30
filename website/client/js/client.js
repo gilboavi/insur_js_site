@@ -179,6 +179,25 @@ $(document).ready(function () {
     // menu
     (function () {
         var funcs = {
+            client_details: function () {
+                if ($('#client_serial').val() != "") {
+                    if ($('#client_details_flg').val() != "1") {
+                      //  $('#client_details_flg').val("1");
+                        var serial= $('#client_serial').val();
+                        var params = {
+                            
+                            api: "account_api",
+                            action: "get_client_by_serial",
+                            serial: serial,
+                            table_template: "templat__client_details",
+                            div_result: "edit_client_details_div"
+                        };
+                        render_html(params);
+                    }
+                    hide_div();
+                    $("#edit_client_details_div").show();
+                }
+            },
               stam: function () {
 
                 
