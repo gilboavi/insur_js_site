@@ -31,6 +31,7 @@ const sql_conversation= " SELECT DATE_FORMAT(datee, '%Y / %m /%d ')  , "+
                 " `serial` " + 
                 " FROM `conversation_with_param` "+
                 "  WHERE `client_serial`=? ; ";
+                
 
 const sql_followup_conversation= " SELECT  	[DateFollowUp]  , Summary , UserName , "+
         " [StatusFollowUp]  , [ConversationsSerial] , [Serial] " + " " +
