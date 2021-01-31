@@ -309,8 +309,7 @@ module.exports = {
                                  "?,?,?,? ) ";
         }
 
-       
-        
+               
         sql_str=built_sql_string(sql_head,sql_oprator,sql_end);
        // params.datee=new Date();
         try {
