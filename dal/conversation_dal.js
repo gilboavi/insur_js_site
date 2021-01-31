@@ -2,26 +2,42 @@
 const sql = require('mssql');
 var moment = require('moment');
 const dbConn = require("./dbConn");
+const db_conn_mysql = require("./db_con_mysql");
+const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 
 const    sql_conversation_helper_tables=
-    " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamGoalOfTalk] ORDER BY ParamName " + ";" +
-    " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamTeviaType] ORDER BY ParamName " + ";" +
-    " SELECT[Serial], [UserName] FROM [InsurDB].[dbo].[Users] ORDER BY UserName " + ";" +
-    " SELECT[Serial], [ParamName] FROM[InsurDB].[dbo].[ParamTypeFollowupConversation] ORDER BY ParamName " +";"+
-    " SELECT NoPolice From LifePolicies Where ClientSerial=@client_serial "+";";
+    " SELECT  serial ,  param_name  FROM  param_goal_of_talk  ORDER BY param_name " + ";" +
+    " SELECT serial ,  param_name  FROM  param_tevia_type  ORDER BY param_name " + ";" +
+    " SELECT serial ,  user_name  FROM  users  ORDER BY user_name " + ";" +
+    " SELECT serial ,  param_name  FROM param_type_followup_conversation  ORDER BY param_name " +";"+
+    " SELECT no_police From life_policies Where client_serial=? "+";";
 
-const sql_conversation_with_followup = " SELECT  " +
-                                                                "	[Datee], SummaryOfConversation, GoalOfTalkName , " + 
-                                                                " UserName,TypeFollowupConversationName  ," + 
-                                                                " [Serial] " + 
-                                                                " FROM [InsurDB].[dbo].[ConversationWithParam] " +
-                                                                " WHERE ClientSerial=@serial; " + 
-                                        " SELECT  	[DateFollowUp]  , Summary , UserName , " +
-                                        " [StatusFollowUp], [ConversationsSerial]," + " " +
-                                        " [Serial] " + " " +
-                                        " FROM [InsurDB].[dbo].[FollowUpConversationWithParamsAndClientSerial] " +
-    " WHERE ClientSerial=@serial; ";
+const sql_conversation_with_params_by_client_serial=
+    " SELECT DATE_FORMAT(datee, '%Y / %m /%d ')  , "+
+    " `summary_of_conversation`, "+
+    " `goal_of_talk_name` , " + 
+    " `user_name` , "+
+    "  `type_followup_conversation_name` ," + 
+     " `no_police` ," +
+      " `done` , "+
+      " `immediately` ," +
+    " `serial` " + 
+    " FROM `conversation_with_param` "+
+    "  WHERE `client_serial`=? ; ";
+
+const sql_conversation_with_followup =
+    " SELECT  " +
+	" datee , summary_of_conversation, goal_of_talk_name , " + 
+	" user_name,type_followup_conversation_name  ," + 
+	"  serial  " + 
+	" FROM    conversation_with_param  " +
+	" WHERE client_serial=?; " + 
+	" SELECT  	 date_followup   , summary , user_name , " +
+	"  status_follow_up ,  conversations_serial ," + " " +
+	"  serial  " + " " +
+	" FROM    followup_conversation_with_params_and_client_serial  " +
+    " WHERE client_serial=?; ";
 
 const sql_followup = " SELECT  " + " " +
     "	[DateFollowUp] as  [תאריך]  , Summary as [תקציר הפניה],UserName as [מטפל בפניה],[StatusFollowUp] as [סטוטס הפניה] ," + " " +
@@ -30,24 +46,26 @@ const sql_followup = " SELECT  " + " " +
     ;
 const set_result_into_lists = (params ,result) => {
     var my_data = {};
+    my_data.goal_of_talk_list = result[1];
+    my_data.tevia_type_list = result[2];
+    my_data.get_call_name_list = result[3];
+    my_data.type_followup_conversation_list = result[4];
+    my_data.no_police_list = result[5];
     if (params.serial == 0) {
-        var main_t = [];
-        
-        main_t.push(get_empty_conversation(params));
+        // var main_t = [];
+        // main_t.push(get_empty_conversation(params));
+    my_data.goal_of_talk_list = result[0];
+    my_data.tevia_type_list = result[1];
+    my_data.get_call_name_list = result[2];
+    my_data.type_followup_conversation_list = result[3];
+    my_data.no_police_list = result[4];
+        var main_t=get_empty_conversation(params);
         my_data.main = main_t;
-        my_data.goal_of_talk_list = result.recordsets[0];
-        my_data.tevia_type_list = result.recordsets[1];
-        my_data.get_call_name_list = result.recordsets[2];
-        my_data.type_followup_conversation_list = result.recordsets[3];
-        my_data.no_police_list = result.recordsets[4];
-        my_data.user_id=params.userId;
+       
+        my_data.user_id=params.user_id;
     } else {
-        my_data.main = result.recordsets[0];
-        my_data.goal_of_talk_list = result.recordsets[1];
-        my_data.tevia_type_list = result.recordsets[2];
-        my_data.get_call_name_list = result.recordsets[3];
-        my_data.type_followup_conversation_list = result.recordsets[4];
-        my_data.no_police_list = result.recordsets[5];
+        my_data.main = result[0][0];
+       
     }
     return my_data;
 }
@@ -58,34 +76,34 @@ const get_empty_conversation = (params) => {
     
     var my_hour=moment().format("HH:mm");
     var my_conversation = {
-        Serial: 0,
-        ClientSerial: params.client_serial,
-        MeetingSerial: params.meeting_serial ,
-        Datee:my_date ,
-        HourOfDatee:my_hour,
-      Get_call_name:null ,
-      SendToUserBy:null ,
-      DeliveredTo: null ,
-      SummaryOfConversation:null,
-      DayToCall: null ,
-      GoalOfTalk :null ,
-      Priority : null ,
-      Immediately : null ,
-      ToExecution : null ,
-      SumSale : null ,
-      Meeting : null ,
-      Sale : null ,
-      Yozma : null ,
-      Done : null ,
-      Suspend : null ,
-      HourToCall : null ,
-      FormIsOpenn : null ,
-      TypeOfCall : null ,
-      StatusGetCallName : null ,
-      TypeFollowupConversation: null ,
-      NoPolice: null ,
-      DataOfSending: null ,
-      TypeTevia : null
+        serial: 0,
+        client_serial: params.client_serial,
+        meeting_serial: params.meeting_serial ,
+        datee:my_date ,
+        hour_of_datee:my_hour,
+      get_call_name:null ,
+      send_to_user_by:null ,
+      delivered_to: null ,
+      summary_of_conversation:null,
+      day_to_call: null ,
+      goal_of_talk :null ,
+      priority : null ,
+      immediately : null ,
+      to_execution : null ,
+      sum_sale : null ,
+      meeting : null ,
+      sale : null ,
+      yozma : null ,
+      done : null ,
+      suspend : null ,
+      hour_to_call : null ,
+      form_is_openn : null ,
+      type_of_call : null ,
+      status_get_call_name : null ,
+      type_followup_conversation: null ,
+      no_police: null ,
+      data_of_sending: null ,
+      type_tevia : null
     }
     return my_conversation;
 }
@@ -140,43 +158,60 @@ const get_sql_conversations_list_string= (params) => {
             
 }
 
+function built_sql_string(sql_head,oprator,sql_end){
+
+    var sql_update_insert = sql_head + " " +
+            "`client_serial`"+oprator+"," + 
+            " `done`"+oprator+" ," +
+            " `immediately`"+oprator+" ," +
+            " `datee`"+oprator+" ," +
+           // " `hour_to_call`"+oprator+" ," +
+            " `get_call_name`"+oprator+" , " +
+            " `goal_of_talk`"+oprator+" , " +
+            " `type_tevia`"+oprator+" ," +
+            " `no_police`"+oprator+" , " +
+            " `summary_of_conversation`"+oprator+" " +
+            
+           
+           
+               sql_end;
+    return sql_update_insert;
+}
 
 module.exports = {
 
     
     async get_conversations_list_by_clientserial(params) {
-
-        var by_client_serial = " WHERE ClientSerial=@client_serial ; ";
-        var by_no_police = " WHERE NoPolice=@no_police ; "
-        var by_meeting_serial ="Where  MeetingSerial=@meeting_serial ;"
+        var my_parameter;
+        var by_client_serial = " WHERE client_serial=? ; ";
+        var by_no_police = " WHERE no_police=? ; "
+        var by_meeting_serial ="Where  meeting_serial=? ;"
 
         var sql_string = " SELECT  " + " " +
-            "  CONVERT( varchar, [Datee] , 103)	   , SummaryOfConversation,GoalOfTalkName , " + " " +
-            "UserName,TypeFollowupConversationName ,TypeFollowupConversationName  , Immediately ," + " " +
-            " [Serial] " + " " +
-            "FROM [InsurDB].[dbo].[ConversationWithParam] ";
+            "  DATE_FORMAT(datee, '%d %m %Y') , summary_of_conversation,goal_of_talkName , " + " " +
+            "user_name,type_followup_conversation_name ,type_followup_conversation_name  , immediately ," + " " +
+            " serial " + " " +
+            "FROM conversation_with_param ";
           
         if (params.my_no_police) {
             sql_string = sql_string + " " + by_no_police;
+            my_parameter=params.my_no_police;
         }
         else
         if (params.meeting_serial) {
                 sql_string = sql_string + " " + by_meeting_serial;
+                my_parameter=params.serial;
         }
         else {
-            sql_string = sql_string + " " + by_client_serial +"ORDER BY Datee DESC";
+            sql_string = sql_string + " " + by_client_serial +"ORDER BY datee DESC";
+            my_parameter=params.client_serial;
         }
            
            
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('client_serial', sql.Int, params.serial)
-                .input('no_police', sql.NVarChar, params.my_no_police)
-                .input('meeting_serial', sql.Int, params.meeting_serial)
             
-                .query(sql_string);
+            let result = await db_conn_mysql.get_pool().promise()
+                     .query(sql_string,[my_parameter]);
                   
             var my_data = {
                
@@ -185,16 +220,10 @@ module.exports = {
             
             main_t.push(get_empty_conversation(params));
             my_data.main = main_t;
-            my_data.conversation_list=result.recordsets[0];
-              
-            
-          // my_data.conversation_list= result.recordsets[0];
-          //  return result.recordsets;
+            my_data.conversation_list=result[0][0];
+          
             return my_data ;
-            // Stored procedure 
-
-
-
+          
         } catch (err) {
             // ... error checks 
             throw { errmsg: err };
@@ -206,46 +235,24 @@ module.exports = {
 
     async get_conversation_by_serial(params) {
         var sql_str="";
-        var sql_str1 = "SELECT  * FROM [InsurDB].[dbo].[Conversation]  WHERE [Serial]= @serial;" ;
-           
-        //var sql_str2 =
-        //    " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamGoalOfTalk] ORDER BY ParamName " + ";" +
-        //    " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamTeviaType] ORDER BY ParamName " + ";" +
-        //    " SELECT[Serial], [UserName] FROM [InsurDB].[dbo].[Users] ORDER BY UserName " + ";" +
-        //    " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamTypeFollowupConversation] ORDER BY ParamName " + ";";
-            
+        var sql_str1 = "SELECT  * FROM conversation  WHERE serial= ?;" ;
         if (params.serial !=0) {
             sql_str = sql_str1 + " " + sql_conversation_helper_tables;
         } else {
             sql_str = sql_conversation_helper_tables;
         }
+       
+       
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('client_serial', sql.Int, params.client_serial)
-                .query(sql_str);
+            
+            let result = await db_conn_mysql_multi.get_pool().promise()
+                  .query(sql_str,
+                        [params.serial,params.client_serial]
+                    );
 
 
-            var my_data = set_result_into_lists(params , result);
-            //if (params.serial == 0) {
-            //    var main_t = [];
-            //    main_t.push(get_empty_conversation(params));
-            //    my_data.main = main_t;
-            //    my_data.goal_of_talk_list = result.recordsets[0];
-            //    my_data.tevia_type_list = result.recordsets[1];
-            //    my_data.get_call_name_list = result.recordsets[2];
-            //    my_data.type_followup_conversation_list = result.recordsets[3];
-            //} else {
-            //    my_data.main = result.recordsets[0];
-            //    my_data.goal_of_talk_list = result.recordsets[1];
-            //    my_data.tevia_type_list = result.recordsets[2];
-            //    my_data.get_call_name_list = result.recordsets[3];
-            //    my_data.type_followup_conversation_list = result.recordsets[4];
-            //}
-
-           
+            var my_data = set_result_into_lists(params , result[0]);
+                      
             return my_data;
             // Stored procedure 
         } catch (err) {
@@ -258,12 +265,23 @@ module.exports = {
     },
 
     async save_conversation(params) {
+
+        var sql_head="UPDATE   `conversation` SET ";
+        var sql_oprator="=?";
+        var sql_end="   WHERE `serial`=? ";
+        
+        var sql_str = "";
+
         if   ( !  params.meeting_serial ) {
             params.meeting_serial = 0;
         }
         if (!params.check_done) {
             params.check_done = false;
         }
+        if (!params.to_execution) {
+            params.to_execution = false;
+        }
+        
         if (!params.immediately) {
             params.immediately = false;
         }
@@ -272,24 +290,10 @@ module.exports = {
             params.no_police="";
         }
        
-            params.datee=new Date();
-       
+        //params.datee=new Date();
         
-        var sql_str = "";
-        if (params.serial != "0") {
-            sql_str = "UPDATE   dbo.Conversation SET " +
-              //  "Datee=@datee  " + "," +
-                "Get_call_name=@get_call_name  " + "," +
-                " GoalOfTalk=@goal_of_talk " + "," +
-                " TypeTevia=@type_tevia " + "," +
-                " Done=@done" + "," +
-                " Immediately=@immediately" + "," +
-                " NoPolice=@no_police" + "," +
-                " SummaryOfConversation=@summary_of_conversation " +
-
-                "  WHERE [Serial]= @serial ";
-        }
-        else if (params.serial == "0") {
+        
+         if (params.serial == "0") {
             sql_str = "INSERT INTO [InsurDB].[dbo].[Conversation] " + " " +
                 " ([ClientSerial]   , [Datee]   ,  [Get_call_name] , [GoalOfTalk]  , [TypeTevia]  ,[SummaryOfConversation] ,  " + " " +
                 "  [Immediately] ,  [ToExecution] ,  [Meeting] ,  [Sale] ,  [Yozma] ,  [Done] ,  [Suspend] ,  [FormIsOpenn] , " +
@@ -299,54 +303,39 @@ module.exports = {
                 " @immediately , @ToExecution , @Meeting ,@Sale , @Yozma ,@done , @Suspend , @FormIsOpenn , " +
                 " @StatusGetCallName , @MeetingSerial ,@hour_of_datee )";
            
+                sql_head=" INSERT into   conversation ( ";
+                sql_oprator=" ";
+                sql_end=") VALUES (?,?,?,?,?,"+
+                                 "?,?,?,? ) ";
         }
 
+        sql_str=built_sql_string(sql_head,sql_oprator,sql_end);
+       // params.datee=new Date();
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request() 
-            let result = await dbConn.getPool().request() 
-                .input('serial', sql.Int, params.serial)
-                .input('client_serial', sql.Int, params.client_serial)
-                .input('get_call_name', sql.Int, params.get_call_name)
-                .input('datee', sql.DateTime, params.datee)
-                .input('goal_of_talk', sql.Int, params.goal_of_talk)
-                .input('type_tevia', sql.Int, params.type_tevia)
-                .input('summary_of_conversation', sql.NVarChar, params.summary_of_conversation)
-                .input('no_police', sql.NVarChar, params.no_police.trim())
-                .input('immediately', sql.Bit , params.immediately)
-                .input('ToExecution', sql.Bit , "0")
-                .input('Meeting', sql.Bit , "0")
-                .input('Sale', sql.Bit , "0")
-                .input('Yozma', sql.Bit , "0")
-                .input('done', sql.Bit, params.check_done)
-                .input('Suspend', sql.Bit, "0")
-                .input('FormIsOpenn', sql.Bit, "0")
-                .input('StatusGetCallName', sql.Bit, "0")
-                .input('MeetingSerial', sql.Int, params.meeting_serial)
-                .input('hour_of_datee', sql.NVarChar, params.hour_of_datee)
+            
+            let result = await db_conn_mysql.get_pool().promise() 
+                .query(sql_str ,
+                        [
+                            params.client_serial,
+                            params.check_done,
+                            params.immediately,
+                            params.datee,
+                            params.get_call_name,
+                            params.goal_of_talk,
+                            params.type_tevia,
+                            params.no_police,
+                            params.summary_of_conversation,
+                            params.serial
+                        ] 
+                     );
+
                 
-
-            
-            
-              
-               
-                .query(sql_str  );
-
-              //  var sql_string =  get_sql_conversations_list_string(params);
-                  var sql_string = " SELECT  " + " " +
-                   "  CONVERT( varchar, [Datee] , 103)	   , SummaryOfConversation,GoalOfTalkName , " + " " +
-                   "UserName,TypeFollowupConversationName ,TypeFollowupConversationName  ,NoPolice,Done, Immediately ," + " " +
-                   " [Serial] " + " " +
-                 "FROM [InsurDB].[dbo].[ConversationWithParam] where ClientSerial=@client_serial";
-              // sql_str=sql_conversations_list_by_clientserial(params) ;
-
-               //  let result2 = await pool.request()  
-               let result2 = await dbConn.getPool().request()
-                 .input('client_serial', sql.Int, params.client_serial)
-                 .query(sql_string);
+               let result2 = await db_conn_mysql.get_pool().promise()
+                
+                 .query(sql_conversation_with_params_by_client_serial, [params.client_serial]);
 
             var my_data = {
-                conversation_list: result2.recordsets[0]
+                conversation_list: result2[0]
             };
     
             return my_data;

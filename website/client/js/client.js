@@ -721,7 +721,7 @@ function edit_conversation(serial,my_row) {
     var params = {};
 
     params = $.parseJSON(params_temp);
-    params.datee =  moment( params.datee,'DD/MM/YYYY').format("YYYY-MM-DD");
+   // params.datee =  moment( params.datee,'DD/MM/YYYY').format("YYYY-MM-DD");
   
     params.api = "conversation_api";
     params.action = "save_conversation";

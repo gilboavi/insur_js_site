@@ -1,5 +1,5 @@
-const sql = require('mssql');
-const dbConn = require("./dbConn");
+
+
 const db_con_mysql = require('./db_con_mysql');
 //const uuid = require('uuidv4').default;
 
@@ -46,9 +46,8 @@ function    get_family_members_list_from_db_by_client_serial(client_serial) {
                             
             try {
                                
-                    let result =  dbConn.getPool().request()
-                    .input('client_serial', sql.Int, client_serial)
-                    .query(sql_familyMenbers_list_by_client_serial);
+                    let result = db_con_mysql.get_pool().promise()
+                           .query(sql_familyMenbers_list_by_client_serial,[client_serial]);
                     
                     return result;
                                
@@ -74,7 +73,7 @@ module.exports = {
 
     async get_family_members_list(params) {
         try {
-            let result = await dbConn.getPool().request()
+            let result = await db_con_mysql.get_pool().promise()
             
             .query("Select * From `family_members` ");
             return result[0][0];
@@ -172,7 +171,7 @@ module.exports = {
             if( result[0].length ==0 ){
                let member_type=params.member_type;
                let comment=params.comment;
-                let result_families_members = await dbConn.getPool().request()
+                let result_families_members = await db_con_mysql.get_pool().promise()
                     .query(sql_insert_families_members,
                         [parseInt(params.families_serial), 
                             parseInt(params.client_serial),
@@ -211,12 +210,12 @@ module.exports = {
         let that=this;
         var sql_str = "";
         if (params.serial!="0") {
-             sql_str = "UPDATE   FamilyMembers SET " +
+             sql_str = "UPDATE   family_members SET " +
                 // "FamilySerial=@family_serial  " + "," +
                 // "ClientSerial=@client_serial  " + "," +
-                 "Member_type=@member_type"+  "," +
-                " Comment=@comment " +
-                "  WHERE [Serial]= @serial ";
+                 "member_type=?"+  "," +
+                " comment=? " +
+                "  WHERE serial=? ";
         } else {
             sql_str = "INSERT INTO  FamilyMembers " + " " +
                " ( FamiliesSerial , ClientSerial , Member_type , Comment )" + " " +
@@ -228,7 +227,7 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await dbConn.getPool().request()
+            let result = await db_con_mysql.get_pool().promise()
                 .input('serial', sql.Int, params.serial)
                 .input('families_serial', sql.Int, params.family_serial)
                 .input('client_serial', sql.Int, params.client_serial)
@@ -238,15 +237,7 @@ module.exports = {
 
                 let my_data=await that.get_familiesMembers_by_familiesSerial(params);
                 return my_data;
-        //    let result2 = await dbConn.getPool().request()
-        //         .input('client_serial', sql.Int, params.client_serial)
-        //         .query(sql_communication_list);
-        //     let my_data ={
-        //         communication_list:result2.recordsets[0]
-        //     }    
-
-          //  return my_data;
-            // Stored procedure 
+       
         } catch (err) {
             // ... error checks 
             throw { errmsg: err };

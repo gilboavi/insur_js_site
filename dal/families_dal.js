@@ -53,13 +53,13 @@ module.exports = {
 
         async get_families_list(params) {
             try {
-                let result = await dbConn.getPool().request()
-                .input('last_name', sql.NVarChar, params.last_name)
-                .query("Select * From Families Where LastName=@last_name");
+                let my_sql_str="Select * From families Where last_name=?";
+                let result = await db_conn_mysql.get_pool().promise()
+                    .query(my_sql_str,[params.last_name]);
 
 
                 let my_data={};
-                my_data.Femilies_list=result.recordsets[0];
+                my_data.Femilies_list=result[0];
                 my_data.client_serial=params.client_serial;
                
                 return my_data;

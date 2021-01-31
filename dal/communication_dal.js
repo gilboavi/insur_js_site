@@ -1,6 +1,5 @@
 var config = require("../config").config;
-const sql = require('mssql');
-const dbConn = require("./dbConn");
+
 const db_conn_mysql = require("./db_con_mysql");
 
 const sql_communication_list_by_client_serial="SELECT `communication_type` ,"+

@@ -1,9 +1,9 @@
 ﻿
 var config = require("../config").config;
 var conversation = require("../dal/conversation_dal");
-const sql = require('mssql');
+//const sql = require('mssql');
 const mysql = require('mysql2');
-const dbConn = require("./dbConn");
+//const dbConn = require("./dbConn");
 const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
@@ -20,7 +20,7 @@ const sql_communicatuion= "SELECT `communication_type` ,"+
                                  " WHERE `client_serial`= ? ;" ;
 //  CONVERT( varchar, [Datee] , 103)
 
-const sql_conversation= " SELECT `datee`  , "+
+const sql_conversation= " SELECT DATE_FORMAT(datee, '%Y / %m /%d ')  , "+
                 " `summary_of_conversation`, "+
                 " `goal_of_talk_name` , " + 
                 " `user_name` , "+
@@ -108,14 +108,14 @@ const no_health_fund_list=()=>{
 const get_type_filter_client = (params) => {
     var my_element = {};
     var my_array = [
-        { Serial: 1, ParamName: "לקוחות לפי תאריך לידה" },
-        { Serial: 2, ParamName: "פוליסות ללא תאריך לידה" },
-        { Serial: 3, ParamName: "לקוחות שלא נפגשנו מתאריך " },
-        { Serial: 4, ParamName: "לפי סוכן" },
-        { Serial: 5, ParamName: "תפוקה חדשה" },
-        { Serial: 6, ParamName: "כל הלקוחות" },
-        { Serial: 7, ParamName: "לפי מעסיק" },
-        { Serial: 8, ParamName: "לפי קבוצה" }
+        { serial: 1, param_name: "לקוחות לפי תאריך לידה" },
+        { serial: 2, param_name: "פוליסות ללא תאריך לידה" },
+        { serial: 3, param_name: "לקוחות שלא נפגשנו מתאריך " },
+        { serial: 4, param_name: "לפי סוכן" },
+        { Serial: 5, param_name: "תפוקה חדשה" },
+        { serial: 6, param_name: "כל הלקוחות" },
+        { serial: 7, param_name: "לפי מעסיק" },
+        { serial: 8, param_name: "לפי קבוצה" }
        
     ];
 
@@ -172,27 +172,7 @@ module.exports = {
         sql.close();
     },
 
-    async get_client_by_term(params) {
-       
-        try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let name_to_find= typeof params.term === 'string'? params.term :'';
-            let result = await dbConn.getPool().request()
-                .input('term', sql.NVarChar, name_to_find)
-               
-                .query(sql_for_auto_complete);
-
-            return result.recordsets;
-
-        } catch (err) {
-            // ... error checks 
-            throw { errmsg: err };
-        }
-        // finally {
-        //     sql.close();
-        // }
-    },
+    
 
     async get_client_by_term2(params) {
        
@@ -229,13 +209,8 @@ module.exports = {
 
         try {
             
-            //  pool = await sql.connect(config.mssql.test_db);
-            // let result = await pool.request()
             
-            // let result = await dbConn.getPool().request()
-            //     .input('serial', sql.Int, params.serial)
-            //     .query(sql_string);
-            let result=await db_conn_mysql_multi.getPool().promise()
+            let result=await db_conn_mysql_multi.get_pool().promise()
             .query(sql_string,
             [params.serial,
              params.serial,
@@ -284,57 +259,6 @@ module.exports = {
 
     },
 
-    async get_client_conversatios_communicatios_by_serial2(params) {
-           
-        var sql_string =sql_client+
-                        sql_communicatuion+
-                        sql_conversation+
-                        sql_followup_conversation+
-                        sql_families;
-
-        try {
-            
-            //  pool = await sql.connect(config.mssql.test_db);
-            // let result = await pool.request()
-            
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .query(sql_string);
-
-            var my_data = {
-                my_client: result.recordsets[0],
-                communication_list: result.recordsets[1],
-                conversation_list: result.recordsets[2],
-                FollowUpConversation_list: result.recordsets[3]
-
-            };
-            let  families_serial=result.recordsets[4];
-            if(   families_serial.length != 0 ){
-             
-              my_data.families_serial=families_serial[0].FamiliesSerial;
-            }
-           // if(families_serial!="undefined"){
-            if(families_serial.length>0){
-                let resul2 = await dbConn.getPool().request()
-                .input('families_serial', sql.Int, families_serial[0].FamiliesSerial)
-                .query(sql_family_members);
-
-                my_data.family_members=resul2.recordsets;
-            }else{
-                my_data.family_members={};
-            }
-          
-            return my_data;
-         
-        } catch (err) {
-        
-            throw { errmsg: err };
-        }
-        // finally {
-        //     sql.close();
-        // }
-
-    },
 
 
     async get_client_by_serial(params) {
@@ -351,7 +275,7 @@ module.exports = {
         }
         try {
             
-            let result = await db_conn_mysql_multi.getPool().promise()
+            let result = await db_conn_mysql_multi.get_pool().promise()
                   .query(sql_str,
                   [params.serial,
                    params.serial,
@@ -473,36 +397,34 @@ module.exports = {
     },
 
       async get_client_from_serching(params) {
-          var sql_str =  "  SELECT  LastName , FirstName ,  id , CONVERT( varchar, [Birthday] , 103)  , Sex , Street , City , Serial FROM Clients  Where  ";
+          var sql_str =  "  SELECT  last_name , first_name ,  id , CONVERT( varchar, [birthday] , 103)  , sex , street , city , serial FROM clients  Where  ";
           var no_police = 0;
-         
+          var my_parameter;
+          
           switch (params.search_condition) {
               case "1":
-                  sql_str = sql_str + "LastName=@last_name";
+                  sql_str = sql_str + "last_name=?";
                   break;
               case "2":
-                  sql_str = sql_str + " FirstName=@first_name";
+                  sql_str = sql_str + " first_name=?";
                   break;
               case "3":
-                  sql_str = "SELECT   Clients.Serial  FROM        Clients LEFT OUTER JOIN "+
-                  " LifePolicies ON Clients.Serial =LifePolicies.ClientSerial "+
-                      "  WHERE (LifePolicies.NoPolice =@no_oplice)";
+                  sql_str = "SELECT   clients.serial  FROM        clients LEFT OUTER JOIN "+
+                  " life_policies ON lients.serial =life_policies.Cclient_serial "+
+                      "  WHERE (life_policies.no_police =?)";
                   no_police = params.string_condition;
                   break;
               default:
           };
           try {
-            //  let pool = await sql.connect(config.mssql.test_db)
-            //   let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                  .input('last_name', sql.NVarChar, params.string_condition)
-                  .input('first_name', sql.NVarChar, params.string_condition)
-                  .input('no_oplice', sql.NVarChar, no_police)
-                  .query(sql_str);
+            
+            let result = await db_conn_mysql.get_pool().promise()
+          
+                  .query(sql_str,[params.string_condition]);
               var my_data = {};
-              my_data.main = result.recordsets[0];
+              my_data.main = result[0];
               if (params.search_condition == "3") {
-                  my_data.client_serisl = my_data.main[0].Serial;
+                  my_data.client_serisl = my_data.main[0].serial;
               }
               return my_data;
 
@@ -516,19 +438,18 @@ module.exports = {
       },
 
     async get_client_for_filtering(params) {
-        sql_str = "SELECT  FROM ParamOperation ";
+        sql_str = "SELECT  FROM param_operation ";
 
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
+            
+            let result = await db_conn_mysql_multi.get_pool().promise()
                 .query(sql_client_helper_tables);
 
             var my_data = {};
            
-                my_data.client_type_list = result.recordsets[0];
-                my_data.agents_list = result.recordsets[1];
-                my_data.operation_list = result.recordsets[2];
+                my_data.client_type_list = result[0];
+                my_data.agents_list = result[1];
+                my_data.operation_list = result[2];
                  my_data.type_filter_list=get_type_filter_client();
 
          return my_data;
@@ -541,92 +462,96 @@ module.exports = {
         //     sql.close();
         // }
         
-      },
+      }
 
-    async get_client_after_filtering(params) {
-        var sql_str = "";
-        var sql_client1 = "SELECT  FROM ParamOperation ";
-        var where_str = "";
-        var equal_str = "";
+    // async get_client_after_filtering(params) {
+    //     var sql_str = "";
+    //     var sql_client1 = "SELECT  FROM param_operation ";
+    //     var where_str = "";
+    //     var equal_str = "";
+    //     var my_parameter;
 
-        if (params.type_equal>0) {
+    //     if (params.type_equal>0) {
 
        
-            switch (params.type_equal) {
-                case 1:
-                    equal_str = "=";
-                    break;
-                case 2:
-                    equal_str = ">";
-                    break;
-                case 3:
-                    equal_str = "<";
-                    break;
+    //         switch (params.type_equal) {
+    //             case 1:
+    //                 equal_str = "=";
+    //                 break;
+    //             case 2:
+    //                 equal_str = ">";
+    //                 break;
+    //             case 3:
+    //                 equal_str = "<";
+    //                 break;
         
-            }
-        };
+    //         }
+    //     };
 
-        switch (params.type_filter) {
-            case 1:
-                sql_str = sql_str+" "+ " WHERE Birthday " + equal_str +"@birthday";
-                break;
-            case 2:
-                equal_str = ">";
-                break;
-            case 3:
-                equal_str = "<";
-                break;
-            case 4:
-                sql_str = sql_str + " " + " WHERE Agent " + equal_str +"@agent";
-                break;
-            case 5:
-                equal_str = "<";
-                break;
-            case 6:
+    //     switch (params.type_filter) {
+    //         case 1:
+    //             sql_str = sql_str+" "+ " WHERE birthday " + equal_str +"?";
+    //             my_parameter=params.birthday;
+    //             break;
+    //         case 2:
+    //             equal_str = ">";
+    //             break;
+    //         case 3:
+    //             equal_str = "<";
+    //             break;
+    //         case 4:
+    //             sql_str = sql_str + " " + " WHERE agent " + equal_str +"?";
+    //             my_parameter=params.agent;
+    //             break;
+    //         case 5:
+    //             equal_str = "<";
+    //             break;
+    //         case 6:
               
-                break;
-            case 7:
-                sql_str = "SELECT * FROM ";
-                break;
-            case 8:
-                sql_str = sql_str + " " + " WHERE Operation " + equal_str +"@operation";
-                break;
+    //             break;
+    //         case 7:
+    //             sql_str = "SELECT * FROM ";
+    //             break;
+    //         case 8:
+    //             sql_str = sql_str + " " + " WHERE operation " + equal_str +"?";
+    //             my_parameter=params.operation;
+    //             break;
 
-        };
+    //     };
    
         
        
-        try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('id', sql.Int, params.id)
-                .input('lastName', sql.NVarChar, params.lastName)
-                .input('firstName', sql.NVarChar, params.firstName)
-                .input('birthday', sql.DateTime, params.birthday)
-                .input('street', sql.NVarChar, params.street)
-                .input('city', sql.NVarChar, params.city)
-                .input('status', sql.Int, params.status)
-                .input('operation', sql.Int, params.operation)
-                .query(sql_str);
+    //     try {
+    //         // let pool = await sql.connect(config.mssql.test_db)
+    //         // let result = await pool.request()
+    //         let result = await db_con_mysql.get_pool().promise()
+    //             .input('serial', sql.Int, params.serial)
+    //             .input('id', sql.Int, params.id)
+    //             .input('lastName', sql.NVarChar, params.lastName)
+    //             .input('firstName', sql.NVarChar, params.firstName)
+    //             .input('birthday', sql.DateTime, params.birthday)
+    //             .input('street', sql.NVarChar, params.street)
+    //             .input('city', sql.NVarChar, params.city)
+    //             .input('status', sql.Int, params.status)
+    //             .input('operation', sql.Int, params.operation)
+    //             .query(sql_str);
 
-            var my_data = {};
+    //         var my_data = {};
 
-            my_data.main = result.recordsets[0];
+    //         my_data.main = result.recordsets[0];
            
 
-            return my_data;
+    //         return my_data;
 
-        } catch (err) {
+    //     } catch (err) {
 
-            throw { errmsg: err };
-        }
-        // finally {
-        //     sql.close();
-        // }
+    //         throw { errmsg: err };
+    //     }
+    //     // finally {
+    //     //     sql.close();
+    //     // }
         
-    }
+    // }
 
 
 }

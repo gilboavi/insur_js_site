@@ -22,7 +22,7 @@ pool.getConnection((err, connection) => {
 })
 
 module.exports = {
-    getPool() {
+    get_pool() {
         
         return pool;
     }
