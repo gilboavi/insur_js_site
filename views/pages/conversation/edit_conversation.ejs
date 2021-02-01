@@ -40,18 +40,18 @@
       <tr> 
           <td>
                 <% if(data.main.done>0) { %>
-                        <div>  <input type="checkbox" name="check_done"  id="check_done" checked /> &nbsp   בוצע </div>
+                        <input type="checkbox" name="done"   checked /> &nbsp   בוצע 
                 <%} else {%>
-                                <div>  <input type="checkbox" name="check_done"  id="check_done"  /> &nbsp   בוצע </div>
+                        <input type="checkbox" name="done"    /> &nbsp   בוצע 
                 <%}%>
           </td>  
           <td>
                         <% if(data.main.immediately>0) { %>
-                                <div>  <input type="checkbox" name="immediately"  id="immediately" checked /> &nbsp   דחוף </div>
+                                  <input type="checkbox" name="immediately"   checked /> &nbsp   דחוף 
                         <%} else {%>
-                                        <div>  <input type="checkbox" name="immediately"  id="immediately"  /> &nbsp   דחוף </div>
+                                  <input type="checkbox" name="immediately"    /> &nbsp   דחוף 
                         <%}%>
-                  </td>  
+          </td>  
                   
       </tr>
     </table>  

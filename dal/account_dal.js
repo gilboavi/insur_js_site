@@ -31,7 +31,7 @@ const sql_conversation= " SELECT DATE_FORMAT(datee, '%Y / %m /%d ')  , "+
                 " `serial` " + 
                 " FROM `conversation_with_param` "+
                 "  WHERE `client_serial`=? ; ";
-                
+
 
 const sql_followup_conversation= " SELECT  	[DateFollowUp]  , Summary , UserName , "+
         " [StatusFollowUp]  , [ConversationsSerial] , [Serial] " + " " +
@@ -76,6 +76,7 @@ function built_sql_string(sql_head,oprator,sql_end){
 
     var sql_update_insert = sql_head + " " +
             "`id`"+oprator+"," + 
+            "`smok`"+oprator+"," + 
             " `last_name`"+oprator+" ," + 
             " `first_name`"+oprator+" , " +
             " `sex`"+oprator+" , " +
@@ -347,7 +348,8 @@ module.exports = {
                 sql_oprator=" ";
                 sql_end=") VALUES (?,?,?,?,?,"+
                                  "?,?,?,?,?,"+
-                                 "?,?,?,?,?  ) "; 
+                                 "?,?,?,?,?," +
+                                 "?  ) "; 
                 let result_1 = await db_conn_mysql.get_pool().promise()
                                  .query("select `serial`,`id` from `clients` where  id=?", 
                                  [params.id]               
@@ -368,6 +370,7 @@ module.exports = {
                     .query(sql_update_insert,
                             [
                                 params.id,
+                                params.smok,
                                 `${params.last_name}`,
                                 `${params.first_name}`,
                                 params.sex,

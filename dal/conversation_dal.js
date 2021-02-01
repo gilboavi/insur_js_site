@@ -4,6 +4,9 @@ var moment = require('moment');
 const dbConn = require("./dbConn");
 const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
+const function_dal=  require("./function_dal");
+    
+
 
 
 const    sql_conversation_helper_tables=
@@ -275,16 +278,15 @@ module.exports = {
         if   ( !  params.meeting_serial ) {
             params.meeting_serial = 0;
         }
-        if (!params.check_done) {
-            params.check_done = false;
-        }
-        if (!params.to_execution) {
-            params.to_execution = false;
-        }
+       
         
-        if (!params.immediately) {
-            params.immediately = false;
-        }
+        params.done=await function_dal.find_true_false(params.done);
+        params.immediately=await function_dal.find_true_false(params.immediately);
+        
+       
+        
+        
+        
 
         if(params.no_police==0){
             params.no_police="";
@@ -318,7 +320,7 @@ module.exports = {
                 .query(sql_str ,
                         [
                             params.client_serial,
-                            params.check_done,
+                            params.done,
                             params.immediately,
                             params.datee,
                             params.get_call_name,
