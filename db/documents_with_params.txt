@@ -1,0 +1,11 @@
+USE aluma_db;
+
+
+CREATE VIEW  documents_with_params
+AS
+SELECT      documents.serial,  documents.client_serial,  documents.comment,  documents.type_doc,  documents.document_occupation, 
+                       documents.date_of_document,  documents.file_name,   documents.no_police,  documents.conversation_serial, 
+                       documents.user_serial,  param_document_occupation.param_name AS document_occupation_name
+FROM          documents LEFT OUTER JOIN
+                       param_document_occupation ON  documents.document_occupation =  param_document_occupation.serial
+

@@ -1,45 +1,69 @@
 ﻿var config = require("../config").config;
-const sql = require('mssql');
-const dbConn = require("./dbConn");
 
+
+const db_conn_mysql = require("./db_con_mysql");
+const db_con_mysql_multi = require("./db_con_mysql_multi");
+
+const sql_hlep_tables=
+    " SELECT serial, param_name FROM param_document_occupation ORDER BY param_name ;" +
+   // " SELECT  no_police FROM life_policies  WHERE client_serial= ? ORDER BY no_police;" +
+    " SELECT serial ,user_name From users ORDER BY user_name"+ ";";
+
+const sql_documents_by_serial=
+    "SELECT  * FROM documents  WHERE serial= ?;";
 
 const get_empty_documents= (params) => {
     var my_documentsl = {
-              Serial:0,
-              ClientSerial: params.client_serial,
-              Comment: null ,
-              TypeDoc:0,
-              DocumentOccupation: 0 ,
-              DateOfDocument: null ,
-              FileName:null ,
-              NoPolice: null,
-              ConversationSerial:null ,
-              UserSerial:null
+              serial:0,
+              client_serial: params.client_serial,
+              comment: null ,
+              type_doc:0,
+              document_occupation: 0 ,
+              date_of_document: null ,
+              file_name:null ,
+              no_police: null,
+              conversation_serial:null ,
+              user_serial:null
       }
     return my_documentsl;
 }
 
 const sql_documents_list_string="SELECT  " +
-        "  CONVERT( varchar, [DateOfDocument] , 103)  ,[Comment] , [DocumentOccupationName] , "+
-        " [NoPolice]  ,FileName, Serial  " + " " +
-        "FROM [InsurDB].[dbo].[DocumentsWithParams] " + " " +
+    "  date_of_document  ,comment , document_occupation_name , "+
+    " no_police  ,file_name, serial  " + " " +
+    "FROM documents_with_params " + " " +
+    "WHERE client_serial=?";
 
-        "WHERE ClientSerial=@client_serial";
+
+    function built_sql_string(sql_head,oprator,sql_end){
+
+        var sql_update_insert = sql_head + " " +
+                              
+                "client_serial "+oprator+"," +
+                "date_of_document " +oprator+"," +
+                "document_occupation " +oprator+"," +
+                " file_name  "+oprator+"," +
+                " user_serial" +oprator+"," +
+                " comment "+oprator+" " +
+                
+                   sql_end;
+        return sql_update_insert;
+    }  
 
 module.exports = {
+    
     async get_documents_list_by_clientserial(params) {
-        //  console.log(params.term);
+      
 
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('client_serial', sql.Int, params.serial)
+            
+            let result = await db_conn_mysql.get_pool().promise()
+          
 
-                .query(sql_documents_list_string);
+                .query(sql_documents_list_string,[params.client_serial]);
 
 
-            return result.recordsets;
+            return result[0];
 
             // Stored procedure 
 
@@ -57,24 +81,18 @@ module.exports = {
 
     async get_document_by_serial(params) {
         var sql_str="";
-        var sql_str1 = "SELECT  * FROM [InsurDB].[dbo].[Documents]  WHERE [Serial]= @serial;";
-        var sql_str2 =
-            " SELECT[Serial], [ParamName] FROM [InsurDB].[dbo].[ParamDocumentOccupation] ORDER BY ParamName " +
-            " SELECT  [NoPolice] FROM [InsurDB].[dbo].[LifePolicies]  WHERE [ClientSerial]= @client_serial ORDER BY NoPolice;" +
-            " SELECT [Serial] ,[UserName] From Users ORDER BY UserName"+ ";"
+        
         if (params.serial == 0) {
-            sql_str = sql_str2;
+            sql_str = sql_hlep_tables;
         } else {
-            sql_str =  sql_str1+" "+sql_str2;
+            sql_str =  sql_documents_by_serial+" "+sql_hlep_tables;
         }
            
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('client_serial', sql.Int, params.client_serial)
-                .query(sql_str);
+            let result = await db_con_mysql_multi.get_pool().promise()
+                .query(sql_str,[params.serial]);
 
             var my_data = {};
            
@@ -82,15 +100,15 @@ module.exports = {
                 var main_t = [];
                 main_t.push(get_empty_documents(params));
                 my_data.main = main_t;
-                my_data.document_occupation= result.recordsets[0];
-                my_data.no_police_list= result.recordsets[1];
-                my_data.users_list= result.recordsets[2];
-                my_data.user_id=params.userId;
+                my_data.document_occupation=result[0][0];
+                my_data.users_list= result[0][1];
+               
+                my_data.user_id=params.user_id;
             } else {
-                my_data.main= result.recordsets[0];
-                my_data.document_occupation= result.recordsets[1];
-                my_data.no_police_list= result.recordsets[2];
-                my_data.users_list= result.recordsets[3];
+                my_data.main= result[0][0];
+                my_data.document_occupation= result[0][1];
+           
+                my_data.users_list= result[0][2];
             }
 
           
@@ -107,49 +125,47 @@ module.exports = {
     },
 
     async save_documents(params) {
-        
+        var sql_head="UPDATE   documents SET ";
+        var sql_oprator="=?";
+        var  sql_end="   WHERE serial=? ";
         var sql_str = "";
 
-        if (params.serial !=0) {
-            sql_str = "UPDATE    [InsurDB].[dbo].[Documents] SET " +
-                "DateOfDocument=@datee  " + "," +
-                " DocumentOccupation=@document_occupation " + "," +
-                " NoPolice=@no_police " + "," +
-                " UserSerial=@user_serial " + "," +
-               
-               // " FileName=@file_name , "+
-                " Comment=@comment " +
-                "  WHERE [Serial] = @serial ";
-        } else {
-            sql_str = "INSERT INTO [InsurDB].[dbo].[Documents] " + " " +
-                "(ClientSerial , DateOfDocument , DocumentOccupation , NoPolice , FileName,UserSerial , Comment)" +
-                "   VALUES " + " " +
-                "(@client_serial , @datee , @document_occupation , @no_police , @file_name ,@user_serial , @comment )";
+        if (params.serial ==0) {
+
+            sql_head=" INSERT into   documents ( ";
+                sql_oprator=" ";
+                sql_end=", serial) VALUES (?,?,?,?,?,"+
+                                 "?,? ) "; 
+         
+           
+            
         }
 
-       
+        sql_str=built_sql_string(sql_head,sql_oprator,sql_end);
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('client_serial', sql.Int, params.client_serial)
-                .input('datee', sql.DateTime, params.date_of_document)
-                .input('document_occupation', sql.Int, params.document_occupation)
-                .input('no_police', sql.NVarChar, params.no_police)
-                .input('user_serial', sql.Int, params.user_serial)
+             //   "(@client_serial , @datee , @document_occupation ,  @file_name ,@user_serial , @comment )";
+            let result = await db_conn_mysql.get_pool().promise()
                 
-               // .input('file_name', sql.NVarChar, params.files[Object.keys(params.files)[0]].newfilename)
-                .input('file_name', sql.NVarChar, params.file_name)
-                .input('comment', sql.NVarChar, params.comment)
-                .query(sql_str  );
+               
+                
+                .query(sql_str ,[
+                        params.client_serial,
+                        params.date_of_document,
+                        params.document_occupation,
+                        params.file_name,
+                        params.user_serial,
+                        params.comment,
+                        params.serial
+                    ] 
+                );
 
               //  let result2 = await pool.request()
-              let result2 = await dbConn.getPool().request()
-                .input('client_serial', sql.Int, params.client_serial)
-                .query(sql_documents_list_string  );
+            //   let result2 = await db_conn_mysql.get_pool().promise()
                 
-            return result2.recordsets;
+            //     .query(sql_documents_list_string , [params.client_serial]  );
+                
+            // return result2[0];
+            return this.get_documents_list_by_clientserial(params);
             // Stored procedure 
         } catch (err) {
             // ... error checks 

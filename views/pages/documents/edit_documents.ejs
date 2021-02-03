@@ -18,14 +18,14 @@
            }
 
        %>
-        <input type="hidden" name="serial" value="<%=data.main[0].Serial%>" />
-        <input type="hidden" name="client_serial" value="<%= data.main[0].ClientSerial %>" />
+        <input type="hidden" name="serial" value="<%=data.main[0].serial%>" />
+        <input type="hidden" name="client_serial" value="<%= data.main[0].client_serial %>" />
       
       
 
     <table  id="document_table">
         <tr>
-            <% if(data.main[0].Serial=="0") { %>
+            <% if(data.main[0].serial=="0") { %>
             <td>  <input type="file" id="fileinput" name="fileinput" />  </td>
             <%}%>
         </tr>
@@ -33,7 +33,7 @@
                 <td >
                     <div>תאריך המסמך</div>
                      <div >
-                          <input name="date_of_document" id="date_of_document" value=" <%= data.main[0].DateOfDocument%>" size="10"  />
+                          <input name="date_of_document" id="date_of_document" value=" <%= data.main[0].date_of_document%>" size="10"  />
                      </div>
                 </td>
                 
@@ -43,12 +43,12 @@
                              <select name="document_occupation">
                                         <option value="0" > </option>
                                        <%    $.each(data.document_occupation, function(key,val){
-                                             if(val.Serial != data.main[0].DocumentOccupation){ %>
-                                                   <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                             if(val.serial != data.main[0].document_occupation){ %>
+                                                   <option value="<%=val.serial%>" ><%=val.param_name%></option>
                      
                                            <%}
                                               else{ %>
-                                                      <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                                      <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                                            <%  }
                                      });%>
                       </select>
@@ -62,37 +62,21 @@
                                             <option value="0" > </option>
                                            <% 
                                               $.each(data.users_list, function(key,val){
-                                                 if(val.Serial ==data.main[0].UserSerial){ %>
-                                                    <option value="<%=val.Serial%>" selected="selected" ><%=val.UserName%></option>
+                                                 if(val.serial ==data.main[0].user_serial){ %>
+                                                    <option value="<%=val.serial%>" selected="selected" ><%=val.userN_nme%></option>
                                                     
                          
                                                <%}
-                                                  else if(val.Serial ==data.user_id ){ %>
-                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.UserName%></option>
+                                                  else if(val.serial ==data.user_id ){ %>
+                                                          <option value="<%=val.serial%>" selected="selected" ><%=val.user_name%></option>
                                                <%  }   else{ %>
-                                                      <option value="<%=val.Serial%>" ><%=val.UserName%></option>
+                                                      <option value="<%=val.serial%>" ><%=val.user_name%></option>
                                      <%  }
                                          });%>
                           </select>
                          </div>
                     </td>
-                 <td>
-                    <div>שיוך לפוליסה</div>
-                     <div>
-                             <select name="no_police">
-                                        <option value="0" > </option>
-                                       <%    $.each(data.no_police_list, function(key,val){
-                                             if(val.NoPolice !=data.main[0].NoPolice){ %>
-                                                   <option value="<%=val.NoPolice%>" ><%=val.NoPolice%></option>
-                     
-                                           <%}
-                                              else{ %>
-                                                      <option value="<%=val.NoPolice%>" selected="selected" ><%=val.NoPolice%></option>
-                                           <%  }
-                                     });%>
-                      </select>
-                     </div>
-                </td>
+                 
                 <td>
                         <input type="button" id="btn_save_documents"  name="btn_save_documents"  onclick  ="save_documents()" value="save" />
                 </td>
@@ -101,7 +85,7 @@
         
            
      </table >  
-          <input type="text" name="comment"  style="width:100% ; " value=" <%=data.main[0].Comment %>">
+          <input type="text" name="comment"  style="width:100% ; " value=" <%=data.main[0].comment %>">
          
         
        <!--  <a href="#" onclick="for_each() ">for each</a> !-->

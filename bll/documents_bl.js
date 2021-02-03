@@ -11,7 +11,7 @@ module.exports = {
     async get_documents_list_by_clientserial(params) {
         try {
             let db_result = await documents_dal.get_documents_list_by_clientserial(params)
-            let result = db_result[0];
+            let result = db_result;
             return result;
         } catch (err) {
             // ... error checks 
@@ -37,7 +37,7 @@ module.exports = {
         try {
             let db_result = await documents_dal.get_document_by_serial(params)
             let result = db_result;
-            let file_name = db_result.main[0].FileName;
+            let file_name = db_result.main[0].file_name;
          //   let filepath = path.join(config.fileFolder, file_name);
             return new Promise((resolveall, rejectall) => {
                 try {

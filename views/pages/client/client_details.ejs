@@ -1,11 +1,13 @@
 <script id="templat__client_details" type="text/html">
-    <div class="w3-container w3-blue">
-        <h2>פרטי לקוח</h2>
-      </div>
-    <form class="w3-container" id="editClient_details" name="editClient_details">
+    
+    <form class="w3-container max-height-width" id="editClient_details" name="editClient_details">
         <input type="hidden" name="serial" value="<%= data.main[0].serial %>" />
         <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="save" />
-        <div class="container">
+        <div class="container ">
+            <div class="w3-container w3-blue">
+                <h2>פרטי לקוח</h2>
+            </div>
+            <br>
             <div class="row">
                 <div class="col-sm-3 fieldLabel">
 					<p>
@@ -170,24 +172,29 @@
                         <input class="w3-input" name="email" id="email" value=" <%= data.main[0].email %>" />
                     </p>     
                 </div>
-                <div class="col-sm-3 fieldLabel">
                 
-                </div>
-                <div class="col-sm-3 fieldValue">
-
-                </div>
+                
                 
             </div>
             <div class="row">
-                <p> 
-					הערה
-                
-                    <input class="w3-input" name="comment" value=" <%= data.main[0].comment %>" style='width:80%'/>
-                </p>
+                <div class="col-sm-12 fieldLabel">
+                    <p> 
+                        הערה
+                    
+                        <input class="w3-input" name="comment" value=" <%= data.main[0].comment %>" style='width:80%'/>
+                    </p>
+                </div>
             </div>
         </div>
- 
+        <div class="row">
+            <div class="col-sm-12 w3-container w3-blue">
+               
+                    <h2>edit_meeting</h2>
+                 
+            </div>
+        </div>
        
      
-    </form>  
+    </form> 
+    
  </script>

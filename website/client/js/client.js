@@ -112,6 +112,15 @@ function set_autocomplite(hide_str,expose_str){
 }
 
 $(document).ready(function () {
+    $("#sidebarCollapse").click(function(){
+        $("#sidebar").toggle();
+      });
+
+    // $("#sidebar").mCustomScrollbar({
+    //     theme: "minimal"
+    // });
+
+    
 
     $(function () {
         $("#td_client_details").resizable();
@@ -237,32 +246,33 @@ $(document).ready(function () {
                 }
             },
             documents: function () {
-                var my_serial = $('#client_serial').val();
-                if (my_serial != "") {
-                    if ( $('#documents_flg').val() != "1") {
-                        var params = {
-                            api: "documents_api",
-                            action: "get_documents_list_by_clientserial",
-                            serial: my_serial
-                        };
-                        get_api_data_by_params(params).done(function (data) {
-                            if (data != null) {
-                                $('#documents_flg').val("1");
-                                var params = {
-                                    data: data,
-                                    table_template: "templat_documents_list",
-                                    div_result: "documents_div"
-                                };
-                                render_html_with_data_and_hide_div(params); //  render html without sendin request to server
-                            }
+                get_documents_list_by_clientserial();
+                // var my_serial = $('#client_serial').val();
+                // if (my_serial != "") {
+                //     if ( $('#documents_flg').val() != "1") {
+                //         var params = {
+                //             api: "documents_api",
+                //             action: "get_documents_list_by_clientserial",
+                //             serial: my_serial
+                //         };
+                //         get_api_data_by_params(params).done(function (data) {
+                //             if (data != null) {
+                //                 $('#documents_flg').val("1");
+                //                 var params = {
+                //                     data: data,
+                //                     table_template: "templat_documents_list",
+                //                     div_result: "documents_div"
+                //                 };
+                //                 render_html_with_data_and_hide_div(params); //  render html without sendin request to server
+                //             }
                            
-                        });
+                //         });
          
-                    } else {
-                        hide_div();
-                        $("#documents_div").show();
-                    }
-                }
+                //     } else {
+                //         hide_div();
+                //         $("#documents_div").show();
+                //     }
+                // }
             },
             kupa: function () {
                 if ($('#client_serial').val() != "") {
@@ -1044,6 +1054,36 @@ function get_simulator () {
 
 // ======================   documents  ======================
 
+function get_documents_list_by_clientserial(){
+    var my_serial = $('#client_serial').val();
+    if (my_serial != "") {
+        if ( $('#documents_flg').val() != "1") {
+            var params = {
+                api: "documents_api",
+                action: "get_documents_list_by_clientserial",
+                client_serial: my_serial
+            };
+            get_api_data_by_params(params).done(function (data) {
+                if (data != null) {
+                    $('#documents_flg').val("1");
+                    var params = {
+                        data: data,
+                        table_template: "templat_documents_list",
+                        div_result: "documents_div"
+                    };
+                    render_html_with_data_and_hide_div(params); //  render html without sendin request to server
+                }
+               
+            });
+
+        } else {
+            hide_div();
+            $("#documents_div").show();
+        }
+    }
+
+};
+
 
 function edit_document(serial) {
     var params = {
@@ -1055,7 +1095,7 @@ function edit_document(serial) {
     get_api_data_by_params(params).done(function (data) {
 
         open_colorbox("#edit_documents", data);
-        set_datepicker_format("date_of_document", data.main[0].DateOfDocument);
+        set_datepicker_format("date_of_document", data.main[0].date_of_document);
     })
 };
 
@@ -1111,10 +1151,10 @@ function save_documents() {
 
 
    save_from_coler_box2(params).done(function (data) {
-    params.data=data[0];
+    params.data=data;
     params.table_template="templat_documents_list";
     params.div_result="documents_div";
-    render_html_with_data(params);
+    render_html_with_data_and_hide_div(params);
    }).fail(function (err) {
 
    });

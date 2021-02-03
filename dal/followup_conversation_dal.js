@@ -2,6 +2,8 @@
 var config = require("../config").config;
 const sql = require('mssql');
 const dbConn = require("./dbConn");
+const db_conn_mysql = require("./db_con_mysql");
+const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 const sql_followup_conversation_helper_tables =
     
@@ -20,14 +22,14 @@ const sql_conversation_with_followup = " SELECT  " +
     " FROM [InsurDB].[dbo].[FollowUpConversationWithParamsAndClientSerial] " +
     " WHERE ClientSerial=@serial; ";
 
-const sql_followup = " SELECT  " + " " +
-    " CONVERT( varchar, [DateFollowUp]  , 103)	 , Summary,UserName ,[StatusFollowUp]  , " + " " +
-    " [Serial] " + " " +
-    "FROM [InsurDB].[dbo].[FollowUpConversationWithParams] WHERE ConversationsSerial=@conversations_serial ; "
+const sql_followup_with_prams_by_conversations_serial = " SELECT  " + " " +
+    " date_followup , summary,user_name ,status_followup  , " + " " +
+    " serial " + " " +
+    "FROM followup_conversation_with_params WHERE conversations_serial=? ; "
     ;
 
-const sql_conversation = " SELECT  " + " " +
-    " Serial, SummaryOfConversation From Conversation Where Serial=@conversations_serial ; ";
+const sql_conversation_by_conversations_serial = " SELECT  " + " " +
+    " serial, summary_of_conversation From conversation Where serial=? ; ";
 
 const set_result_into_lists = (params, result) => {
     var my_data = {};
@@ -74,19 +76,19 @@ const get_empty_followup_conversation = (params) => {
 module.exports = {
 
     async get_followup_conversations_list_by_conversation_serial(params) {
-     
-
-      
+        var sql_str=
+              sql_followup_with_prams_by_conversations_serial 
+              + sql_conversation_by_conversations_serial ;
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('conversations_serial', sql.Int, params.conversations_serial)
-                .query(sql_followup + sql_conversation);
+            
+            let result = await db_conn_mysql_multi.get_pool().promise()
+                       .query(sql_str,[
+                           params.conversations_serial,
+                           params.conversations_serial]);
             var my_data = {};
            
-                my_data.type_followup_conversation_list = result.recordsets[0];
-                my_data.conversation = result.recordsets[1];
+                my_data.type_followup_conversation_list = result[0][0];
+                my_data.conversation = result[0][1];
 
                 return my_data;
 
@@ -204,7 +206,8 @@ module.exports = {
             // let result2 = await pool.request()
             let result2 = await dbConn.getPool().request()
             .input('conversations_serial', sql.Int, params.conversations_serial)
-            .query(sql_followup + sql_conversation);
+            .query(sql_followup_with_prams_by_conversations_serial
+                     + sql_conversation_by_conversations_serial);
         var my_data = {};
        
             my_data.type_followup_conversation_list = result2.recordsets[0];

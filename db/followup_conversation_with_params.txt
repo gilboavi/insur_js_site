@@ -1,0 +1,19 @@
+USE aluma_db;
+
+
+
+CREATE VIEW followup_conversation_with_params
+AS
+SELECT      followup_conversation.serial,  followup_conversation.conversations_serial,  followup_conversation.date_followup,
+					   followup_conversation.summary, 
+                       followup_conversation.user_serial,  followup_conversation.done,  followup_conversation.date_to_call,
+					   followup_conversation.delivered_to, 
+                       followup_conversation.type_followup_conversation,   followup_conversation.stop_reminder,  
+					   followup_conversation.felg_reminder, 
+                       param_type_followup_conversation.param_name AS status_followup,  users.user_name,  
+					   followup_conversation.my_minute,  followup_conversation.my_hour, 
+                       followup_conversation.send_to_user_by,  followup_conversation.mark_as_important
+FROM          followup_conversation LEFT OUTER JOIN
+                       users ON  followup_conversation.user_serial =  users.serial LEFT OUTER JOIN
+                       param_type_followup_conversation ON  followup_conversation.type_followup_conversation =  param_type_followup_conversation.serial
+

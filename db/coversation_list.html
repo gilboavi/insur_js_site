@@ -1,10 +1,88 @@
-﻿<script id="templat_conversation_list" type="text/html">
- <!--    <a href="#" onclick=" edit_conversation(0 , -1)"> שיחה חדשה</a> 
+<script id="templat_conversation_list" type="text/html">
+    <!    <a href="#" onclick=" edit_conversation(0 , -1)"> שיחה חדשה</a> 
     <br />
     <br /> !-->
     <input type="text" class="black_text" id="table_conversation_comment" size="10" onkeyup="filter_my_table('table_conversation')" />
+	<br>
+	<input type="button" onclick=" edit_conversation(0)" value="חדש"  class="font_color_purpl"/>
     <br>
-    <table class="table table-bordered table-striped" border="1"  id="table_conversation" >
+	<div class="container">
+		<div class="row">
+                <div class="col-sm-1fieldLabel">
+					תאריך
+				</div>
+				<div class="col-sm-4 fieldLabel">
+					תקציר השיחה
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					מטרת השיחה
+				</div>
+				<div class="col-sm-2 fieldLabel">
+					שם מטפל
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					סטוטס
+				</div>
+				<div class="col-sm-2 fieldLabel">
+					מ.פוליסה
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					
+				</div>
+		</div>
+		<% $.each(data.conversation_list, function(rowindex,row) {
+				
+					if(row.done==true){ %> 
+						<div class="row">
+					<%  } else  if(row.immediately==true) {%> 
+					
+					 <div class="row red_text"> 
+				  <%  } else if(row.done==false){ %>
+					  <div class="row green_text">  
+						   
+					<%}%> 
+					
+				
+				
+				<div class="col-sm-1fieldLabel">
+					 <% row.datee %>
+				</div>
+				<div class="col-sm-4 fieldLabel">
+					  <% row.summary_of_conversation  %>
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					  <% row.goal_of_talk_name %>
+				</div>
+				<div class="col-sm-2 fieldLabel">
+					 <% row.user_name %>
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					 <% row.type_followup_conversation_name %>
+				</div>
+				<div class="col-sm-2 fieldLabel">
+					 <% no_police %>
+				</div>
+				<div class="col-sm-1 fieldLabel">
+					 <div class="btn-group">
+						<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+							aria-expanded="false">
+							בחר  <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+									<li><a href="#" onclick="edit_conversation(<%= row.serial%>,<%=(rowindex+1)%>)"s>  עריכה   </a></li>
+								<li><a href="#" onclick="get_followup_conversations_list_by_clientserial(<%= row.client_serial%>)">  מעקב   </a></li>
+								
+						</ul>
+					 </div>
+				</div>
+		<%}); %>
+		</div>
+	</div>
+	
+	
+	
+    <table border="1"  id="table_conversation" >
+	
         <thead > 
             <tr style="color: blue;">
                <th>תאריך</th>

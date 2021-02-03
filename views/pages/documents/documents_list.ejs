@@ -1,13 +1,16 @@
 ﻿<script id="templat_documents_list" type="text/html">
       <a href="#" onclick=" edit_document(0)">מסמך חדש</a>
     <br/> <br/>
-    <table id="documents_table" >
+    <div>
+        <input type="text" class="black_text" id="documents_table_comment" size="10" onkeyup="filter_my_table('documents_table')" /> 
+    </div>
+    <table class="table table-bordered table-striped" id="documents_table" >
         <thead>
             <tr>
                
                 <th>תאריך המסמך</th>
                 <th>תקציר המסמך &nbsp &nbsp
-                     <input type="text" class="black_text" id="documents_table_comment" size="10" onkeyup="filter_my_table('documents_table')" /> 
+                   
                     </th>
                 <th>סוג המסמך</th>
                 <th>מספר פוליסה </th>
@@ -20,7 +23,7 @@
             <% $.each(data, function(rowindex,row) {%>
                  <tr>
                        <% $.each(row, function(key,val){  
-                          if(key!="Serial") {%>
+                          if(key!="serial") {%>
                            <td><%= val%></td>
                      <% } else { %>
                         <td>
