@@ -2,7 +2,7 @@
 
 
 const db_conn_mysql = require("./db_con_mysql");
-const db_con_mysql_multi = require("./db_con_mysql_multi");
+const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 const sql_hlep_tables=
     " SELECT serial, param_name FROM param_document_occupation ORDER BY param_name ;" +
@@ -91,7 +91,7 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await db_con_mysql_multi.get_pool().promise()
+            let result = await db_conn_mysql_multi.get_pool().promise()
                 .query(sql_str,[params.serial]);
 
             var my_data = {};

@@ -296,15 +296,7 @@ module.exports = {
         
         
          if (params.serial == "0") {
-            sql_str = "INSERT INTO [InsurDB].[dbo].[Conversation] " + " " +
-                " ([ClientSerial]   , [Datee]   ,  [Get_call_name] , [GoalOfTalk]  , [TypeTevia]  ,[SummaryOfConversation] ,  " + " " +
-                "  [Immediately] ,  [ToExecution] ,  [Meeting] ,  [Sale] ,  [Yozma] ,  [Done] ,  [Suspend] ,  [FormIsOpenn] , " +
-                " [StatusGetCallName] ,MeetingSerial ,HourOfDatee   )" + " " +
-                "   VALUES " + " " +
-                " (@client_serial , @datee , @get_call_name , @goal_of_talk ,@type_tevia , @summary_of_conversation  , " + 
-                " @immediately , @ToExecution , @Meeting ,@Sale , @Yozma ,@done , @Suspend , @FormIsOpenn , " +
-                " @StatusGetCallName , @MeetingSerial ,@hour_of_datee )";
-           
+            
                 sql_head=" INSERT into   conversation ( ";
                 sql_oprator=" ";
                 sql_end=") VALUES (?,?,?,?,?,"+

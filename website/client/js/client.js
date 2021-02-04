@@ -789,7 +789,7 @@ function conversation_from_police(no_police) {
 // =================    followup_conversation  ====================
 
 
-function get_followup_conversations_list_by_clientserial(conversations_serial) {
+function get_followup_conversations_list_by_conversation_serial(conversations_serial) {
     var params = {
         api: "followup_conversation_api",
         action: "get_followup_conversations_list_by_conversation_serial",
@@ -806,7 +806,7 @@ function edit_followup_conversation(my_seria, my_conversation_serial) {
             api: "followup_conversation_api",
             action: "get_follow_up_conversation_by_serial",
             serial: my_seria,
-            conversation_serial: my_conversation_serial
+            conversations_serial: my_conversation_serial
     };
 
     get_api_data_by_params(params).done(function (data) {
@@ -814,7 +814,7 @@ function edit_followup_conversation(my_seria, my_conversation_serial) {
         var table_template = $("#edit_followup_conversation").html();
         var comp = _.template(table_template);
         $("#SubDiv" ).html(comp({ data: data }) );
-        set_datepicker_format("date_followup", data.main[0].DateFollowUp);
+        set_datepicker_format("date_followup", data.main[0].date_followup);
     })
 };
 
@@ -838,7 +838,8 @@ function save_followup_conversation() {
     if (!params.stop_reminder) {
         params.stop_reminder = false;
     }
-
+    var date_followup=$("#date_followup").val();
+    params.date_followup =date_followup;
     params.date_followup = moment(params.date_followup, "DD/MM/YYYY").toDate();
     params.api = "followup_conversation_api";
     params.action = "save_followup_conversation";
@@ -1303,7 +1304,7 @@ function edit_meeting(serial) {
     get_api_data_by_params(params).done(function (data) {
 
         open_colorbox("#edit_meeting", data);
-        set_datepicker_format("meeting_date", data.main[0].MeetingDate);
+        set_datepicker_format("meeting_date", data.main[0].meeting_date);
     })
 };
 

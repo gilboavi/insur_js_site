@@ -1,6 +1,6 @@
 
 
-const db_con_mysql = require('./db_con_mysql');
+const db_conn_mysql = require('./db_con_mysql');
 //const uuid = require('uuidv4').default;
 
 const sql_family_members_with_params_by_serial=
@@ -46,7 +46,7 @@ function    get_family_members_list_from_db_by_client_serial(client_serial) {
                             
             try {
                                
-                    let result = db_con_mysql.get_pool().promise()
+                    let result = db_conn_mysql.get_pool().promise()
                            .query(sql_familyMenbers_list_by_client_serial,[client_serial]);
                     
                     return result;
@@ -73,7 +73,7 @@ module.exports = {
 
     async get_family_members_list(params) {
         try {
-            let result = await db_con_mysql.get_pool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
             
             .query("Select * From `family_members` ");
             return result[0][0];
@@ -86,7 +86,7 @@ module.exports = {
     async get_family_members_by_serial(params) {
        
         try {
-            let result = await db_con_mysql.get_pool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
                 .query(family_members_with_params,
                 [params.serial]);
             return result[0];
@@ -100,7 +100,7 @@ module.exports = {
         try {
           //  let uniqueID = UUID.randomUUID().toString();
             let families_serial= params.families_serial;
-            let result = await db_con_mysql.get_pool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
                        .query(sql_family_menbers_list_by_families_serial,
                         [families_serial]);
                                                                 
@@ -123,7 +123,7 @@ module.exports = {
          try {
             // let result =await get_family_members_list_from_db_by_client_serial(my_client_serial);
            
-            let result = await db_con_mysql.get_pool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
                 .query(sql_familyMenbers_list_by_client_serial,
                 [client_serial]);
 
@@ -162,7 +162,7 @@ module.exports = {
        var sql_insert_families_members= built_sql_string(sql_head,sql_oprator,sql_end)
         try {
             // find if family member exsists
-            let result =await db_con_mysql.get_pool().promise()
+            let result =await db_conn_mysql.get_pool().promise()
                 .query(sql_find_by_family_serial_and_client_serial,
                  [params.families_serial,
                     params.client_serial] 
@@ -171,7 +171,7 @@ module.exports = {
             if( result[0].length ==0 ){
                let member_type=params.member_type;
                let comment=params.comment;
-                let result_families_members = await db_con_mysql.get_pool().promise()
+                let result_families_members = await db_conn_mysql.get_pool().promise()
                     .query(sql_insert_families_members,
                         [parseInt(params.families_serial), 
                             parseInt(params.client_serial),
@@ -192,7 +192,7 @@ module.exports = {
     async  delete_from_families_members_by_familySerial_and_clientSerial(params){
         let that=this;
         try {
-            let result =await db_con_mysql.get_pool().promise()
+            let result =await db_conn_mysql.get_pool().promise()
                 .query(sql_delete_from_familyMembers_by_family_serial_and_client_serial,
                 [params.families_serial,params.client_serial] ); 
             
@@ -227,7 +227,7 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await db_con_mysql.get_pool().promise()
+            let result = await db_conn_mysql.get_pool().promise()
                 .input('serial', sql.Int, params.serial)
                 .input('families_serial', sql.Int, params.family_serial)
                 .input('client_serial', sql.Int, params.client_serial)

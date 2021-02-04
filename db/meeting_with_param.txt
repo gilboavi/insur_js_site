@@ -1,0 +1,13 @@
+
+
+CREATE VIEW  meeting_with_param
+AS
+SELECT     meeting.serial, meeting.client_serial, meeting.meeting_date, meeting.meeting_summary, meeting.agent_name, meeting.editor_name, 
+                      agents.agent_name AS agent_name_str, users.user_name AS user_name_str, 
+                      param_meeting_status.param_name AS meetingStatusStr, meeting.Done
+FROM         meeting LEFT OUTER JOIN
+                      param_meeting_status ON meeting.meeting_status = param_meeting_status.serial LEFT OUTER JOIN
+                      users ON meeting.editor_name = users.serial LEFT OUTER JOIN
+                      agents ON meeting.agent_name = agents.serial LEFT OUTER JOIN
+                      clients ON meeting.client_serial = clients.serial
+ORDER BY meeting.meeting_date

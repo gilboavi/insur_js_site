@@ -1,14 +1,15 @@
 ﻿// followup_conversation_dal
 var config = require("../config").config;
 const sql = require('mssql');
-const dbConn = require("./dbConn");
+
 const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
+const function_dal=  require("./function_dal");
 
 const sql_followup_conversation_helper_tables =
+" SELECT serial, user_name FROM users ORDER BY user_name " + ";" +
+" SELECT   serial, param_name FROM param_type_followup_conversation ORDER BY param_name " + ";";
     
-    " SELECT[Serial], [UserName] FROM [InsurDB].[dbo].[Users] ORDER BY UserName " + ";" +
-    " SELECT[Serial], [ParamName] FROM[InsurDB].[dbo].[ParamTypeFollowupConversation] ORDER BY ParamName " + ";";
 
 const sql_conversation_with_followup = " SELECT  " +
     "	[Datee], SummaryOfConversation, GoalOfTalkName , " +
@@ -54,23 +55,45 @@ const set_result_into_lists = (params, result) => {
 const get_empty_followup_conversation = (params) => {
     let my_date=  new Date();
     var my_followup_conversation = {
-        Serial: 0,               
-        ConversationsSerial: params.conversation_serial,
-        DateFollowUp: my_date,
-        Summary: null,
-        UserSerial: null,
-        Done: null,
-        DateToCall: null,
-        DeliveredTo: null,
-        TypeFollowupConversation: null,
-        StopReminder: null,
-        FelgReminder: null,
-        myMinute: null,
-        myHour: null,
-        SendToUserBy: null,
-        MarkAsImportant: false
+        serial: 0,               
+        conversation_serial: params.conversation_serial,
+        date_followup: my_date,
+        summary: null,
+        user_serial: null,
+        done: null,
+        date_to_call: null,
+        delivered_to: null,
+        type_followup_conversation: null,
+        stop_reminder: null,
+        felg_reminder: null,
+        my_minute: null,
+        my_hour: null,
+        send_to_userBy: null,
+        mark_as_important: false
     }
     return my_followup_conversation
+}
+
+function built_sql_string(sql_head,oprator,sql_end){
+
+    var sql_update_insert = sql_head + " " +
+            
+           // " `hour_to_call`"+oprator+" ," +
+           "conversations_serial" + oprator +" , " +
+            "date_followup" + oprator +" , " +
+            "user_serial "  + oprator+" , " +
+            " type_followup_conversation " + oprator+" , " + 
+           
+            " mark_as_important" + oprator +" , " + 
+            " done " + oprator +" , " +
+            " stop_reminder " + oprator +" , " +
+            " summary " + oprator +"  " + 
+             
+            
+           
+           
+               sql_end;
+    return sql_update_insert;
 }
 
 module.exports = {
@@ -104,7 +127,7 @@ module.exports = {
 
 
     async get_follow_up_conversation_by_serial(params) {
-        var sql_str = " SELECT * FROM [InsurDB].[dbo].[FollowUpConversation] Where Serial=@serial";
+        var sql_str = " SELECT * FROM followup_conversation Where serial=? ;";
        
 
         if (params.serial != 0) {
@@ -113,23 +136,23 @@ module.exports = {
             sql_str = sql_followup_conversation_helper_tables;
         }
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .query(sql_str);
+            
+            let result = await db_conn_mysql_multi.get_pool().promise()
+                     .query(sql_str,[params.serial]);
+
             var my_data = {};
             if (params.serial == 0) {
                 var main_t = [];
                 main_t.push(get_empty_followup_conversation(params));
                 my_data.main = main_t;
-                my_data.user_serial_list = result.recordsets[0];
-                my_data.type_followup_conversation_list = result.recordsets[1];
-                my_data.main[0].UserSerial=params.userId;
+                my_data.user_serial_list = result[0][0];
+                my_data.type_followup_conversation_list = result[0][1];
+                my_data.main[0].user_serial=params.user_id;
+                my_data.main[0].conversations_serial=params.conversations_serial;
             } else {
-                my_data.main = result.recordsets[0];
-                my_data.user_serial_list = result.recordsets[1];
-                my_data.type_followup_conversation_list = result.recordsets[2];
+                my_data.main = result[0][0];
+                my_data.user_serial_list = result[0][1];
+                my_data.type_followup_conversation_list = result[0][2];
 
             }
 
@@ -146,72 +169,77 @@ module.exports = {
     },
 
     async save_followup_conversation(params) {
-        //var a = params.summary_of_conversation;
-        //var summary_of_conversation = JSON.stringify(a);
 
+        var sql_head="UPDATE   followup_conversation SET ";
+        var sql_oprator="=?";
+        var sql_end="   WHERE serial =? ";
         var sql_str = "";
+        params.check_done=await function_dal.find_true_false(params.check_done);
+        params.stop_reminder=await function_dal.find_true_false(params.stop_reminder);
+        params.mark_as_important=await function_dal.find_true_false(params.mark_as_important);
+        
         if (params.serial != "0") {
-            sql_str = "UPDATE  FollowUpConversation SET " +
-              //  " DateFollowUp=@date_followup  " + "," +
-                "UserSerial=@user_serial  " + "," +
-                " TypeFollowupConversation=@type_followup_conversation " + "," +
-                " Summary=@summary , " +
-                " MarkAsImportant=@mark_as_important ," +
-                " Done= @check_done ," +
-                " StopReminder=@stop_reminder " +
-                "  WHERE [Serial]= @serial ";
+           
+               
         }
         else if (params.serial == "0") {
-            sql_str = "INSERT INTO [InsurDB].[dbo].[FollowUpConversation] " + " " +
-                " ( [ConversationsSerial] ,  [DateFollowUp]   , [UserSerial]   ,  [TypeFollowupConversation] , [Summary] , " +
-                " MarkAsImportant, Done ,StopReminder  )" + " " +
-
-                "   VALUES " + " " +
-                " ( @conversations_serial ,  @date_followup , @user_serial , @type_followup_conversation ,@summary , " +
-                " @mark_as_important , @check_done  , @stop_reminder )";
-             
+           
+            sql_head=" INSERT into   followup_conversation ( ";
+                sql_oprator=" ";
+                sql_end=") VALUES (?,?,?,?,?,"+
+                                 "?,?,? ) ";
         }
-
+         sql_str=built_sql_string(sql_head,sql_oprator,sql_end)
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result_conversation = await pool.request()
-            let result_conversation = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.conversations_serial)
-                .query(" Select TypeFollowupConversation FROM [Conversation] Where Serial=@serial ");
+            let type_followup_conversation=0 ;
+            // get type_followup_conversation frpm conversation
+            var sql_type_followup_conversation=" Select type_followup_conversation FROM conversation Where serial=? ";
+            if(params.serial != "0"){
+                let result_conversation = await db_conn_mysql.get_pool().promise()
+                            .query(sql_type_followup_conversation,[params.conversations_serial]);
 
-            let type_followup_conversation = result_conversation.TypeFollowupConversation;
-
-           //let result = await pool.request()
-            result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('conversations_serial', sql.Int, params.conversations_serial)
-                .input('date_followup', sql.DateTime,new Date())
-                .input('user_serial', sql.Int, params.user_serial)
-                .input('type_followup_conversation', sql.Int, params.type_followup_conversation)
-                .input('summary', sql.NVarChar, params.summary)
-                .input('mark_as_important', sql.Bit, params.mark_as_important)
-                .input('check_done', sql.Bit, params.check_done)
-                .input('stop_reminder', sql.Bit, params.stop_reminder)
             
-                .query(sql_str); 
-
+                if (result_conversation[0][0].type_followup_conversation){
+                    type_followup_conversation=result_conversation[0][0].type_followup_conversation;
+                }
+            }
+            var my_date=new Date();
+           // update or insert to followup_conversation
+            result = await db_conn_mysql.get_pool().promise()
+                
+                .query(sql_str,
+                    [  
+                        params.conversations_serial , 
+                        params.date_followup,
+                        params.user_serial,
+                        params.type_followup_conversation ,
+                        params.mark_as_important ,
+                        params.check_done ,
+                        params.stop_reminder, 
+                        params.summary , 
+                        params.serial 
+                    ]
+                    ); 
+            // if type_followup_conversation was changed, update conversation
             if (type_followup_conversation != params.type_followup_conversation) {
-                let sql_update_conversation = " UPDATE  Conversation SET TypeFollowupConversation=" +
-                    params.type_followup_conversation + " Where Serial= @serial ";
-              //  let result_conversation2 = await pool.request()
-              let result_conversation2 = await dbConn.getPool().request()
-                    .input('serial', sql.Int, params.conversations_serial)
-                    .query(sql_update_conversation);
+                let sql_update_conversation = " UPDATE  conversation SET type_followup_conversation=" +
+                    params.type_followup_conversation + " Where serial= ? ";
+              
+              let result_conversation2 = await db_conn_mysql.get_pool().promise()
+ 
+                    .query(sql_update_conversation ,[params.conversations_serial]);
             } 
-            // let result2 = await pool.request()
-            let result2 = await dbConn.getPool().request()
-            .input('conversations_serial', sql.Int, params.conversations_serial)
-            .query(sql_followup_with_prams_by_conversations_serial
-                     + sql_conversation_by_conversations_serial);
+            // return data for followup_conversation view
+            sql_str=sql_followup_with_prams_by_conversations_serial
+            + sql_conversation_by_conversations_serial
+            let result2 = await db_conn_mysql_multi.get_pool().promise()
+                  .query(sql_str,[params.conversation_serial,
+                                  params.conversation_serial
+                                 ]);
         var my_data = {};
        
-            my_data.type_followup_conversation_list = result2.recordsets[0];
-            my_data.conversation = result2.recordsets[1];
+            my_data.type_followup_conversation_list = result2[0][0];
+            my_data.conversation = result2[0][1];
 
             return my_data;
          

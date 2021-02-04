@@ -1,16 +1,16 @@
 ﻿<script id="edit_followup_conversation" type="text/html">
    <form  id="editFollowupConversation" name="editFollowupConversation"> 
             
-      <input type="hidden" name="serial"  id="serial" value="<%=data.main[0].Serial  %>" />
+      <input type="hidden" name="serial"  id="serial" value="<%=data.main[0].serial  %>" />
       <input type="hidden" name="row_index" value="<%= data.row_index %>" />              
-      <input type="hidden" name="conversations_serial"  id="conversations_serial" value="<%=data.main[0].ConversationsSerial  %>" />
+      <input type="hidden" name="conversations_serial"  id="conversations_serial" value="<%=data.main[0].conversations_serial  %>" />
                   
                
                 <table>
                     <tr>
                         <td>
                              <div>תאריך</div>
-                               <input name="date_followup" id="date_followup" value="<%= data.main[0].DateFollowUp %>" size="10" disabled />
+                               <input name="date_followup" id="date_followup" value="<%= data.main[0].date_followup %>" size="10" disabled />
                         </td>
                         <td >
                               <div>שעה</div>
@@ -18,7 +18,7 @@
                              
                                <div >
                                    
-                                    <input name="hour_of_datee2"  id="hour_of_datee2" value="<%=moment(data.main[0].DateFollowUp).format("HH:mm")  %>" size="10" disabled />
+                                    <input name="hour_of_datee2"  id="hour_of_datee2" value="<%=moment(data.main[0].date_followup).format("HH:mm")  %>" size="10" disabled />
                                </div> 
                           </td>
       
@@ -30,12 +30,12 @@
                                  <select name="user_serial">
                                             <option value="0" > </option>
                                            <%    $.each(data.user_serial_list, function(key,val){
-                                                 if(val.Serial !=data.main[0].UserSerial){ %>
-                                                       <option value="<%=val.Serial%>" ><%=val.UserName%></option>
+                                                 if(val.serial !=data.main[0].user_serial){ %>
+                                                       <option value="<%=val.serial%>" ><%=val.user_name%></option>
                      
                                                <%}
                                                   else{ %>
-                                                          <option value="<%=val.Serial%>" selected="selected" ><%=val.UserName%></option>
+                                                          <option value="<%=val.serial%>" selected="selected" ><%=val.user_name%></option>
                                                <%  }
                                          });%>
                                 </select>
@@ -47,19 +47,19 @@
                                      <select name="type_followup_conversation" id="type_followup_conversation">
                                              <option value="0" > </option>
                                                <%    $.each(data.type_followup_conversation_list, function(key,val){
-                                                     if(val.Serial != data.main[0].TypeFollowupConversation){ %>
-                                                           <option value="<%=val.Serial%>" ><%=val.ParamName%></option>
+                                                     if(val.serial != data.main[0].type_followup_conversation){ %>
+                                                           <option value="<%=val.serial%>" ><%=val.param_name%></option>
                      
                                                    <%}
                                                       else{ %>
-                                                              <option value="<%=val.Serial%>" selected="selected" ><%=val.ParamName%></option>
+                                                              <option value="<%=val.serial%>" selected="selected" ><%=val.param_name%></option>
                                                    <%  }
                                              });%>
                                    </select>
                              </div>
                         </td>
                         <td>
-                                   <% if(data.main[0].MarkAsImportant>0) { %>
+                                   <% if(data.main[0].mark_as_important>0) { %>
                                    <div>  <input type="checkbox" name="mark_as_important"  id="mark_as_important" checked /> &nbsp   דחוף </div>
                                    <%} else {%>
                                     <div>  <input type="checkbox" name="mark_as_important"  id="mark_as_important"  /> &nbsp   דחוף </div>
@@ -67,14 +67,14 @@
 
                         </td>
                         <td>
-                              <% if(data.main[0].Done>0) { %>
+                              <% if(data.main[0].done>0) { %>
                                <div>  <input type="checkbox" name="check_done"  id="check_done" checked /> &nbsp   בוצע </div>
                                <%} else {%>
                                 <div>  <input type="checkbox" name="check_done"  id="check_done"  /> &nbsp   בוצע </div>
                                <%}%>
                         </td>
                         <td>
-                             <% if(data.main[0].StopReminder>0) { %>
+                             <% if(data.main[0].stop_reminder>0) { %>
                                <div>  <input type="checkbox" name="stop_reminder"  id="stop_reminder" checked /> &nbsp   בטל התראה </div>
                                <%} else {%>
                                 <div>  <input type="checkbox" name="stop_reminder"  id="stop_reminder"  /> &nbsp   בטל התראה </div>
@@ -91,7 +91,7 @@
 
                 </table>
              <textarea name="summary" id="summary"  style="width:100% ; height : 400px ;" >
-               <%= data.main[0].Summary %>
+               <%= data.main[0].summary %>
             </textarea>
 
         </form>
