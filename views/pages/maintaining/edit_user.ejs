@@ -4,12 +4,12 @@
 
    <form id="editUser" name="editUser">
      
-      <input type="hidden" name="serial"   value="<%= data.main[0].Serial %>" />
+      <input type="hidden" name="serial"   value="<%= data.main[0].serial %>" />
     
     
       
        <input type="button" id="btn_save_param"  name="btn_save_param"  onclick  ="save_user()" value="שמור" />
-      <% if(data.main[0].ActiveClient>0) { %>
+      <% if(data.main[0].active_client>0) { %>
        <div>  <input type="checkbox" name="active_client"  id="active_client" checked /> &nbsp   פעיל </div>
        <%} else {%>
         <div>  <input type="checkbox" name="active_client"  id="active_client"  /> &nbsp   פעיל </div>
@@ -22,19 +22,19 @@
                         <td>
                             <div>שם עובד</div>
                                  <div >
-                                  <input name="user_name" value=" <%= data.main[0].UserName %>" size="10"  />
+                                  <input name="user_name" value=" <%= data.main[0].user_name %>" size="10"  />
                              </div>
                         </td>
                       <td>
                             <div>סיסמה</div>
                                  <div >
-                                  <input name="pass_word" value=" <%= data.main[0].PassWord %>" size="10"  />
+                                  <input name="pass_word" value=" <%= data.main[0].pass_word %>" size="10"  />
                              </div>
                         </td>
                       <td>
                             <div>תפקיד</div>
                                  <div >
-                                  <input name="role" value=" <%= data.main[0].Role %>" size="10"  />
+                                  <input name="role" value=" <%= data.main[0].role %>" size="10"  />
                              </div>
                         </td>
                     <td>
@@ -48,19 +48,19 @@
                         <td>
                             <div>דוא"ל</div>
                                  <div >
-                                  <input name="email_address" value=" <%= data.main[0].EmailAddress %>" size="20"  />
+                                  <input name="email_address" value=" <%= data.main[0].email_address %>" size="20"  />
                              </div>
                         </td>
                       <td>
                             <div>שם משתמש דוא"ל</div>
                                  <div >
-                                  <input name="email_user_name" value=" <%= data.main[0].EmailUserName %>" size="10"  />
+                                  <input name="email_user_name" value=" <%= data.main[0].email_userName %>" size="10"  />
                              </div>
                         </td>
                       <td>
                             <div>סיסמת דוא"ל</div>
                                  <div >
-                                  <input name="email_pass_word" value=" <%= data.main[0].EmailPassWord %>" size="10"  />
+                                  <input name="email_pass_word" value=" <%= data.main[0].email_passWord %>" size="10"  />
                              </div>
                         </td>
                      

@@ -1,7 +1,8 @@
 var config = require("../config").config;
 const sql = require('mssql');
 const dbConn = require("./dbConn");
-
+const db_conn_mysql = require("./db_con_mysql");
+const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 module.exports = {
 
@@ -11,9 +12,10 @@ module.exports = {
         switch (params.serial) {
             case "22":
                 sql_string = "SELECT  " +
-                    " [UserName]  , [PassWord], [Role] , [EmailAddress] , [EmailUserName] ,[EmailPassWord]" +
-                    " [ActiveClient] , [Serial] " +
-                    "FROM " + params.table_name + "  ORDER BY UserName";
+                " user_name  , pass_word, role , email_address , email_user_name ,email_pass_word" +
+                " active_client , serial " +
+
+                    "FROM " + params.table_name + "  ORDER BY user_name";
                 break;
             case "13":
                 sql_string = "SELECT  " +
@@ -38,11 +40,11 @@ module.exports = {
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request().input('client_serial', sql.Int, params.serial)
-            let result = await dbConn.getPool().request()
+            let result = await db_conn_mysql.get_pool().promise()
                 .query(sql_string);
 
             var my_data = {
-                main: result.recordsets[0],
+                main: result[0],
                 my_serial: params.serial
 
 
@@ -61,17 +63,15 @@ module.exports = {
 
     async get_param_by_serial(params) {
         var sql_string = "select * from " + params.table_name + " " +
-            "where Serial=@serial";
+            "where serial=?";
 
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request().input('client_serial', sql.Int, params.serial)
-            let result = await dbConn.getPool().request()  
-            .input('serial', sql.Int, params.serial)
-                .query(sql_string);
+            
+            let result = await db_conn_mysql().getPool().promise() 
+                           .query(sql_string , [params.serial]);
 
             var my_data = {
-                main: result.recordsets[0],
+                main: result[0][0],
                 my_serial: params.my_serial
 
 
@@ -89,18 +89,17 @@ module.exports = {
     },
 
     async get_user_by_serial(params) {
-        var sql_string = "select * from  Users where Serial=@serial";
+        var sql_string = "select * from  users where serial=?";
 
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request().input('client_serial', sql.Int, params.serial)
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .query(sql_string);
+           
+            let result = await db_conn_mysql.get_pool().promise()
+                
+                .query(sql_string,[params.serial]);
 
             var my_data = {
-                main: result.recordsets[0],
-                my_serial: params.my_serial
+                main: result[0],
+                my_serial: params.serial
 
 
             };

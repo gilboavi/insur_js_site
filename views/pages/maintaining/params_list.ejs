@@ -15,7 +15,7 @@
                 <% $.each(data.main, function(rowindex,row) {%>
                     <tr onclick="getId(this)">
                         <% $.each(row, function(key,val){  
-                            if(key!="Serial") {%>
+                            if(key!="serial") {%>
                             <td><%= val%></td>
                         <% } else { %>
                             <td> <a href="#" onclick="edit_param(<%= val%>)"> edit</a> </td>
