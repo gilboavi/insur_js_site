@@ -4,7 +4,7 @@
 
    <form id="editParam" name="editParam">
      
-      <input type="hidden" name="serial"   value="<%= data.main[0].Serial %>" />
+      <input type="hidden" name="serial"   value="<%= data.main.serial %>" />
       <input type="hidden" name="my_serial"   value="<%=  data.my_serial %>" />
     
       
@@ -18,7 +18,7 @@
                         <td>
                             <div>פרוט</div>
                                  <div >
-                                  <input name="param_name" value=" <%= data.main[0].ParamName %>" size="30"  />
+                                  <input name="param_name" value=" <%= data.main.param_name %>" size="30"  />
                              </div>
                         </td>
                 </tr>

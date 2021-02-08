@@ -1,8 +1,23 @@
 var config = require("../config").config;
-const sql = require('mssql');
-const dbConn = require("./dbConn");
+
+
 const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
+const function_dal=  require("./function_dal");
+
+function built_sql_string(sql_head,oprator,sql_end){
+
+    var sql_update_insert = sql_head + " " +
+            " user_name" + oprator+"," +
+            " pass_word" + oprator+"," +
+            " role" + oprator+"," +
+            " email_address" + oprator+"," +
+            " email_user_name" + oprator+"," +
+            " email_pass_word" + oprator+"," +
+            " active_client" + oprator+  " " +
+            sql_end;
+    return sql_update_insert;
+}
 
 module.exports = {
 
@@ -19,18 +34,18 @@ module.exports = {
                 break;
             case "13":
                 sql_string = "SELECT  " +
-                    " [AgentName]  , [Serial]  " + " " +
-                    "FROM " + params.table_name + "  ORDER BY AgentName";
+                    " agent_name  , serial  " + " " +
+                    "FROM " + params.table_name + "  ORDER BY agent_name";
                 break;
             case "9":
                 sql_string = "SELECT  " +
-                    " UserName , [EmailAddress], [Serial]  " + " " +
-                    "FROM " + params.table_name + "  ORDER BY FullName";
+                    " user_name , email_address, serial  " + " " +
+                    "FROM " + params.table_name + "  ORDER BY full_name";
                 break;
             default:
                 sql_string = "SELECT  " +
-                    " [ParamName]  , [Serial]  " + " " +
-                    "FROM " + params.table_name + "  ORDER BY ParamName ";
+                    " param_name  , serial  " + " " +
+                    "FROM " + params.table_name + "  ORDER BY param_name ";
         }
 
 
@@ -67,7 +82,7 @@ module.exports = {
 
         try {
             
-            let result = await db_conn_mysql().getPool().promise() 
+            let result = await db_conn_mysql.get_pool().promise() 
                            .query(sql_string , [params.serial]);
 
             var my_data = {
@@ -117,43 +132,42 @@ module.exports = {
 
     async save_user(params) {
 
-        if (!params.active_client) {
-            params.active_client = false;
+        var sql_head="UPDATE   users SET ";
+        var sql_oprator="=?";
+        var sql_end="   WHERE serial = "+ params.serial;
+        
+        params.active_client=await function_dal.find_true_false(params.active_client);
+        
+        
+        if (parseInt(params.role) != 'number'){
+            params.role=0; 
         }
+       
 
         var sql_str = "";
-        if (params.serial != "0") {
-            sql_str = "UPDATE  [Users]  SET " +
-                " [UserName]=@user_name  " + 
-                " , [PassWord]=@pass_word  " + 
-                " , [Role]=@role  " + 
-                " , [EmailAddress]=@email_address  " + 
-                " , [EmailUserName]=@email_user_name  " + 
-                " , [EmailPassWord]=@email_pass_word  " + 
-                " , [ActiveClient]=@active_client  " + 
-                "  WHERE [Serial]= @serial ";
-        } else {
-            sql_str = "INSERT INTO  [Users] " +
-                "( [UserName] , [PassWord] ,  [Role] ,  [EmailAddress] ,  [EmailUserName] ,  [EmailPassWord] ,[ActiveClient] ) " + 
-                "   VALUES " + " " +
-                "(@user_name , @pass_word , @role ,@email_address " +
-                " , @email_user_name , @email_pass_word , @active_client  )";
+        if (params.serial == "0") {
+            sql_head= "INSERT INTO  users ( ";
+            sql_oprator=" ";
+            sql_end =  "  ) VALUES " + " " +
+                "(? , ? , ? ,? , ? , ? , ?  )";
 
         }
-
+        sql_str=built_sql_string(sql_head,sql_oprator,sql_end)
         try {
-            // let pool = await sql.connect(config.mssql.test_db)
-            // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('user_name', sql.NVarChar, params.user_name)
-                .input('pass_word', sql.NVarChar, params.pass_word)
-                .input('role', sql.Int, params.role)
-                .input('email_address', sql.NVarChar, params.email_address)
-                .input('email_user_name', sql.NVarChar, params.email_user_name)
-                .input('email_pass_word', sql.NVarChar, params.email_pass_word)
-                .input('active_client', sql.Bit, params.active_client)
-                .query(sql_str);
+            
+            let result = await db_conn_mysql.get_pool().promise()
+                         
+                .query(sql_str,
+                            [
+                                params.user_name,
+                                params.pass_word,  
+                                params.role,
+                                params.email_address ,
+                                params.email_user_name, 
+                                params.email_pass_word, 
+                                params.active_client 
+                            ]
+                         );
 
             return {};
             // Stored procedure 
@@ -170,26 +184,25 @@ module.exports = {
     async save_param(params) {
         var sql_str = "";
         if (params.serial != "0") {
-            sql_str = "UPDATE   [InsurDB].[dbo].[" + params.table_name + "]  SET " +
-                "ParamName=@param_name  " + " " +
+            sql_str = "UPDATE  "+ params.table_name + "  SET " +
+                "param_name=?  " + " " +
 
-                "  WHERE [Serial]= @serial ";
+                "  WHERE serial=? ";
         } else {
-            sql_str = "INSERT INTO [InsurDB].[dbo].[" + params.table_name + "] " +
-                "( [ParamName]    )" + " " +
+            sql_str = "INSERT " + params.table_name + " " +
+                "( param_name    )" + " " +
                 "   VALUES " + " " +
-                "(@param_name  )";
+                "(?  )";
 
         }
 
         try {
             // let pool = await sql.connect(config.mssql.test_db)
             // let result = await pool.request()
-            let result = await dbConn.getPool().request()
-                .input('serial', sql.Int, params.serial)
-                .input('param_name', sql.NVarChar, params.param_name)
+            let result = await db_conn_mysql.get_pool().promise()
+               
 
-                .query(sql_str);
+                .query(sql_str, [params.param_name,params.serial]);
 
             return  { };
             // Stored procedure 

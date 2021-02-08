@@ -1,6 +1,6 @@
 ﻿var config = require("../config").config;
 const sql = require('mssql');
-const dbConn = require("./dbConn");
+
 
 const cross_tab_clients = " SELECT [Serial], [id], [LastName], [FirstName], Agent, Birthday, " +
     " Sex, smok, Operation, Potenion, Family_status, Work_status, Place_work, " +

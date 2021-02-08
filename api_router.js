@@ -1,9 +1,9 @@
 ﻿var config = require("./config").config;
 
-var apis = ['testapi', 'account_api', 'authentication_api', 'conversation_api', "followup_conversation_api",
-    'life_police_api', 'documents_api', 'communication_api',
-    'kupa_gemel_api', 'proposal_life_api', 'maintaining_api', 'meeting_api', 'cuts_api', 'read_xml_api',
-    "police_from_mimshak_api", "simulator_api", "follow_checks_api" , 'families_api' , 'family_members_api',
+var apis = ['account_api', 'authentication_api', 'conversation_api', "followup_conversation_api",
+     'documents_api', 'communication_api',
+     'maintaining_api', 'meeting_api', 'cuts_api', 
+      'families_api' , 'family_members_api',
     "insurance_api" ] ;
 
 ﻿var formidable = require('formidable'),

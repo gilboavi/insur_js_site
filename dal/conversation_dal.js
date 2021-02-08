@@ -1,7 +1,7 @@
 ﻿var config = require("../config").config;
 const sql = require('mssql');
 var moment = require('moment');
-const dbConn = require("./dbConn");
+
 const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
 const function_dal=  require("./function_dal");

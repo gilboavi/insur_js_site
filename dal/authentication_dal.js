@@ -1,22 +1,20 @@
 ﻿var config = require("../config").config;
 const sql = require('mssql');
-const dbConn = require("./dbConn");
-var sql_str = "SELECT [Serial], [UserName], [PassWord]  " +
-    " FROM  [Users]  " +
-    " WHERE UserName = @UserName"
+
+const db_conn_mysql = require("./db_con_mysql");
+
+var sql_str = "SELECT serial, user_name, pass_word  " +
+    " FROM  users  " +
+    " WHERE user_name =?"
 module.exports = {
     async get_user_auth_by_username(params) {
         //  console.log(params.term);
 
         try {
-            let req = await dbConn.getPool().request();
-            let result = await req
-                                                                      
-                .input('UserName', sql.NVarChar, params.user_name)
-                                                          
-                .query(sql_str);
+            let result = await db_conn_mysql.get_pool().promise()
+                .query(sql_str,[params.user_name]);
 
-            return result.recordsets;
+            return result;
 
             // Stored procedure 
 

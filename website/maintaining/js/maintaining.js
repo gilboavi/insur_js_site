@@ -269,7 +269,7 @@ function new_user() {
     
     var data = {
         main: [{
-            "Serial": 0
+            "serial": 0
 
         }]
       

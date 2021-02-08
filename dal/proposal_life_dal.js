@@ -1,7 +1,7 @@
 ﻿
 var config = require("../config").config;
 const sql = require('mssql');
-const dbConn = require("./dbConn");
+
 
 module.exports = {
 

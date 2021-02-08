@@ -6,8 +6,8 @@ module.exports = {
         try {
             let db_result = await authentication_dal.get_user_auth_by_username(params);
             let authData = db_result[0][0];
-            if (params.pass_word == authData.PassWord) { 
-                return { isAuthenticated: true, userId: authData.Serial };
+            if (params.pass_word == authData.pass_word) { 
+                return { isAuthenticated: true, userId: authData.serial };
             }
             else {
                 return { isAuthenticated: false };
