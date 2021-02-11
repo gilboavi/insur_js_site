@@ -424,7 +424,7 @@ $(document).ready(function () {
     
 
 
-        $("#FormClient22 li a").each(function (i, el) {
+        $("#FormClient22  a").each(function (i, el) {
             el.onclick = funcs[el.getAttribute('avi-menu')] || function () { };
         });
     })();

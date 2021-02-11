@@ -1,9 +1,6 @@
 ﻿<!--client -->
-<head>
-  <meta charset="utf-8" />
-  <title>?? ??????</title>
-</head>
-<body>
+
+
   <form id="FormClient22" name="FormClient" onsubmit="return false;">
       
     <div id="hidden_div">
@@ -71,62 +68,10 @@
 <!--   <h2 id="full_name" ></h2>  -->		
 
    </div>
-   <div>
-            
-    חיפוש 
-     &nbsp 
-     <input id="typehead" type="hidden" class="select2width" /> 
- </div>
-   <div class="navbar navbar-default ">
-    
-    <ul class="nav navbar-nav font_white">
-      
-        <li > <a href="/">   <img src="../images/Apps-Home-icon.png" width="30" height="30" alt="logo" title=" ראשי ">    </a> </li>
-        <li>
-           
-        </li>
-        <li><a href="javscript:void(0)" avi-menu="client_details">
-          
-          <img src="../images/Detail-icon.png" width="30" height="30" alt="logo" title=" פרטים ">
-            </a>
-        </li>
-        <li class="nav-item"><a href="javscript:void(0)"  avi-menu="conversation">
-          <img src="../images/conversation-icon.png" width="30" height="30" alt="logo" title=" שיחות לקוח "> 
-            </a>
-      </li>
-        <li><a href="javscript:void(0)" avi-menu="my_meeting">
-          <img src="../images/Meeting-icon.png" width="30" height="30" alt="logo" title="  פגישות"> 
-             
-            </a>
-        </li>
-        
-        <li><a href="javscript:void(0)" avi-menu="documents">
-          
-          <img src="../images/documents-icon.png" width="30" height="30" alt="logo" title=" מסמכים "> 
-            </a>
-        </li>
-        
-        <!-- <li class="dropdown"> 
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">תיק לקוח <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="javscript:void(0)" avi-menu="police_reort_menu">דוח ביטוחים</a></li>
-                <li><a href="javscript:void(0)" avi-menu="hishtalmut_menu">דוח קרנות השתלמות</a></li>
-                <li><a href="javscript:void(0)" avi-menu="kizui_be_mutzar_menu">כיסויים בפוליסה </a></li>
-                <li><a href="javscript:void(0)" avi-menu="yitrot_le_tkupa_menu">יתרות לפי תקופה</a></li>
-                <li><a href="javscript:void(0)" avi-menu="kupa_menu">צפי קצבאות</a></li>
-                
-            </ul>
-        </li> -->  
-        <li><a href="javscript:void(0)" avi-menu="search">
-                 
-              <img src="../images/search-icon.png" width="30" height="30" alt="logo" title=" חיפוש "> 
-            </a>
-        </li>
-        <!-- <li>  <input type="button" class="menu_bottun" id="hide_show_client_details"  value="פרטי לקוח" /></li> -->
-        <il>  </il> 
-     </ul>
-     
-   </div>
+  
+  
+   <$- include("./client_menu") $>
+
 <!--   <h2 id="full_name" ></h2>  -->		
     
  <!-- </nav> -->
@@ -247,8 +192,8 @@
     
 
 </form>
-</body>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script> -->
 
 <!-- <script type="text/javascript">
   $(document).ready(function () {

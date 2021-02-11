@@ -1,5 +1,8 @@
 
-
+.my_div{
+    padding:        5px 15px;
+  
+}
 
 th {
     padding: 10px;
@@ -42,7 +45,7 @@ td {
 
 
 
-.nav{
+.nav2{
  
 
    color:         rgb(172, 74, 44) ;   
@@ -72,7 +75,7 @@ html, body{
 }
 
 .font_white{
-  coler:white;
+  color:white;
 }
 
 .navbar a {

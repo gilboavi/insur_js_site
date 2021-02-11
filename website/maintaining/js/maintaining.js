@@ -1,3 +1,14 @@
+function topnav() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+
+
 // main function to get data from api
 //function get_api_data_by_params(params) {
 //    var dfd = jQuery.Deferred();
@@ -64,7 +75,17 @@ $(document).ready(function () {
    
 // menu
     (function () {
+        
         var funcs = {
+            topnav:function () {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                  x.className += " responsive";
+                } else {
+                  x.className = "topnav";
+                }
+              },
+            
             users: function () {
                 get_users_list(22);
 
@@ -168,7 +189,7 @@ $(document).ready(function () {
 
         };
 
-    $("#FormMaintaining li a").each(function (i, el) {
+    $("#FormMaintaining  a").each(function (i, el) {
         el.onclick = funcs[el.getAttribute('maintaining-menu')] || function () { };
     });
 })();

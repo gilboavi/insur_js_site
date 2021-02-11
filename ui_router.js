@@ -11,10 +11,10 @@ module.exports = {
               // C:\insur_js\website/client/js/proposal_life_grid.js
                 { path: "/",  page: "home", title: "Home",
                    js: ["/home/js/home.js", "/conversation/js/conversation_hierarchy_grid.js","/client/js/proposal_life_grid.js" ] },//home page
-                { page: "maintaining", title: "maintaining", js: ["/maintaining/js/maintaining.js"  ]  },
+                { page: "maintaining", title: "maintaining",  css: ["/maintaining/css/maintaining.css"], js: ["/maintaining/js/maintaining.js"  ]  },
                 { page: "conversation", title: "Conversation", css: ["/client/css/client.css"], js: ["/js/typeahead.bundle.js", "/client/js/client.js"] },
               //  { page: "testmore_bak", title: "Test More", css: ["/client/css/client.css"], js: ["/js/typeahead.bundle.js" ] },
-                { page: "client", title: "client", css: ["/client/css/client.css", "/css/select2.css"],
+                { page: "client", title: "client", css: ["/client/css/client.css", "/css/select2.css"  ],
                     js: ["/js/select2.js", "/client/js/client.js", "/conversation/js/conversation_hierarchy_grid.js", "/client/js/xml_headers.js"]
                 },                                                                 
               //  { page: "life_police", title: "life_police" },
