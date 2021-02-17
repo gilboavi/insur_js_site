@@ -199,25 +199,31 @@ $(document).ready(function () {
     (function () {
         var funcs = {
             client_details: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#client_details_flg').val() != "1") {
-                      //  $('#client_details_flg').val("1");
-                        var serial= $('#client_serial').val();
-                        var params = {
-                            
-                            api: "account_api",
-                            action: "get_client_by_serial",
-                            serial: serial,
-                            table_template: "templat__client_details",
-                            div_result: "edit_client_details_div"
-                        };
-                        render_html(params);
-                       // set_datepicker_format("birthday", data.main[0].birthday);
-                    }
-                    hide_div();
-                    $("#edit_client_details_div").show();
-                }
+                get_client_details (1);
             },
+            new_client:function (params) {
+                get_client_details(0) ;
+            },
+            // client_details: function () {
+            //     if ($('#client_serial').val() != "") {
+            //         if ($('#client_details_flg').val() != "1") {
+            //             $('#client_details_flg').val("1");
+            //             var serial= $('#client_serial').val();
+            //             var params = {
+                            
+            //                 api: "account_api",
+            //                 action: "get_client_by_serial",
+            //                 serial: serial,
+            //                 table_template: "templat__client_details",
+            //                 div_result: "edit_client_details_div"
+            //             };
+            //             render_html(params);
+            //            // set_datepicker_format("birthday", data.main[0].birthday);
+            //         }
+            //         hide_div();
+            //         $("#edit_client_details_div").show();
+            //     }
+            // },
             stam: function () {
 
                 
@@ -589,6 +595,43 @@ function move_to_client(serial){
   //  <div class="select2-tag-cust" title="גלבוע זאב">גלבוע רותי</div>
 }
 
+ function get_client_details (new_client) {
+    var serial=$('#client_serial').val();
+    if (new_client==0){
+        serial=0;  
+    }
+
+    var params = {
+            
+        api: "account_api",
+        action: "get_client_by_serial",
+        serial: serial,
+        table_template: "templat__client_details",
+        div_result: "edit_client_details_div"
+    };
+
+    if (serial == 0) {
+        render_html(params);
+        hide_div();
+        $("#edit_client_details_div").show();
+        return;
+    }
+    
+        if ($('#client_details_flg').val() != "1") {
+            $('#client_details_flg').val("1");
+            
+            
+            if ($('#client_serial').val() != "") {
+                render_html(params);
+            }
+           // set_datepicker_format("birthday", data.main[0].birthday);
+       
+           
+        }
+        hide_div();
+        $("#edit_client_details_div").show();
+    
+}
 
 function edit_client(serial) {
     var params = {

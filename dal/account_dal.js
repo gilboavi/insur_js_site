@@ -91,7 +91,9 @@ function built_sql_string(sql_head,oprator,sql_end){
             " `comment`"+oprator+" , " +
             " `email`"+oprator+" , " +
             " `client_rating`"+oprator+" , " +
-            " `no_health_fund`" +oprator+"  " +
+            " `no_health_fund`" +oprator+",  " +
+            " `main_phone`" +oprator+",  " +
+            " `main_selolry`" +oprator+"  " +
                sql_end;
     return sql_update_insert;
 }
@@ -274,40 +276,45 @@ module.exports = {
            
        
 
-        if (params.serial != 0) {
-            sql_str = sql_str1 + " " + sql_client_helper_tables;
-        } else {
-            sql_str = sql_client_helper_tables;
-        }
+        // if (params.serial != 0) {
+        //     sql_str = sql_str1 + " " + sql_client_helper_tables;
+        // } else {
+        //     sql_str = sql_client_helper_tables;
+        // }
         try {
+            var my_data = {};
+            let result1=await db_conn_mysql_multi.get_pool().promise()
+            .query(sql_client_helper_tables);
             
-            let result = await db_conn_mysql_multi.get_pool().promise()
-                  .query(sql_str,
-                  [params.serial,
-                   params.serial,
-                   params.serial,
-                   params.serial
+            my_data.client_type_list = result1[0][0];
+            my_data.agents_list = result1[0][1];
+            my_data.operation_list = result1[0][2];
+            my_data.no_health_fund_list=no_health_fund_list();
+
+            let result = await db_conn_mysql.get_pool().promise()
+                  .query(sql_str1,
+                  [params.serial
                   ]);
 
 
-            var my_data = {};
+            
             if (params.serial == 0) {
                 var main_t = [];
                 main_t.push(get_empty_client(params));
                 my_data.main = main_t;
-                my_data.client_type_list = result[0][0];
-                my_data.agents_list = result[0][1];
-                my_data.operation_list = result[0][2];
-                my_data.no_health_fund_list=no_health_fund_list();
+                // my_data.client_type_list = result[0][0];
+                // my_data.agents_list = result[0][1];
+                // my_data.operation_list = result[0][2];
+                // my_data.no_health_fund_list=no_health_fund_list();
             } else {
                 my_data.main = result[0][0];
-                let birthday=my_data.main[0].birthday;
+                let birthday=my_data.main.birthday;
                 birthday=moment(birthday).format('DD/MM/YYYY');
-                my_data.main[0].birthday=birthday;
-                my_data.client_type_list = result[0][1];
-                my_data.agents_list = result[0][2];
-                my_data.operation_list = result[0][3];
-                 my_data.no_health_fund_list=no_health_fund_list();
+                my_data.main.birthday=birthday;
+                // my_data.client_type_list = result[0][1];
+                // my_data.agents_list = result[0][2];
+                // my_data.operation_list = result[0][3];
+                //  my_data.no_health_fund_list=no_health_fund_list();
                
             }
 
@@ -356,12 +363,12 @@ module.exports = {
                 sql_end=") VALUES (?,?,?,?,?,"+
                                  "?,?,?,?,?,"+
                                  "?,?,?,?,?," +
-                                 "?  ) "; 
+                                 "?,?,?  ) "; 
                 let result_1 = await db_conn_mysql.get_pool().promise()
                                  .query("select `serial`,`id` from `clients` where  id=?", 
                                  [params.id]               
                             );
-                if (result_1[0][0].id !=null){
+                if (result_1[0].length !=0){
                     params.serial=result_1[0][0].serial;
                     my_data =await that.get_client_conversatios_communicatios_by_serial(params) ;
                     my_data.message = "לקוח עם תעודת זהות זו - קיים";
@@ -391,7 +398,9 @@ module.exports = {
                                 `${params.comment}`,
                                 `${params.email}`,
                                  params.client_rating != '' ?  params.client_rating :0,
-                                params.no_health_fund!= '' ?  params.client_rating :0,
+                                params.no_health_fund!= '' ?  params.no_health_fund :0,
+                                params.main_phone,
+                                params.main_selolry,
                                 params.serial
                             ]
                         );
