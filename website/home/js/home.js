@@ -1,4 +1,14 @@
-﻿
+﻿function topnav() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+
+
 // use in cuts view - showing the right select
 function type_filter_change(y) {
    var a = parseInt(y);
@@ -49,6 +59,15 @@ $(document).ready(function () {
    // alert("ffff");
     (function () {
         var funcs = {
+            // new
+            topnav:function () {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                  x.className += " responsive";
+                } else {
+                  x.className = "topnav";
+                }
+              },
                 main: function () {
                    
                     hide_all_divs_by_class_name("show_hide_div");
@@ -145,7 +164,7 @@ $(document).ready(function () {
 
 
 
-        $("#form_home li a").each(function (i, el) {
+        $("#form_home  a").each(function (i, el) {
             el.onclick = funcs[el.getAttribute('home-menu')] || function () { };
         });
     })();

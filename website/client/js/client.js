@@ -116,6 +116,16 @@ $(document).ready(function () {
         $("#sidebar").toggle();
       });
 
+    //   $("#btn_edit_client1").click(function(){
+    //     alert("fix")  ;
+    //         document.getElementById("lastName").disabled = true;
+         
+    //         var elements = document.getElementById("editClient_details").elements;
+    //         for (var i = 0, element; element = elements[i++];) {
+    //             element.disabled=false;  
+    //         }
+    //   });
+      
     // $("#sidebar").mCustomScrollbar({
     //     theme: "minimal"
     // });
@@ -202,12 +212,13 @@ $(document).ready(function () {
                             div_result: "edit_client_details_div"
                         };
                         render_html(params);
+                       // set_datepicker_format("birthday", data.main[0].birthday);
                     }
                     hide_div();
                     $("#edit_client_details_div").show();
                 }
             },
-              stam: function () {
+            stam: function () {
 
                 
                   var params = {
@@ -596,7 +607,9 @@ function save_client() {
     if(validate_client()==false){
         return;
     }
-    var params_temp = $("#editClient").serializeJSON();
+    
+    var params_temp = $("#editClient_details").serializeJSON();
+  //  var params_temp = $("#editClient").serializeJSON();
 
     var params = {};
     params = $.parseJSON(params_temp);

@@ -5,7 +5,7 @@ const db_conn_mysql = require("./db_con_mysql");
 const db_conn_mysql_multi = require("./db_con_mysql_multi");
 
 const sql_meeting =   "SELECT  " +
-            "  meeting_date  as  meeting_date    , meeting_summary   , " + " " +
+            " DATE_FORMAT(meeting_date, '%Y / %m /%d ')   as  meeting_date    , meeting_summary   , " + " " +
             "  agent_name_str , user_name_str  , " + " " +
             " meeting_status_str ,done , serial  " + " " +
             " FROM  meeting_with_param  ";

@@ -1,4 +1,6 @@
-﻿siteCore.loginRedirect = function () {
+﻿
+
+siteCore.loginRedirect = function () {
     sessionStorage.setItem('returnUrl', window.location.pathname + window.location.search);
     window.location.href = "/login";
 
@@ -317,5 +319,19 @@ function set_datepicker_format(input_name, my_date) {
     $("#" + input_name).datepicker("option", "dateFormat", "dd/mm/yy");
     if (my_date != null)
         $("#" + input_name).datepicker("setDate", moment(my_date).toDate());
+}
+
+function set_datepicker_format2(input_name, my_date) {
+    $("#" + input_name).datepicker();
+    $("#" + input_name).datepicker("option", "dateFormat", "dd/mm/yy");
+    if (my_date != null){
+       
+        
+        var newdate = my_date.split("/").reverse().join("-");
+        $("#" + input_name).datepicker("setDate", moment(newdate).toDate());
+      
+
+    }
+        
 }
 

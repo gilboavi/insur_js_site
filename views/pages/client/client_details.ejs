@@ -2,14 +2,45 @@
     
     <form class="w3-container max-height-width" id="editClient_details" name="editClient_details">
         <input type="hidden" name="serial" value="<%= data.main[0].serial %>" />
-        <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="save" />
+       
         <div class="container ">
             <div class="w3-container w3-blue">
                 <h2>פרטי לקוח</h2>
             </div>
             <br>
             <div class="row">
+               
+            
                 <div class="col-sm-3 fieldLabel">
+					<p>
+						<label>תעודת זהות</label>
+						<input class="w3-input" name="id"  id="id"value=" <%= data.main[0].id %>" size="10"  />
+                   </p>
+                </div>
+                <div class="col-sm-3 fieldLabel">
+					<p>
+						<label>שם משפחה</label>
+						<input class="w3-input" name="last_name" id="lastName" value="<%= data.main[0].last_name  %> " disabled />
+                    </p>
+                </div>
+                <div class="col-sm-3 fieldLabel">
+					<p>
+						<label>שם פרטי</label>
+                        <input class="w3-input" name="first_name" id="first_name" value="<%= data.main[0].first_name %>" disabled/>
+                    </p>                    
+                </div>
+                <div class="col-sm-3 fieldLabel">
+					<p>
+						<label>תאריך לידה</label>
+						<input class="w3-input" name="birthday" id="birthday"  value="<%= data.main[0].birthday %>" size="10" disabled/>
+                    </p>
+                </div>
+                
+            </div>
+			
+			
+            <div class="row">
+                 <div class="col-sm-3 fieldLabel">
 					<p>
 						<label> יש צילום ת.זהות</label>        
 				   
@@ -32,49 +63,20 @@
 							<%}%>
                     </p>
                 </div>
-            
-                <div class="col-sm-3 fieldLabel">
-					<p>
-						<label>תעודת זהות</label>
-						<input class="w3-input" name="id"  id="id"value=" <%= data.main[0].id %>" size="10"  />
-                   </p>
-                </div>
-                <div class="col-sm-3 fieldLabel">
-					<p>
-						<label>שם משפחה</label>
-						<input class="w3-input" name="last_name" id="lastName" value="<%= data.main[0].last_name  %> "  />
-                    </p>
-                </div>
                 
-            </div>
-			
-			
-            <div class="row">
-                <div class="col-sm-3 fieldLabel">
-					<p>
-						<label>שם פרטי</label>
-                        <input class="w3-input" name="first_name" id="first_name" value="<%= data.main[0].first_name %>" />
-                    </p>                    
-                </div>
-                <div class="col-sm-3 fieldLabel">
-					<p>
-						<label>תאריך לידה</label>
-						<input class="w3-input" name="birthday" id="birthday"  value="<%= data.main[0].birthday %>" size="10" />
-                    </p>
-                </div>
                 
             
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label>מין</label>
-                        <input class="w3-input" name="sex" id="sex" value="<%= data.main[0].sex %>"  size="2"/>
+                        <input class="w3-input" name="sex" id="sex" value="<%= data.main[0].sex %>"  size="2" disabled/>
                     </p>    
                 </div>
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label>שם סוכן</label> 
                 
-                        <select class="w3-input" name="agent"  id="agent" >
+                        <select class="w3-input" name="agent"  id="agent" disabled >
                                 <option value="0" > </option>
                                 <%    $.each(data.agents_list, function(key,val){
                                         if(val.serial != data.main[0].agent){ %>
@@ -94,13 +96,13 @@
                 <div class="col-sm-3 fieldLabel">
 					<p>
 						<label>דרוג לקוח</label>
-                        <input class="w3-input" name="client_rating" id="client_rating" value="<%= data.main[0].client_rating %>"  size="2"/>
+                        <input class="w3-input" name="client_rating" id="client_rating" value="<%= data.main[0].client_rating %>"  size="2" disabled/>
                     </p>    
                 </div>
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label> קופת חולים</label>
-                        <select class="w3-input" name="no_health_fund"  id="no_health_fund" >
+                        <select class="w3-input" name="no_health_fund"  id="no_health_fund" disabled>
                                     <option value="0" > </option>
                                     <%    $.each(data.no_health_fund_list, function(key,val){
                                         if(val.serial != data.main[0].no_health_fund){ %>
@@ -118,13 +120,13 @@
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label>כתובת</label>
-                        <input class="w3-input" name="street" id="street" value=" <%= data.main[0].street %>" />
+                        <input class="w3-input" name="street" id="street" value=" <%= data.main[0].street %>" disabled/>
                     </p>   
                 </div>
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label>עיר</label>
-                        <input class="w3-input" name="city" id="city" value=" <%= data.main[0].city %>" />
+                        <input class="w3-input" name="city" id="city" value=" <%= data.main[0].city %>" disabled/>
                     </p>
                 </div>
                 
@@ -134,7 +136,7 @@
                     <p>
 						<label>סטטוס</label>
                
-                        <select class="w3-input" name="status"  id ="status1" >
+                        <select class="w3-input" name="status"  id ="status1" disabled>
                             <option value="0" > </option>
                             <%    $.each(data.client_type_list, function(key,val){
                                 if(val.serial != data.main[0].status){
@@ -151,7 +153,7 @@
                     <p>
 						<label>קבוצה</label>
                 
-                        <select class="w3-input" name="operation" id="operation">
+                        <select class="w3-input" name="operation" id="operation" disabled>
                                 <option value="0" > </option>
                                 <%    $.each(data.operation_list, function(key,val){
                                         if(val.serial != data.main[0].operation){ %>
@@ -169,7 +171,7 @@
                 <div class="col-sm-3 fieldLabel">
                     <p>
 						<label>דוא"ל</label>
-                        <input class="w3-input" name="email" id="email" value=" <%= data.main[0].email %>" />
+                        <input class="w3-input" name="email" id="email" value=" <%= data.main[0].email %>" disabled/>
                     </p>     
                 </div>
                 
@@ -181,20 +183,46 @@
                     <p> 
                         הערה
                     
-                        <input class="w3-input" name="comment" value=" <%= data.main[0].comment %>" style='width:80%'/>
+                        <input class="w3-input" name="comment" value=" <%= data.main[0].comment %>" style='width:80%' disabled/>
                     </p>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 w3-container w3-blue">
+            <div class="col-sm-12 w3-container " style="text-align: center">
                
-                    <h2>edit_meeting</h2>
+                <input type="button" id="btn_edit_client"  name="btn_edit_client" onclick="edit()"  value="עריכה" />
+                <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="שמירה" disabled/>
+                <input type="button" id="btn_cancel_client"  name="btn_cancel_client" onclick="cancel_edit()"  value="בטל" disabled />
                  
             </div>
         </div>
        
      
-    </form> 
+    </form>
+    <script>
+        function edit() {
+           
+         
+            var elements = document.getElementById("editClient_details").elements;
+            for (var i = 0, element; element = elements[i++];) {
+                element.disabled=false;  
+            } 
+           // $("#btn_cancel_client").display=false;
+            document.getElementById("btn_cancel_client").style.disabled = false;
+            document.getElementById("btn_save_client").style.disabled = false;
+            var birthday=document.getElementById("birthday").value;
+            //alert(birthday);
+            set_datepicker_format2("birthday", birthday)  ; 
+           
+        }
+
+        function cancel_edit(){
+            var elements = document.getElementById("editClient_details").elements;
+            for (var i = 0, element; element = elements[i++];) {
+                element.disabled=true;  
+            } 
+        }
+        </script> 
     
  </script>

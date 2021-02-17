@@ -29,7 +29,7 @@ const get_empty_documents= (params) => {
 }
 
 const sql_documents_list_string="SELECT  " +
-    "  date_of_document  ,comment , document_occupation_name , "+
+    " DATE_FORMAT(date_of_document, '%Y / %m /%d ')   ,comment , document_occupation_name , "+
     " no_police  ,file_name, serial  " + " " +
     "FROM documents_with_params " + " " +
     "WHERE client_serial=?";

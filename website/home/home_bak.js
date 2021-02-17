@@ -1,4 +1,14 @@
 ﻿
+function topnav() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+
+
 // use in cuts view - showing the right select
 function type_filter_change(y) {
    var a = parseInt(y);
@@ -48,6 +58,14 @@ $(document).ready(function () {
    // alert("ffff");
     (function () {
         var funcs = {
+            topnav:function () {
+                var x = document.getElementById("myTopnav");
+                if (x.className === "topnav") {
+                  x.className += " responsive";
+                } else {
+                  x.className = "topnav";
+                }
+              },
                 conversation_filtering: function () {
                     if ($('#conversations_filtering_flg').val() != "1") {
                         $('#conversations_filtering_flg').val("1");

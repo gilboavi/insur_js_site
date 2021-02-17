@@ -1,6 +1,7 @@
 ﻿
 var config = require("../config").config;
 var conversation = require("../dal/conversation_dal");
+const moment=require("../website/js/moment.js");
 //const sql = require('mssql');
 //const mysql = require('mysql2');
 //const dbConn = require("./dbConn");
@@ -226,6 +227,9 @@ module.exports = {
                 // FollowUpConversation_list: result.recordsets[3]
 
             };
+            let birthday=my_data.my_client[0].birthday;
+            birthday=moment(birthday).format('DD/MM/YYYY');
+            my_data.my_client.birthday=birthday;
             let  my_families;
             try{
                 my_families=result[0][3];
@@ -297,6 +301,9 @@ module.exports = {
                 my_data.no_health_fund_list=no_health_fund_list();
             } else {
                 my_data.main = result[0][0];
+                let birthday=my_data.main[0].birthday;
+                birthday=moment(birthday).format('DD/MM/YYYY');
+                my_data.main[0].birthday=birthday;
                 my_data.client_type_list = result[0][1];
                 my_data.agents_list = result[0][2];
                 my_data.operation_list = result[0][3];
