@@ -116,19 +116,7 @@ $(document).ready(function () {
         $("#sidebar").toggle();
       });
 
-    //   $("#btn_edit_client1").click(function(){
-    //     alert("fix")  ;
-    //         document.getElementById("lastName").disabled = true;
-         
-    //         var elements = document.getElementById("editClient_details").elements;
-    //         for (var i = 0, element; element = elements[i++];) {
-    //             element.disabled=false;  
-    //         }
-    //   });
-      
-    // $("#sidebar").mCustomScrollbar({
-    //     theme: "minimal"
-    // });
+    
 
     
 
@@ -201,114 +189,33 @@ $(document).ready(function () {
             client_details: function () {
                 get_client_details (1);
             },
-            new_client:function (params) {
-                get_client_details(0) ;
+            new_client2:function () {
+                edit_client(0);
             },
-            // client_details: function () {
-            //     if ($('#client_serial').val() != "") {
-            //         if ($('#client_details_flg').val() != "1") {
-            //             $('#client_details_flg').val("1");
-            //             var serial= $('#client_serial').val();
-            //             var params = {
-                            
-            //                 api: "account_api",
-            //                 action: "get_client_by_serial",
-            //                 serial: serial,
-            //                 table_template: "templat__client_details",
-            //                 div_result: "edit_client_details_div"
-            //             };
-            //             render_html(params);
-            //            // set_datepicker_format("birthday", data.main[0].birthday);
-            //         }
-            //         hide_div();
-            //         $("#edit_client_details_div").show();
-            //     }
-            // },
-            stam: function () {
-
-                
-                  var params = {
-                      api: "conversation_api",
-                      action: "get_conversations_prams_for_filtering",
-                      table_template: "templat_conversations_filtering",
-                      div_result: "conversations_filtering_div"
-                  };
-                    render_html(params);
-                //   var data = get_api_data_by_params(params);
-                //    open_colorbox("#templat_conversations_filtering", data);
-                    hide_div();
-                    $("#conversations_filtering_div").show();
+            new_client:function (params) {
+                get_client_details (0);
+               
+                // get_client_details(0) ;
+                // open_colorbox("#template_client_details", data );
             },
            
+           
             conversation: function () {
+                var my_serial=$('#client_serial').val();
+                if (my_serial != ""){
+                    conversations_list_by_client_serial(my_serial);
                   hide_div();
                   $("#conversation_div").show();
+                }
+                
                
             },
-            policy: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#life_police_flg').val() != "1") {
-                        $('#life_police_flg').val("1");
-                        var params = {
-                            api: "life_police_api",
-                            action: "get_life_polices_list_by_clientserial",
-                            serial: $('#client_serial').val(),
-                            table_template: "templat_life_police_list",
-                            div_result: "life_police_div"
-                        };
-                        render_html(params);
-                    }
-                    hide_div();
-                    $("#life_police_div").show();
-                }
-            },
+           
             documents: function () {
                 get_documents_list_by_clientserial();
-                // var my_serial = $('#client_serial').val();
-                // if (my_serial != "") {
-                //     if ( $('#documents_flg').val() != "1") {
-                //         var params = {
-                //             api: "documents_api",
-                //             action: "get_documents_list_by_clientserial",
-                //             serial: my_serial
-                //         };
-                //         get_api_data_by_params(params).done(function (data) {
-                //             if (data != null) {
-                //                 $('#documents_flg').val("1");
-                //                 var params = {
-                //                     data: data,
-                //                     table_template: "templat_documents_list",
-                //                     div_result: "documents_div"
-                //                 };
-                //                 render_html_with_data_and_hide_div(params); //  render html without sendin request to server
-                //             }
-                           
-                //         });
-         
-                //     } else {
-                //         hide_div();
-                //         $("#documents_div").show();
-                //     }
-                // }
+                
             },
-            kupa: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#kupa_gemel_flg').val() != "1") {
-                        $('#kupa_gemel_flg').val("1");
-                         var params = {
-                            api: "kupa_gemel_api",
-                            action: "get_kupa_gemel_list_by_clientserial",
-                            serial: $('#client_serial').val(),
-                            table_template: "templat_kupa_gemel_list",
-                            div_result: "kupa_gemel_div"
-                        };
-                        render_html(params);
-                    }
-
-                    hide_div();
-                    $("#kupa_gemel_div").show();
-                }
-            },
+           
             my_meeting: function () {
                 if ($('#client_serial').val() != "") {
                     if ($('#meeting_flg').val() != "1") {
@@ -350,78 +257,7 @@ $(document).ready(function () {
                 }
             },
 
-            
-            police_reort_menu: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#ricuz_police_flg').val() != "1") {
-                        police_report('police_report');
-                    
-                    } else{
-                        
-                        hide_div();
-                        $("#ricuz_police_div").show();
-                        all_police_report('police_report'); 
-                    }
-                  
-                }
-            },
-            yitrot_le_tkupa_menu: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#ricuz_police_flg').val() != "1") {
-                        police_report('yitrot_le_tekupa_list');
-                    
-                    } else{
-                        
-                        hide_div();
-                        $("#ricuz_police_div").show();
-                        all_police_report('yitrot_le_tekupa_list'); 
-                    }
-                   
-                }
-            },
-
-            kizui_be_mutzar_menu: function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#ricuz_police_flg').val() != "1") {
-                        police_report('crosstab_pirtei_kisui_be_mutzar_new');
-                    
-                    } else{
-                        
-                        hide_div();
-                        $("#ricuz_police_div").show();
-                        all_police_report('crosstab_pirtei_kisui_be_mutzar_new');
-                    }
-                  
-                } 
-            },
-            hishtalmut_menu : function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#ricuz_police_flg').val() != "1") {
-                        police_report('hishtalmut');
-                       
-                    } else{
-                        
-                        hide_div();
-                        $("#ricuz_police_div").show();
-                        all_police_report('hishtalmut'); 
-                    }
-                   
-                }
-            },
-            kupa_menu : function () {
-                if ($('#client_serial').val() != "") {
-                    if ($('#ricuz_police_flg').val() != "1") {
-                        police_report('kupa');
-                       
-                    } else{
-                        
-                        hide_div();
-                        $("#ricuz_police_div").show();
-                        all_police_report('kupa'); 
-                    }
-                   
-                }
-            },
+           
             search: function () {
                 params = {
                     table_template: "template_searching",
@@ -435,7 +271,7 @@ $(document).ready(function () {
             }
 
 
-        //    
+       
           
         };
     
@@ -454,6 +290,16 @@ $(document).ready(function () {
 
 // used in  render_client_conversation
 var params_client_details=(my_client) => {
+    var paramas={
+    data:my_client,
+    table_template:"details_client",
+    div_result:"client_details_div"
+    }
+    return paramas;
+
+ };
+
+ var params_client_details_edit=(my_client) => {
     var paramas={
     data:my_client,
     table_template:"details_client",
@@ -536,8 +382,8 @@ function on_select_client(serial) {
     $('#documents_flg').val("");
     $('#communication_flg').val("");
   //  $('#conversation_follow_flg').val("");
-    $('#kupa_gemel_flg').val("");
-    client_details(serial);
+   
+    get_client_details(serial);
 }
 
 function render_family_members(data){
@@ -569,7 +415,10 @@ function render_client_conversation(data){
     }
     // conversation  
     my_params=params_conversation(data);
-    render_html_with_data_and_hide_div(my_params );
+   // render_html_with_data_and_hide_div(my_params );
+    render_html_with_data(my_params );
+    // hide_div();
+    // $("#edit_client_details_div").show();
  }
 
 // gets data (clint , conversation ,communication)
@@ -606,12 +455,25 @@ function move_to_client(serial){
         api: "account_api",
         action: "get_client_by_serial",
         serial: serial,
-        table_template: "templat__client_details",
+        table_template: "template_client_details",
         div_result: "edit_client_details_div"
     };
 
     if (serial == 0) {
-        render_html(params);
+       // render_html(params);
+       // 
+       var dfd = jQuery.Deferred();
+    get_api_data_by_params(params).done(function (data) {
+        var my_table_template = $("#" + params.table_template).html();
+        var comp = _.template(my_table_template);
+        $("#" + params.div_result).html(comp({ data: data }));
+        prepare_edit_client();
+        dfd.resolve(data);
+        
+    }).fail(function (err) {
+        dfd.reject(err);
+        alert("לא נמצאו נתונים");
+    });
         hide_div();
         $("#edit_client_details_div").show();
         return;
@@ -633,17 +495,44 @@ function move_to_client(serial){
     
 }
 
+function prepare_edit_client() {
+           
+         
+    var elements = document.getElementById("editClient_details").elements;
+    for (var i = 0, element; element = elements[i++];) {
+        element.disabled=false;  
+    } 
+   // $("#btn_cancel_client").display=false;
+    document.getElementById("btn_cancel_client").style.disabled = false;
+    document.getElementById("btn_save_client").style.disabled = false;
+    // var birthday=document.getElementById("birthday").value;
+    // //alert(birthday);
+    // set_datepicker_format2("birthday", birthday)  ; 
+   
+}
+
+
 function edit_client(serial) {
     var params = {
         api: "account_api",
         action: "get_client_by_serial",
+        table_template: "template_client_details",
         serial: serial
     };
-   
+    
     get_api_data_by_params(params).done(function (data) {
-        open_colorbox("#edit_client", data);
-        set_datepicker_format("birthday", data.main[0].birthday);
-     })
+      
+        open_colorbox("#template_client_details", data);
+        set_datepicker_format("birthday", data.main.birthday);
+    }).fail(function (err) {
+       // dfd.reject(err);
+        alert("לא נמצאו נתונים");
+    });
+       
+        // render_html(params);
+       // ;
+       // set_datepicker_format("birthday", data.main[0].birthday);
+     
 };
 
 function save_client() {
@@ -740,6 +629,35 @@ function searching() {
 
 
 //  ================    conversation  ===============
+
+
+function conversations_list_by_client_serial(client_serial) {
+
+    var params = {
+        api: "conversation_api",
+        action: "get_conversations_list_by_clientserial",
+        serial: "0",
+        client_serial: client_serial,
+        table_template:"templat_conversation_list",
+        div_result:"conversation_div"
+    };
+
+    if ($('#conversation_flg').val() != "1") {
+        $('#conversation_flg').val("1");
+        render_html(params);
+    }
+
+   
+
+    // get_api_data_by_params(params).then(function (data) {
+        
+    //     comp = _.template($("#templat_conversation_list").html());
+    //     $("#conversation_div").html(comp({ data: data}));
+        
+    // }).fail(function (err) {
+    //   alert("לא נמצאות משימות  "); 
+    // });
+}
 
 // used in conversation_from_meeting_list
 function new_conversation_from_meeting(meeting_serial) {

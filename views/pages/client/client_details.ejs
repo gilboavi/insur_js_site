@@ -1,4 +1,4 @@
-<script id="templat__client_details" type="text/html">
+<script id="template_client_details" type="text/html">
     
     <form class="w3-container max-height-width" id="editClient_details" name="editClient_details">
         <input type="hidden" name="serial" value="<%= data.main.serial %>" />
@@ -205,7 +205,7 @@
         <div class="row">
             <div class="col-sm-12 w3-container " style="text-align: center">
                
-                <input type="button" id="btn_edit_client"  name="btn_edit_client" onclick="edit()"  value="עריכה" />
+                <input type="button" id="btn_edit_client"  name="btn_edit_client" onclick="prepare_edit_client()"  value="עריכה" />
                 <input type="button" id="btn_save_client"  name="btn_save_client" onclick="save_client()"  value="שמירה" disabled/>
                 <input type="button" id="btn_cancel_client"  name="btn_cancel_client" onclick="cancel_edit()"  value="בטל" disabled />
                  

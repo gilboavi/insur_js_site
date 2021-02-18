@@ -299,9 +299,10 @@ module.exports = {
 
             
             if (params.serial == 0) {
-                var main_t = [];
-                main_t.push(get_empty_client(params));
-                my_data.main = main_t;
+                my_data.main =get_empty_client(params);
+                // var main_t = [];
+                // main_t.push(get_empty_client(params));
+                // my_data.main = main_t;
                 // my_data.client_type_list = result[0][0];
                 // my_data.agents_list = result[0][1];
                 // my_data.operation_list = result[0][2];
@@ -317,7 +318,7 @@ module.exports = {
                 //  my_data.no_health_fund_list=no_health_fund_list();
                
             }
-
+            
             return my_data;
             // Stored procedure 
         } catch (err) {

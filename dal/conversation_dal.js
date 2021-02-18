@@ -29,6 +29,20 @@ const sql_conversation_with_params_by_client_serial=
     " FROM `conversation_with_param` "+
     "  WHERE `client_serial`=? ; ";
 
+const sql_conversation_list= 
+    " SELECT DATE_FORMAT(datee, '%Y / %m /%d ')  , "+
+    " `summary_of_conversation`, "+
+    " `goal_of_talk_name` , " + 
+    " `user_name` , "+
+    "  `type_followup_conversation_name` ," + 
+     " `no_police` ," +
+      " `done` , "+
+      " `immediately` ," +
+    " `serial` " + 
+    " FROM `conversation_with_param` "+
+    "  WHERE `client_serial`=? ; ";
+
+
 const sql_conversation_with_followup =
     " SELECT  " +
 	" datee , summary_of_conversation, goal_of_talk_name , " + 
@@ -191,7 +205,7 @@ module.exports = {
         var by_meeting_serial ="Where  meeting_serial=? ;"
 
         var sql_string = " SELECT  " + " " +
-            "  DATE_FORMAT(datee, '%d %m %Y') , summary_of_conversation,goal_of_talkName , " + " " +
+            "  DATE_FORMAT(datee, '%d %m %Y') , summary_of_conversation,goal_of_talk_name , " + " " +
             "user_name,type_followup_conversation_name ,type_followup_conversation_name  , immediately ," + " " +
             " serial " + " " +
             "FROM conversation_with_param ";
@@ -214,7 +228,7 @@ module.exports = {
         try {
             
             let result = await db_conn_mysql.get_pool().promise()
-                     .query(sql_string,[my_parameter]);
+                     .query(sql_conversation_with_params_by_client_serial,[my_parameter]);
                   
             var my_data = {
                
@@ -223,7 +237,7 @@ module.exports = {
             
             main_t.push(get_empty_conversation(params));
             my_data.main = main_t;
-            my_data.conversation_list=result[0][0];
+            my_data.conversation_list=result[0];
           
             return my_data ;
           
