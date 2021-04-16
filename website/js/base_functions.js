@@ -201,18 +201,23 @@ function render_html_without_data(params) {
 }
 
 // open coler box 
-function open_colorbox(page_template, data) {
+function open_colorbox(page_template, data,my_height,my_width) {
     var table_template = $(page_template).html();
     var comp = _.template(table_template);
-
+    if(my_width=='') {
+        my_width='90%'
+    }
+    if(my_height=='') {
+        my_height='90%'
+    }
     $.colorbox({
         html: comp({
             data: data,
             
         }),
        
-        width: '90%',
-         height:'90%'
+        width: my_width,
+         height:my_height
     }
     
         );

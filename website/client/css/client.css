@@ -1,4 +1,8 @@
-﻿.bs-example {
+﻿h2.headertekst {
+    text-align: center;
+  }
+
+.bs-example {
     font-family: sans-serif;
     position: relative;
     margin: 100px;

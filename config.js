@@ -23,7 +23,7 @@ exports.config = {
         my_sql_connction: {
         
             connectionLimit : 10,
-            host     : 'localhost',
+            host     : 'db.host.com',
             user     : 'avi_g',
             password : 'Aa123456!',
           //  multipleStatements: true,

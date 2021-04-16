@@ -4,6 +4,10 @@
   
 }
 
+h2.headertekst {
+    text-align: center;
+  }
+
 th {
     padding: 10px;
     text-align: right;
